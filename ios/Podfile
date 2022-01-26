@@ -12,6 +12,8 @@ target 'Ksp_rn' do
     :hermes_enabled => false
   )
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+
   target 'Ksp_rnTests' do
     inherit! :complete
     # Pods for testing
