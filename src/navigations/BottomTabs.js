@@ -84,7 +84,7 @@ const BottomTabs = () => {
         name="Swap"
         component={Swap}
         options={{
-          htitle: '',
+          title: '',
           tabBarLabel: '스왑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
