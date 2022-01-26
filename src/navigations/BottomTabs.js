@@ -5,17 +5,30 @@ import Scann from '../screens/Scann/Scann';
 import WalletKsp from '../screens/WalletKsp/WalletKsp';
 import Swap from '../screens/Swap/Swap';
 import ShoppingMall from '../screens/ShoppingMall/ShoppingMall';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {TitleInput} from '../components/TxInput';
 const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerRight: () => (
+        headerStyle: {
+          shadowOffset: {height: 0, width: 0},
+          backgroundColor: 'linear-gradient(180deg, #91C7D6 0%, #CBE2DC 100%)',
+        },
+        headerLeft: () => (
           <View>
-            <Text style={{color: 'red'}}>dddd</Text>
+            <Text>dddd</Text>
           </View>
+        ),
+        headerRight: () => (
+          <>
+            <Image
+              source={require('../asssets/icons/headerRight_more.png')}
+              resizeMode="contain"
+              style={{width: 30, height: 30}}
+            />
+          </>
         ),
       }}>
       <Tab.Screen
@@ -23,17 +36,13 @@ const BottomTabs = () => {
         component={ShoppingMall}
         options={{title: ''}}
       />
-      <Tab.Screen
-        name="Scann"
-        component={Scann}
-        options={{headerShown: false}}
-      />
+      <Tab.Screen name="Scann" component={Scann} options={{title: ''}} />
       <Tab.Screen
         name="WalletKsp"
         component={WalletKsp}
-        options={{headerShown: false}}
+        options={{title: ''}}
       />
-      <Tab.Screen name="Swap" component={Swap} options={{headerShown: false}} />
+      <Tab.Screen name="Swap" component={Swap} options={{htitle: ''}} />
     </Tab.Navigator>
   );
 };
