@@ -22,6 +22,10 @@ const BottomTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarActiveTintColor: '#94D2E9',
+        tabBarInactiveTintColor: '#555555',
+        tabBarStyle: {height: 80, paddingBottom: 15, paddingTop: 8},
+        tabBarLabelStyle: {fontSize: 14, lineHeight: 19},
         headerStyle: {
           backgroundColor: '#94D2E9',
         },
