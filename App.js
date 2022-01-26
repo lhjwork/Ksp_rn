@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StatusBar, useColorScheme} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './src/navigations/RootStack';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -13,6 +13,7 @@ const App = () => {
       <PersistGate persistor={persistor}>
         <SafeAreaProvider>
           <NavigationContainer>
+            <StatusBar barStyle="light-content" />
             <RootStack />
           </NavigationContainer>
         </SafeAreaProvider>
