@@ -8,6 +8,7 @@ import ShoppingMall from '../screens/ShoppingMall/ShoppingMall';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {TitleInput} from '../components/TxInput';
 import LinearGradient from 'react-native-linear-gradient';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,16 +32,21 @@ const BottomTabs = () => {
         },
 
         headerLeft: () => (
-          <View>
-            <Text>dddd</Text>
-          </View>
+          <>
+            <AntDesign
+              name={'left'}
+              size={17}
+              color={'#fff'}
+              style={{marginLeft: 27.5}}
+            />
+          </>
         ),
         headerRight: () => (
           <>
             <Image
               source={require('../asssets/icons/headerRight_more.png')}
               resizeMode="contain"
-              style={{width: 30, height: 30}}
+              style={{width: 30, height: 30, marginRight: 27}}
             />
           </>
         ),
