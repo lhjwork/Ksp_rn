@@ -4,13 +4,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DrawerComponent from '../components/DrawerComponent';
 import {View, Text} from 'react-native';
 import ShoppingMall from '../screens/ShoppingMall/ShoppingMall';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 export const DrawerStack = () => {
   return (
-    <Drawer.Navigator
+    <Stack.Navigator
       initialRouteName="ShoppingMall"
       screenOptions={{
         drawerPosition: 'right',
@@ -20,11 +19,11 @@ export const DrawerStack = () => {
         },
       }}
       drawerContent={props => <DrawerComponent />}>
-      <Drawer.Screen
+      <Stack.Screen
         name="ShoppingMall"
         component={ShoppingMall}
         options={{headerShown: false}}
       />
-    </Drawer.Navigator>
+    </Stack.Navigator>
   );
 };
