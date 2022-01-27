@@ -9,6 +9,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {TitleInput} from '../components/TxInput';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {DrawerStack} from './DrawerStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,8 +53,9 @@ const BottomTabs = () => {
         ),
       }}>
       <Tab.Screen
-        name="ShoppingMall"
-        component={ShoppingMall}
+        name="DrawerStack"
+        component={DrawerStack}
+        options={{headerShown: false}}
         options={{
           title: '',
           tabBarLabel: '쇼핑몰',
@@ -64,6 +66,7 @@ const BottomTabs = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="Scann"
         component={Scann}
