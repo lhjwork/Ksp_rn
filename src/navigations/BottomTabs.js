@@ -10,10 +10,11 @@ import {TitleInput} from '../components/TxInput';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {DrawerStack} from './DrawerStack';
+import Touchable from '../components/Touchable';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabs = () => {
+const BottomTabs = ({navigation}) => {
   const TabBarIcon = ({isFocus, focusImage, unFocusImage}) => {
     return (
       // <Image source={isFocus ? focusImage : unFocusImage} style={styles.icon} />
@@ -33,23 +34,23 @@ const BottomTabs = () => {
         },
 
         headerLeft: () => (
-          <>
+          <Touchable>
             <AntDesign
               name={'left'}
               size={17}
               color={'#fff'}
               style={{marginLeft: 27.5}}
             />
-          </>
+          </Touchable>
         ),
         headerRight: () => (
-          <>
+          <Touchable onPress={() => navigation.openDrawer()}>
             <Image
               source={require('../asssets/icons/headerRight_more.png')}
               resizeMode="contain"
               style={{width: 30, height: 30, marginRight: 27}}
             />
-          </>
+          </Touchable>
         ),
       }}>
       <Tab.Screen
