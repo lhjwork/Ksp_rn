@@ -23,5 +23,7 @@ const HeaderCompnent = ({navigation, onPerssDrawer}) => {
 export default HeaderCompnent;
 
 const styles = StyleSheet.create({
-  headerRow: {justifyContent: 'space-between'},
+  headerRow: {
+    justifyContent: 'space-between',
+  },
 });

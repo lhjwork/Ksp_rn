@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import Touchable from '../../components/Touchable';
 import LinearGradient from 'react-native-linear-gradient';
+import ContainerGradient from '../../components/Containers/ContainerGradient';
 
 const ShoppingMall = ({navigation}) => {
   return (
