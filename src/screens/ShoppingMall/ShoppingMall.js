@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import Touchable from '../../components/Touchable';
@@ -7,6 +7,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import ContainerGradient from '../../components/Containers/ContainerGradient';
 import {BoldLabelSubTitle, BoldLabelTitle} from '../../components/Labels';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
+
+import {ShoppingMallData} from '../../asssets/Data/Data';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 
 const ShoppingMall = ({navigation}) => {
@@ -24,7 +26,27 @@ const ShoppingMall = ({navigation}) => {
         </View>
         <View style={styles.adverBanner}></View>
         <View style={{marginHorizontal: 30}}>
-          <FlatList />
+          <FlatList
+            data={ShoppingMallData}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => item.id + index.toString()}
+            numColumns={3}
+            renderItem={(item, index) => {
+              console.log(item);
+              return (
+                <View
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 40,
+                    backgroundColor: '#fff',
+                    marginLeft: 37,
+                  }}>
+                  <Image />
+                </View>
+              );
+            }}
+          />
         </View>
       </ContainerStyled>
     </LinearGradient>
