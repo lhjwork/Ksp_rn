@@ -1,15 +1,18 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import DrawerComponent from '../components/DrawerComponent';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import ShoppingMall from '../screens/ShoppingMall/ShoppingMall';
+import Touchable from '../components/Touchable';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
-export const DrawerStack = () => {
+export const DrawerStack = ({navigation}) => {
   return (
-    <Stack.Navigator
+    <Drawer.Navigator
       initialRouteName="ShoppingMall"
       screenOptions={{
         drawerPosition: 'right',
@@ -19,11 +22,11 @@ export const DrawerStack = () => {
         },
       }}
       drawerContent={props => <DrawerComponent />}>
-      <Stack.Screen
+      <Drawer.Screen
         name="ShoppingMall"
         component={ShoppingMall}
         options={{headerShown: false}}
       />
-    </Stack.Navigator>
+    </Drawer.Navigator>
   );
 };

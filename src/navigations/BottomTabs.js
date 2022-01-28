@@ -9,8 +9,9 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {TitleInput} from '../components/TxInput';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {DrawerStack} from './DrawerStack';
+
 import Touchable from '../components/Touchable';
+import {DrawerStack} from './DrawerStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,36 +30,12 @@ const BottomTabs = ({navigation}) => {
         tabBarInactiveTintColor: '#555555',
         tabBarStyle: {height: 80, paddingBottom: 15, paddingTop: 8},
         tabBarLabelStyle: {fontSize: 14, lineHeight: 19},
-        headerStyle: {
-          backgroundColor: '#94D2E9',
-        },
-
-        headerLeft: () => (
-          <Touchable>
-            <AntDesign
-              name={'left'}
-              size={17}
-              color={'#fff'}
-              style={{marginLeft: 27.5}}
-            />
-          </Touchable>
-        ),
-        headerRight: () => (
-          <Touchable onPress={() => navigation.openDrawer()}>
-            <Image
-              source={require('../asssets/icons/headerRight_more.png')}
-              resizeMode="contain"
-              style={{width: 30, height: 30, marginRight: 27}}
-            />
-          </Touchable>
-        ),
       }}>
       <Tab.Screen
         name="DrawerStack"
         component={DrawerStack}
-        options={{headerShown: false}}
         options={{
-          title: '',
+          headerShown: false,
           tabBarLabel: '쇼핑몰',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
@@ -72,7 +49,7 @@ const BottomTabs = ({navigation}) => {
         name="Scann"
         component={Scann}
         options={{
-          title: '',
+          headerShown: false,
           tabBarLabel: '스캔',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
@@ -85,7 +62,7 @@ const BottomTabs = ({navigation}) => {
         name="WalletKsp"
         component={WalletKsp}
         options={{
-          title: '',
+          headerShown: false,
           tabBarLabel: 'Ksp지갑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
@@ -98,7 +75,7 @@ const BottomTabs = ({navigation}) => {
         name="Swap"
         component={Swap}
         options={{
-          title: '',
+          headerShown: false,
           tabBarLabel: '스왑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
