@@ -8,7 +8,11 @@ const HeaderCompnent = ({navigation, onPerssDrawer}) => {
   return (
     <RowView style={styles.headerRow}>
       <Touchable>
-        <AntDesign name={'left'} size={15} style={{marginLeft: 27.5}} />
+        <AntDesign
+          name={'left'}
+          size={15}
+          style={{marginLeft: 27.5, color: '#fff'}}
+        />
       </Touchable>
       <Touchable onPress={onPerssDrawer}>
         <Image
