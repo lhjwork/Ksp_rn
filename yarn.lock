@@ -5719,7 +5719,7 @@ react-native-linear-gradient@^2.5.6:
   resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
   integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
-react-native-reanimated@^2.2.4:
+react-native-reanimated@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.3.1.tgz#c7abad48f9e6c84610b0d5e270088ecd61750382"
   integrity sha512-nzjVqwkB8eeyPKT2KoiA9EEz17ZMFSGMoOTC17Z9b5nE2Z4ZHjHM5EKhY0TlwzXFUuJAE9PhOfxF0wIO/maZSA==
