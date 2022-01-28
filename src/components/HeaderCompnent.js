@@ -8,12 +8,12 @@ const HeaderCompnent = ({navigation, onPerssDrawer}) => {
   return (
     <RowView style={styles.headerRow}>
       <Touchable>
-        <AntDesign name={'left'} size={17} style={{marginLeft: 27.5}} />
+        <AntDesign name={'left'} size={15} style={{marginLeft: 27.5}} />
       </Touchable>
       <Touchable onPress={onPerssDrawer}>
         <Image
           source={require('../asssets/icons/headerRight_more.png')}
-          style={{marginRight: 27}}
+          style={{marginRight: 27, height: 12, width: 18}}
         />
       </Touchable>
     </RowView>
