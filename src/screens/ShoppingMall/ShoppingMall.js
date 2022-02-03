@@ -64,6 +64,9 @@ const ShoppingMall = ({navigation}) => {
                         marginLeft: index % 3 === 0 ? 0 : 37,
                         marginTop: 9.61,
                         marginBottom: 26.63,
+                        fontSize: 14,
+                        color: '#fff',
+                        Lineheight: 17,
                       }}
                       text={item.title}
                     />
