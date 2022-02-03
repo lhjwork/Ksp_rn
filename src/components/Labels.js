@@ -52,6 +52,20 @@ export const BoldLabelSubTitle = ({
   </Text>
 );
 
+export const BoldLabel20 = ({
+  text,
+  style,
+  numberOfLines = 0,
+  ellipsizeMode,
+}) => (
+  <Text
+    style={{...styles.boldLabel20, ...style}}
+    numberOfLines={numberOfLines}
+    ellipsizeMode={ellipsizeMode}>
+    {text}
+  </Text>
+);
+
 const styles = StyleSheet.create({
   titleLabel: {
     fontSize: 24,
@@ -65,4 +79,5 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: '#555555',
   },
+  boldLabel20: {fontSize: 30, fontWeight: '700'},
 });
