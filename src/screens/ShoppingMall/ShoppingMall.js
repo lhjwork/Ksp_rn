@@ -25,7 +25,6 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 
 const ShoppingMall = ({navigation}) => {
-  console.log('ddddd');
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
