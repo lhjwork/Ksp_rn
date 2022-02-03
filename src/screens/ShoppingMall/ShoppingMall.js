@@ -12,6 +12,7 @@ import {ShoppingMallData} from '../../asssets/Data/Data';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 
 const ShoppingMall = ({navigation}) => {
+  console.log('ddddd');
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent onPerssDrawer={() => navigation.openDrawer()} />
@@ -31,7 +32,7 @@ const ShoppingMall = ({navigation}) => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => item.id + index.toString()}
             numColumns={3}
-            renderItem={(item, index) => {
+            renderItem={({item, index}) => {
               console.log(item);
               return (
                 <View
@@ -40,7 +41,7 @@ const ShoppingMall = ({navigation}) => {
                     height: 80,
                     borderRadius: 40,
                     backgroundColor: '#fff',
-                    marginLeft: 37,
+                    marginLeft: index % 3 === 0 ? 0 : 37,
                   }}>
                   <Image />
                 </View>
