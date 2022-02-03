@@ -16,9 +16,10 @@ import {
   LabelNone,
   BoldLabel20,
 } from '../../components/Labels';
-import {SCREEN_HEIGHT} from '../../constants';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 import RowView from '../../components/Views/RowView';
+import Touchable from '../../components/Touchable';
 const WalletKsp = ({navigation}) => {
   const [isKspc, setIsKspc] = useState(1000);
   const [walletAddress, setWalletAddress] = useState(
@@ -51,6 +52,29 @@ const WalletKsp = ({navigation}) => {
               </RowView>
               <LabelNone text={walletAddress} style={styles.walletAddress} />
             </ImageBackground>
+            <View style={styles.walletCopyBox}>
+              <View style={styles.touchBackground}>
+                <Touchable
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: '#555555',
+                    width: SCREEN_WIDTH * 0.347,
+                    height: 37,
+                    borderRadius: 20,
+                    justifyContent: 'center',
+                  }}>
+                  <LabelNone
+                    text={'지갑 주소 복사'}
+                    style={styles.walletCopyText}
+                  />
+                  <Image
+                    source={require('../../asssets/icons/headerRight_more.png')}
+                    style={{height: 17, width: 17, marginLeft: 5.83}}
+                  />
+                </Touchable>
+              </View>
+            </View>
           </View>
         </ContainerStyled>
       </ScrollView>
@@ -61,6 +85,18 @@ const WalletKsp = ({navigation}) => {
 export default WalletKsp;
 
 const styles = StyleSheet.create({
+  walletCopyText: {color: '#fff'},
+  walletCopyBox: {
+    backgroundColor: '#C4C4C4',
+    width: SCREEN_WIDTH * 0.347,
+    borderRadius: 20,
+    alignSelf: 'center',
+  },
+  touchBackground: {
+    backgroundColor: '#C4C4C4',
+    width: SCREEN_WIDTH * 0.347,
+    borderRadius: 20,
+  },
   cardBackground: {
     height: 180,
     marginTop: 33,
@@ -70,11 +106,11 @@ const styles = StyleSheet.create({
   walletPoint: {
     marginTop: 67,
     justifyContent: 'flex-end',
-    marginRight: 31,
+    marginRight: SCREEN_WIDTH * 0.08,
     alignItems: 'baseline',
   },
   kspcUnit: {
-    marginLeft: 51,
+    marginLeft: SCREEN_WIDTH * 0.136,
     fontSize: 18,
     lineHeight: 26.06,
     color: '#333333',
