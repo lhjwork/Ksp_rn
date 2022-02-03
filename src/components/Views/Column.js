@@ -1,11 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
 
-const RowView = ({children, style}) => {
+const ColumnView = ({children, style}) => {
   return (
     <View
       style={{
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         ...style,
       }}>
@@ -14,4 +14,4 @@ const RowView = ({children, style}) => {
   );
 };
 
-export default RowView;
+export default ColumnView;
