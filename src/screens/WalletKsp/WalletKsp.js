@@ -26,6 +26,12 @@ const WalletKsp = ({navigation}) => {
     '0xQ231h2345yfE2001d8a9g9im8730h8a0s',
   );
 
+  const DATAES_COIN_SEND = [
+    {id: 1, titie: 'KSPC 보내기', img: '', path: ''},
+    {id: 1, titie: '이더리움 보내기', img: '', path: ''},
+    {id: 1, titie: '스테이킹', img: '', path: ''},
+  ];
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
@@ -52,30 +58,32 @@ const WalletKsp = ({navigation}) => {
               </RowView>
               <LabelNone text={walletAddress} style={styles.walletAddress} />
             </ImageBackground>
+
+            {/* 지갑 주소 복사 버튼 start*/}
+
             <View style={styles.walletCopyBox}>
               <View style={styles.touchBackground}>
-                <Touchable
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    backgroundColor: '#555555',
-                    width: SCREEN_WIDTH * 0.347,
-                    height: 37,
-                    borderRadius: 20,
-                    justifyContent: 'center',
-                  }}>
+                <Touchable style={styles.walletCopyTouch}>
                   <LabelNone
                     text={'지갑 주소 복사'}
                     style={styles.walletCopyText}
                   />
                   <Image
                     source={require('../../asssets/icons/walletAddressCopyIcon.png')}
-                    style={{height: 17, width: 17, marginLeft: 5.83}}
+                    style={styles.walletCopyIcon}
                   />
                 </Touchable>
               </View>
             </View>
           </View>
+          {/* 지갑 주소 복사 버튼 end*/}
+
+          <View
+            style={{
+              backgroundColor: '#fff',
+              width: '100%',
+              height: 100,
+            }}></View>
         </ContainerStyled>
       </ScrollView>
     </LinearGradient>
@@ -85,12 +93,28 @@ const WalletKsp = ({navigation}) => {
 export default WalletKsp;
 
 const styles = StyleSheet.create({
-  walletCopyText: {color: '#fff'},
+  walletCopyIcon: {height: 17, width: 17, marginLeft: 5.83},
+  walletCopyTouch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#555555',
+    width: SCREEN_WIDTH * 0.347,
+    height: 37,
+    borderRadius: 20,
+    justifyContent: 'center',
+  },
+  walletCopyText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '400',
+    lineHeight: 17,
+  },
   walletCopyBox: {
     backgroundColor: '#C4C4C4',
     width: SCREEN_WIDTH * 0.347,
     borderRadius: 20,
     alignSelf: 'center',
+    marginBottom: 30,
   },
   touchBackground: {
     backgroundColor: '#C4C4C4',
