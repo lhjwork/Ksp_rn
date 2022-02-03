@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -46,26 +47,25 @@ const ShoppingMall = ({navigation}) => {
               keyExtractor={(item, index) => item.id + index.toString()}
               numColumns={3}
               renderItem={({item, index}) => {
-                console.log(item);
                 return (
                   <ColumnView>
-                    <View
-                      style={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: 40,
-                        backgroundColor: '#fff',
-                        marginLeft: index % 3 === 0 ? 0 : 37,
-                      }}>
-                      <Image />
-                    </View>
+                    <Touchable onPress={() => Alert.alert('준비중입니다.')}>
+                      <Image
+                        style={{
+                          width: 80,
+                          height: 80,
+                          marginLeft: index % 3 === 0 ? 0 : 37,
+                        }}
+                        source={item.path}
+                      />
+                    </Touchable>
                     <LabelNone
                       style={{
                         marginLeft: index % 3 === 0 ? 0 : 37,
                         marginTop: 9.61,
                         marginBottom: 26.63,
                       }}
-                      text={'dddd'}
+                      text={item.title}
                     />
                   </ColumnView>
                 );
@@ -74,23 +74,11 @@ const ShoppingMall = ({navigation}) => {
 
             <LinearGradient
               colors={['#91C7D6', '#CBE2DC']}
-              style={{
-                height: 40,
-                justifyContent: 'center',
-                marginTop: 40.41,
-                marginBottom: 30,
-              }}>
-              <Touchable
-                style={{
-                  height: 38,
-                  backgroundColor: '#fff',
-                  marginHorizontal: 2,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+              style={styles.shoppingBox}>
+              <Touchable style={styles.shoppingButton}>
                 <LabelNone
                   text={'코나 쇼핑몰 홈페이지 바로가기'}
-                  style={{color: '#555555', fontSize: 12, Lineheight: 17.38}}
+                  style={styles.shoppingText}
                 />
               </Touchable>
             </LinearGradient>
@@ -111,4 +99,18 @@ const styles = StyleSheet.create({
     marginBottom: 57,
   },
   adContentsColumn: {marginTop: 57},
+  shoppingBox: {
+    height: 40,
+    justifyContent: 'center',
+    marginTop: 40.41,
+    marginBottom: 30,
+  },
+  shoppingButton: {
+    height: 38,
+    backgroundColor: '#fff',
+    marginHorizontal: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  shoppingText: {color: '#555555', fontSize: 12, Lineheight: 17.38},
 });
