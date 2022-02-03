@@ -69,7 +69,7 @@ const WalletKsp = ({navigation}) => {
                     style={styles.walletCopyText}
                   />
                   <Image
-                    source={require('../../asssets/icons/headerRight_more.png')}
+                    source={require('../../asssets/icons/walletAddressCopyIcon.png')}
                     style={{height: 17, width: 17, marginLeft: 5.83}}
                   />
                 </Touchable>
