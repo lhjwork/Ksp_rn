@@ -66,6 +66,20 @@ export const BoldLabel20 = ({
   </Text>
 );
 
+export const BoldLabel16 = ({
+  text,
+  style,
+  numberOfLines = 0,
+  ellipsizeMode,
+}) => (
+  <Text
+    style={{...styles.boldLabel16, ...style}}
+    numberOfLines={numberOfLines}
+    ellipsizeMode={ellipsizeMode}>
+    {text}
+  </Text>
+);
+
 const styles = StyleSheet.create({
   titleLabel: {
     fontSize: 24,
@@ -79,5 +93,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: '#555555',
   },
-  boldLabel20: {fontSize: 30, fontWeight: '700'},
+  boldLabel20: {fontSize: 20, fontWeight: '700'},
+  boldLabel16: {fontSize: 16, fontWeight: '700'},
 });

@@ -15,12 +15,15 @@ import {
   BoldLabelTitle,
   LabelNone,
   BoldLabel20,
+  BoldLabel16,
 } from '../../components/Labels';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 import RowView from '../../components/Views/RowView';
 import Touchable from '../../components/Touchable';
 import styled from 'styled-components';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 const WalletKsp = ({navigation}) => {
   const [isKspc, setIsKspc] = useState(1000);
   const [walletAddress, setWalletAddress] = useState(
@@ -77,7 +80,25 @@ const WalletKsp = ({navigation}) => {
               </View>
             </View>
             {/* 지갑 주소 복사 버튼 end*/}
-            <View style={styles.sendBox}></View>
+            <RowView style={styles.sendBox}>
+              <RowView style={{marginLeft: 23}}>
+                <Image
+                  source={require('../../asssets/icons/wallet_kspc.png')}
+                  resizeMode="contain"
+                  style={{width: 24, height: 24, marginRight: 13}}
+                />
+                <BoldLabel16
+                  text={'KSPC 보내기'}
+                  style={{fontWeight: '500', color: '#46A0BD'}}
+                />
+              </RowView>
+
+              <AntDesign
+                name={'right'}
+                size={8}
+                style={{marginRight: 25, color: '#46A0BD'}}
+              />
+            </RowView>
           </View>
         </ContainerStyled>
       </ScrollView>
@@ -89,6 +110,7 @@ export default WalletKsp;
 
 const styles = StyleSheet.create({
   sendBox: {
+    justifyContent: 'space-between',
     backgroundColor: '#fff',
     width: '100%',
     height: 50,
