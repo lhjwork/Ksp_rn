@@ -31,9 +31,24 @@ const WalletKsp = ({navigation}) => {
   );
 
   const DATAES_COIN_SEND = [
-    {id: 1, titie: 'KSPC 보내기', img: '', path: ''},
-    {id: 1, titie: '이더리움 보내기', img: '', path: ''},
-    {id: 1, titie: '스테이킹', img: '', path: ''},
+    {
+      id: 1,
+      titie: 'KSPC 보내기',
+      img: require('../../asssets/icons/WalletKsp/wallet_kspc.png'),
+      path: '',
+    },
+    {
+      id: 1,
+      titie: '이더리움 보내기',
+      img: require('../../asssets/icons/WalletKsp/wallet_ethereum.png'),
+      path: '',
+    },
+    {
+      id: 1,
+      titie: '스테이킹',
+      img: require('../../asssets/icons/WalletKsp/wallet_staking.png'),
+      path: '',
+    },
   ];
 
   return (
@@ -80,25 +95,27 @@ const WalletKsp = ({navigation}) => {
               </View>
             </View>
             {/* 지갑 주소 복사 버튼 end*/}
-            <RowView style={styles.sendBox}>
-              <RowView style={{marginLeft: 23}}>
-                <Image
-                  source={require('../../asssets/icons/wallet_kspc.png')}
-                  resizeMode="contain"
-                  style={{width: 24, height: 24, marginRight: 13}}
-                />
-                <BoldLabel16
-                  text={'KSPC 보내기'}
-                  style={{fontWeight: '500', color: '#46A0BD'}}
-                />
-              </RowView>
 
-              <AntDesign
-                name={'right'}
-                size={8}
-                style={{marginRight: 25, color: '#46A0BD'}}
-              />
-            </RowView>
+            {DATAES_COIN_SEND.map((item, index) => (
+              <Touchable key={index} style={{marginTop: 15}}>
+                <RowView style={styles.sendBox}>
+                  <RowView style={{marginLeft: 23}}>
+                    <Image
+                      source={item.img}
+                      resizeMode="contain"
+                      style={styles.bottomIcons}
+                    />
+                    <BoldLabel16 text={item.titie} style={styles.boldLabel16} />
+                  </RowView>
+
+                  <AntDesign
+                    name={'right'}
+                    size={8}
+                    style={{marginRight: 25, color: '#46A0BD'}}
+                  />
+                </RowView>
+              </Touchable>
+            ))}
           </View>
         </ContainerStyled>
       </ScrollView>
@@ -109,6 +126,8 @@ const WalletKsp = ({navigation}) => {
 export default WalletKsp;
 
 const styles = StyleSheet.create({
+  boldLabel16: {fontWeight: '500', color: '#46A0BD'},
+  bottomIcons: {width: 24, height: 24, marginRight: 13},
   sendBox: {
     justifyContent: 'space-between',
     backgroundColor: '#fff',
@@ -140,7 +159,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * 0.347,
     borderRadius: 20,
     alignSelf: 'center',
-    marginBottom: 30,
+    marginBottom: 15,
   },
   touchBackground: {
     backgroundColor: '#C4C4C4',
