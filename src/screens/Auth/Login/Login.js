@@ -1,17 +1,10 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  keyboard,
-  Keyboard,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, TextInput, keyboard} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {LabelNone} from '../../../components/Labels';
 import {ContainerStyled} from '../../../components/StyledComponents/StyledComponents';
 import {Container} from '../../../components/Containers/Container';
+import Touchable from '../../../components/Touchable';
 
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../../constants';
 import RowView from '../../../components/Views/RowView';
@@ -52,25 +45,43 @@ const Login = () => {
               />
             </RowView>
             <RowView style={styles.idTextInput2}>
-              <Image
-                source={require('../../../asssets/icons/Login/login_password_icon.png')}
-                resizeMode="contain"
-                style={{marginLeft: 16, marginRight: 12, width: 24, height: 24}}
-              />
-              <TextInput
-                style={{
-                  width: '100%',
-                  height: 50,
-                }}
-                placeholder="비밀번호"
-                value={password}
-                onChange={text => setPassword(text)}
-                autoCapitalize="none"
-                textContentType="password"
-                autoCorrect={false}
-                secureTextEntry={true}
-                // onBlur={() => Keyboard.dismiss()}
-              />
+              <RowView>
+                <Image
+                  source={require('../../../asssets/icons/Login/login_password_icon.png')}
+                  resizeMode="contain"
+                  style={{
+                    marginLeft: 16,
+                    marginRight: 12,
+                    width: 24,
+                    height: 24,
+                  }}
+                />
+                <TextInput
+                  style={{
+                    width: '73%',
+                    height: 50,
+                  }}
+                  placeholder="비밀번호"
+                  value={password}
+                  onChange={text => setPassword(text)}
+                  autoCapitalize="none"
+                  textContentType="password"
+                  autoCorrect={false}
+                  secureTextEntry={true}
+                  // onBlur={() => Keyboard.dismiss()}
+                />
+              </RowView>
+
+              <Touchable style={{marginRight: 100}}>
+                <Image
+                  source={require('../../../asssets/icons/Login/password_open.png')}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                  }}
+                />
+              </Touchable>
             </RowView>
           </View>
         </ContainerStyled>
@@ -90,6 +101,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#c4c4c4',
     marginTop: 15,
+    justifyContent: 'space-between',
   },
   idTextInput: {
     width: '100%',
