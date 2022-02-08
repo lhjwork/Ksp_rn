@@ -23,6 +23,7 @@ import {ContainerStyled} from '../../components/StyledComponents/StyledComponent
 import {ShoppingMallData} from '../../asssets/Data/Data';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
+import RowView from '../../components/Views/RowView';
 
 const ShoppingMall = ({navigation}) => {
   return (
@@ -40,7 +41,36 @@ const ShoppingMall = ({navigation}) => {
           </View>
           <View style={styles.adverBanner}></View>
           <View style={{marginHorizontal: 30}}>
-            <FlatList
+            <RowView style={{flexWrap: 'wrap'}}>
+              {ShoppingMallData.map((item, index) => (
+                <Touchable
+                  onPress={() => Alert.alert('준비중입니다.')}
+                  style={{marginLeft: index % 3 === 0 ? 0 : 37}}>
+                  <ColumnView style={{flexWrap: 'wrap'}} key={index}>
+                    <Image
+                      style={{
+                        width: 80,
+                        height: 80,
+                      }}
+                      source={item.path}
+                    />
+
+                    <LabelNone
+                      style={{
+                        marginTop: 9.61,
+                        marginBottom: 26.63,
+                        fontSize: 14,
+                        color: '#fff',
+                        lineHeight: 17,
+                      }}
+                      text={item.title}
+                    />
+                  </ColumnView>
+                </Touchable>
+              ))}
+            </RowView>
+
+            {/* <FlatList
               data={ShoppingMallData}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => item.id + index.toString()}
@@ -65,14 +95,14 @@ const ShoppingMall = ({navigation}) => {
                         marginBottom: 26.63,
                         fontSize: 14,
                         color: '#fff',
-                        Lineheight: 17,
+                        lineHeight: 17,
                       }}
                       text={item.title}
                     />
                   </ColumnView>
                 );
               }}
-            />
+            /> */}
 
             <LinearGradient
               colors={['#91C7D6', '#CBE2DC']}
@@ -114,5 +144,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  shoppingText: {color: '#555555', fontSize: 12, Lineheight: 17.38},
+  shoppingText: {color: '#555555', fontSize: 12, lineHeight: 17},
 });
