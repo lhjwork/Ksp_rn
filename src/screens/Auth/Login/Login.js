@@ -9,6 +9,8 @@ import Touchable from '../../../components/Touchable';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../../constants';
 import RowView from '../../../components/Views/RowView';
 import {ScrollView} from 'react-native-gesture-handler';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {ContentInput, PasswordInput} from '../../../components/TxInput';
 const Login = () => {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
@@ -32,69 +34,13 @@ const Login = () => {
               style={styles.logo}
             />
             <LabelNone text={'Kona Summit Platform'} style={styles.logoText} />
-
-            <RowView style={styles.idTextInput}>
-              <Image
-                source={require('../../../asssets/icons/Login/login_id_icon.png')}
-                resizeMode="contain"
-                style={{marginLeft: 16, marginRight: 12, width: 24, height: 24}}
-              />
-              <TextInput
-                style={{
-                  width: '100%',
-                  height: 50,
-                }}
-                placeholder="아이디"
-                value={id}
-                onChange={text => setId(text)}
-              />
-            </RowView>
-            <RowView style={styles.idTextInput2}>
-              <RowView>
-                <Image
-                  source={require('../../../asssets/icons/Login/login_password_icon.png')}
-                  resizeMode="contain"
-                  style={{
-                    marginLeft: 16,
-                    marginRight: 12,
-                    width: 24,
-                    height: 24,
-                  }}
-                />
-                <TextInput
-                  style={{
-                    width: '73%',
-                    height: 50,
-                  }}
-                  placeholder="비밀번호"
-                  value={password}
-                  onChange={text => setPassword(text)}
-                  autoCapitalize="none"
-                  textContentType="password"
-                  autoCorrect={false}
-                  secureTextEntry={passwordVisible ? false : true}
-                  // onBlur={() => Keyboard.dismiss()}
-                />
-              </RowView>
-
-              <Touchable
-                style={{marginRight: 100}}
-                onPress={() => visiblePassword()}>
-                <Image
-                  source={
-                    passwordVisible
-                      ? require('../../../asssets/icons/Login/password_open.png')
-                      : require('../../../asssets/icons/Login/passwrord_hide.png')
-                  }
-                  resizeMode="contain"
-                  style={{
-                    width: 24,
-                    height: 24,
-                  }}
-                />
-              </Touchable>
-            </RowView>
+            <ContentInput />
+            <PasswordInput />
           </View>
+          <RowView>
+            <LabelNone text={'아이디 찾기'} />
+            <AntDesign name={'right'} size={14} />
+          </RowView>
         </ContainerStyled>
       </ScrollView>
     </LinearGradient>
