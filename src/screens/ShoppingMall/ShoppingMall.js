@@ -44,9 +44,10 @@ const ShoppingMall = ({navigation}) => {
             <RowView style={{flexWrap: 'wrap'}}>
               {ShoppingMallData.map((item, index) => (
                 <Touchable
+                  key={index}
                   onPress={() => Alert.alert('준비중입니다.')}
                   style={{marginLeft: index % 3 === 0 ? 0 : 37}}>
-                  <ColumnView style={{flexWrap: 'wrap'}} key={index}>
+                  <ColumnView style={{flexWrap: 'wrap'}}>
                     <Image
                       style={{
                         width: 80,

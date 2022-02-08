@@ -20,6 +20,7 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 import RowView from '../../components/Views/RowView';
 import Touchable from '../../components/Touchable';
+import styled from 'styled-components';
 const WalletKsp = ({navigation}) => {
   const [isKspc, setIsKspc] = useState(1000);
   const [walletAddress, setWalletAddress] = useState(
@@ -75,15 +76,9 @@ const WalletKsp = ({navigation}) => {
                 </Touchable>
               </View>
             </View>
+            {/* 지갑 주소 복사 버튼 end*/}
+            <View style={styles.sendBox}></View>
           </View>
-          {/* 지갑 주소 복사 버튼 end*/}
-
-          <View
-            style={{
-              backgroundColor: '#fff',
-              width: '100%',
-              height: 100,
-            }}></View>
         </ContainerStyled>
       </ScrollView>
     </LinearGradient>
@@ -93,6 +88,15 @@ const WalletKsp = ({navigation}) => {
 export default WalletKsp;
 
 const styles = StyleSheet.create({
+  sendBox: {
+    backgroundColor: '#fff',
+    width: '100%',
+    height: 50,
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+  },
   walletCopyIcon: {height: 17, width: 17, marginLeft: 5.83},
   walletCopyTouch: {
     flexDirection: 'row',
