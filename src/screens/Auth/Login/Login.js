@@ -12,11 +12,16 @@ import {ScrollView} from 'react-native-gesture-handler';
 const Login = () => {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
+  const [passwordVisible, setPasswordVisible] = useState(true);
 
-  validate = () => {
-    const {password} = this.state;
-    console.log('validate passeword 16 line', password);
+  const visiblePassword = () => {
+    if (passwordVisible === true) {
+      setPasswordVisible(false);
+    } else {
+      setPasswordVisible(true);
+    }
   };
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
@@ -67,14 +72,20 @@ const Login = () => {
                   autoCapitalize="none"
                   textContentType="password"
                   autoCorrect={false}
-                  secureTextEntry={true}
+                  secureTextEntry={passwordVisible ? false : true}
                   // onBlur={() => Keyboard.dismiss()}
                 />
               </RowView>
 
-              <Touchable style={{marginRight: 100}}>
+              <Touchable
+                style={{marginRight: 100}}
+                onPress={() => visiblePassword()}>
                 <Image
-                  source={require('../../../asssets/icons/Login/password_open.png')}
+                  source={
+                    passwordVisible
+                      ? require('../../../asssets/icons/Login/password_open.png')
+                      : require('../../../asssets/icons/Login/passwrord_hide.png')
+                  }
                   resizeMode="contain"
                   style={{
                     width: 24,
