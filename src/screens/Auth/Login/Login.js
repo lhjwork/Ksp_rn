@@ -34,13 +34,39 @@ const Login = () => {
               style={styles.logo}
             />
             <LabelNone text={'Kona Summit Platform'} style={styles.logoText} />
-            <ContentInput />
+            <ContentInput
+              placeholder={'아이디'}
+              source={require('../../../asssets/icons/Login/login_id_icon.png')}
+            />
             <PasswordInput />
+            <RowView style={styles.searchAndRePassword}>
+              <Touchable>
+                <RowView>
+                  <LabelNone text={'아이디 찾기'} style={styles.searchText} />
+                  <AntDesign name={'right'} size={14} style={styles.leftIcon} />
+                </RowView>
+              </Touchable>
+
+              <Touchable>
+                <RowView>
+                  <LabelNone
+                    text={'비밀번호재설정'}
+                    style={styles.searchText}
+                  />
+                  <AntDesign name={'right'} size={14} style={styles.leftIcon} />
+                </RowView>
+              </Touchable>
+            </RowView>
+            <RowView style={styles.signUpBox}>
+              <LabelNone
+                text={'아직 회원이 아니신가요?'}
+                style={styles.signUpText}
+              />
+              <Touchable>
+                <LabelNone text={'회원가입 하러가기'} style={styles.signup} />
+              </Touchable>
+            </RowView>
           </View>
-          <RowView>
-            <LabelNone text={'아이디 찾기'} />
-            <AntDesign name={'right'} size={14} />
-          </RowView>
         </ContainerStyled>
       </ScrollView>
     </LinearGradient>
@@ -50,6 +76,22 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  signUpText: {fontWeight: '700', color: '#555555', fontWeight: '400'},
+  signUpBox: {justifyContent: 'center', marginTop: 56},
+  signup: {
+    color: '#46A0BD',
+    borderBottomWidth: 1,
+    borderBottomColor: '#46A0BD',
+    marginLeft: 7,
+    fontWeight: '700',
+  },
+  leftIcon: {color: '#fff', fontWeight: '700', marginLeft: 10.52},
+  searchText: {color: '#fff', fontWeight: '700', fontSize: 13},
+  searchAndRePassword: {
+    justifyContent: 'space-between',
+    marginHorizontal: 40,
+    marginTop: 8,
+  },
   idTextInput2: {
     width: '100%',
     height: 52,

@@ -17,7 +17,6 @@ import com.facebook.react.bridge.JSIModulePackage; // <- add this
 import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add this
 
 
-import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
