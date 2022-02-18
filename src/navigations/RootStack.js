@@ -9,15 +9,10 @@ const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="DrawerStack">
       <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="BottomTabs"
-        component={BottomTabs}
+        name="DrawerStack"
+        component={DrawerStack}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

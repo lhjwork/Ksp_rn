@@ -7,13 +7,16 @@ import {View, Text, Image} from 'react-native';
 import ShoppingMall from '../screens/ShoppingMall/ShoppingMall';
 import Touchable from '../components/Touchable';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import Scann from '../screens/Scann/Scann';
+import WalletKsp from '../screens/WalletKsp/WalletKsp';
+import BottomTabs from './BottomTabs';
 
 const Drawer = createDrawerNavigator();
 
 export const DrawerStack = ({navigation}) => {
   return (
     <Drawer.Navigator
-      initialRouteName="ShoppingMall"
+      initialRouteName="BottomTabs"
       screenOptions={{
         drawerPosition: 'right',
         drawerStyle: {
@@ -23,10 +26,20 @@ export const DrawerStack = ({navigation}) => {
       }}
       drawerContent={props => <DrawerComponent />}>
       <Drawer.Screen
-        name="ShoppingMall"
-        component={ShoppingMall}
+        name="BottomTabs"
+        component={BottomTabs}
         options={{headerShown: false}}
       />
+      {/* <Drawer.Screen
+        name="WalletKsp"
+        component={WalletKsp}
+        options={{headerShown: false}}
+      /> */}
+      {/* <Stack.Screen
+        name="BottomTabs"
+        component={BottomTabs}
+        options={{headerShown: false}}
+      /> */}
     </Drawer.Navigator>
   );
 };

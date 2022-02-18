@@ -32,8 +32,8 @@ const BottomTabs = ({navigation}) => {
         tabBarLabelStyle: {fontSize: 14, lineHeight: 19},
       }}>
       <Tab.Screen
-        name="DrawerStack"
-        component={DrawerStack}
+        name="ShoppingMall"
+        component={ShoppingMall}
         options={{
           headerShown: false,
           tabBarLabel: '쇼핑몰',

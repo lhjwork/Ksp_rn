@@ -41,7 +41,11 @@ const ShoppingMall = ({navigation}) => {
           </View>
           <View style={styles.adverBanner}></View>
           <View style={{marginHorizontal: 30}}>
-            <RowView style={{flexWrap: 'wrap'}}>
+            <RowView
+              style={{
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+              }}>
               {ShoppingMallData.map((item, index) => (
                 <Touchable
                   key={index}
