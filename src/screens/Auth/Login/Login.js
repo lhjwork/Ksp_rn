@@ -70,7 +70,7 @@ const Login = ({navigation}) => {
             <BottomButton
               style={styles.bottomBtn}
               text={'로그인'}
-              onPress={() => navigation.navigate()}
+              onPress={() => navigation.navigate('DrawerStack')}
             />
           </View>
         </ContainerStyled>

@@ -7,7 +7,7 @@ import {SCREEN_HEIGHT} from '../../constants';
 const Splash = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.navigate('AuthStack');
     }, 1500);
   });
   return (

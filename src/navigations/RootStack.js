@@ -8,6 +8,7 @@ import Login from '../screens/Auth/Login/Login';
 import Splash from '../screens/Splash/Splash';
 import SignUp from '../screens/Auth/SignUp/SignUp';
 import SignUpAgree from '../screens/Auth/SignUp/SignUpAgree';
+import {AuthStack} from './AuthStack';
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
@@ -19,6 +20,11 @@ const RootStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="AuthStack"
+        component={AuthStack}
+        options={{headerShown: false}}
+      />
+      {/* <Stack.Screen
         name="Login"
         component={Login}
         options={{headerShown: false}}
@@ -32,7 +38,7 @@ const RootStack = () => {
         name="SignUpAgree"
         component={SignUpAgree}
         options={{headerShown: false}}
-      />
+      /> */}
 
       <Stack.Screen
         name="DrawerStack"

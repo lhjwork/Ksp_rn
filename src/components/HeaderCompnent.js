@@ -4,7 +4,7 @@ import RowView from './Views/RowView';
 import Touchable from '../components/Touchable';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const HeaderCompnent = ({navigation, onPerssDrawer}) => {
+const HeaderCompnent = ({navigation, onPerssDrawer, rightView}) => {
   return (
     <RowView style={styles.headerRow}>
       <Touchable>
@@ -14,12 +14,16 @@ const HeaderCompnent = ({navigation, onPerssDrawer}) => {
           style={{marginLeft: 27.5, color: '#fff'}}
         />
       </Touchable>
-      <Touchable onPress={onPerssDrawer}>
-        <Image
-          source={require('../asssets/icons/headerRight_more.png')}
-          style={{marginRight: 27, height: 12, width: 18}}
-        />
-      </Touchable>
+      {rightView === false ? (
+        <></>
+      ) : (
+        <Touchable onPress={onPerssDrawer}>
+          <Image
+            source={require('../asssets/icons/headerRight_more.png')}
+            style={{marginRight: 27, height: 12, width: 18}}
+          />
+        </Touchable>
+      )}
     </RowView>
   );
 };
