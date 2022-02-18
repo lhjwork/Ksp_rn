@@ -11,6 +11,7 @@ import RowView from '../../../components/Views/RowView';
 import {ScrollView} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ContentInput, PasswordInput} from '../../../components/TxInput';
+import BottomButton from '../../../components/Buttons/Buttons';
 const Login = () => {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
@@ -66,6 +67,7 @@ const Login = () => {
                 <LabelNone text={'회원가입 하러가기'} style={styles.signup} />
               </Touchable>
             </RowView>
+            <BottomButton style={styles.bottomBtn} text={'로그인'} />
           </View>
         </ContainerStyled>
       </ScrollView>
@@ -76,6 +78,7 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  bottomBtn: {marginTop: 10},
   signUpText: {fontWeight: '700', color: '#555555', fontWeight: '400'},
   signUpBox: {justifyContent: 'center', marginTop: 56},
   signup: {
