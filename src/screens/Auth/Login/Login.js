@@ -12,7 +12,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ContentInput, PasswordInput} from '../../../components/TxInput';
 import BottomButton from '../../../components/Buttons/Buttons';
-const Login = () => {
+const Login = ({navigation}) => {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
   const [passwordVisible, setPasswordVisible] = useState(true);
@@ -63,11 +63,15 @@ const Login = () => {
                 text={'아직 회원이 아니신가요?'}
                 style={styles.signUpText}
               />
-              <Touchable>
+              <Touchable onPress={() => navigation.navigate('SignUpAgree')}>
                 <LabelNone text={'회원가입 하러가기'} style={styles.signup} />
               </Touchable>
             </RowView>
-            <BottomButton style={styles.bottomBtn} text={'로그인'} />
+            <BottomButton
+              style={styles.bottomBtn}
+              text={'로그인'}
+              onPress={() => navigation.navigate()}
+            />
           </View>
         </ContainerStyled>
       </ScrollView>

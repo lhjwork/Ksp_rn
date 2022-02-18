@@ -6,6 +6,8 @@ import BottomTabs from './BottomTabs';
 import {DrawerStack} from './DrawerStack';
 import Login from '../screens/Auth/Login/Login';
 import Splash from '../screens/Splash/Splash';
+import SignUp from '../screens/Auth/SignUp/SignUp';
+import SignUpAgree from '../screens/Auth/SignUp/SignUpAgree';
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
@@ -19,6 +21,16 @@ const RootStack = () => {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUpAgree"
+        component={SignUpAgree}
         options={{headerShown: false}}
       />
 
