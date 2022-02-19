@@ -6,7 +6,7 @@ import {LabelNone} from '../Labels';
 
 const {width} = Dimensions.get('window');
 
-const BottomButton = ({onPress, text, style}) => {
+export const BottomButton = ({onPress, text, style}) => {
   return (
     <Touchable
       onPress={onPress}
@@ -31,5 +31,3 @@ const BottomButton = ({onPress, text, style}) => {
     </Touchable>
   );
 };
-
-export default BottomButton;

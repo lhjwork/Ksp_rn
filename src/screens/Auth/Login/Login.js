@@ -11,7 +11,7 @@ import RowView from '../../../components/Views/RowView';
 import {ScrollView} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ContentInput, PasswordInput} from '../../../components/TxInput';
-import BottomButton from '../../../components/Buttons/Buttons';
+import {BottomButton} from '../../../components/Buttons/Buttons';
 const Login = ({navigation}) => {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
