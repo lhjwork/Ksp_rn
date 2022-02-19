@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ContainerGradient from '../../../components/Containers/ContainerGradient';
 import HeaderCompnent from '../../../components/HeaderCompnent';
@@ -13,6 +13,8 @@ import RowView from '../../../components/Views/RowView';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../../components/Touchable';
 import {BottomButton} from '../../../components/Buttons/Buttons';
+import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
+import Numbering from '../../../components/SignUp/Numbering';
 
 const SUB_CONTENT_DATA = [
   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -25,12 +27,16 @@ const SignUpAgree = ({navigation}) => {
   const [serviceAgree, setServiceAgree] = useState(false);
   const [privateInfoAgree, setPrivateInfoAgree] = useState(false);
   const [marketingAgree, setMarketingAgree] = useState(false);
+  const [selectedServiceAgreeId, setSelectedServiceAgreeId] = useState('');
+  const [selectedPrivateInfoAgreeId, setSelectedPrivateInfoAgreeId] =
+    useState('');
+  const [selectedMarketingAgreeId, setSelectedMarketingAgreeId] = useState('');
 
   console.log('serviceAgree', serviceAgree);
   console.log('privateInfoAgree', privateInfoAgree);
   console.log('marketingAgree', marketingAgree);
   console.log('allAgree', allAgree);
-  const getEachAgree = item => {
+  const getEachAgree = (item, id) => {
     item === 'serviceAgree' && serviceAgree === false
       ? setServiceAgree(true)
       : item === 'privateInfoAgree' && privateInfoAgree === false
@@ -46,6 +52,23 @@ const SignUpAgree = ({navigation}) => {
       : item === 'marketingAgree' && marketingAgree === true
       ? setMarketingAgree(false)
       : null;
+
+    // if (selectedServiceAgreeId === id) {
+    //   setSelectedServiceAgreeId(null);
+    // } else {
+    //   setSelectedServiceAgreeId(id);
+    // }
+
+    // if (selectedPrivateInfoAgreeId === id) {
+    //   setSelectedPrivateInfoAgreeId(null);
+    // } else {
+    //   setSelectedPrivateInfoAgreeId(id);
+    // }
+    // if (selectedMarketingAgreeId === id) {
+    //   setSelectedMarketingAgreeId(null);
+    // } else {
+    //   setSelectedMarketingAgreeId(id);
+    // }
   };
 
   const getAllAgree = () => {
@@ -68,20 +91,45 @@ const SignUpAgree = ({navigation}) => {
 
       <ContainerStyled>
         <View style={{marginHorizontal: 24}}>
-          <BoldLabelTitle text={'회원가입'} style={{marginTop: 27.5}} />
+          <RowView style={{marginTop: 27.5, justifyContent: 'space-between'}}>
+            <BoldLabelTitle text={'회원가입'} />
+            <RowView>
+              {SIGNUP_NUM_DATA.map((num, index) => (
+                <>
+                  <Numbering numId={num?.id} key={index} pageNum={1} />
+                </>
+              ))}
+            </RowView>
+          </RowView>
+
           <BoldLabelSubTitle
             text={
               '안녕하세요.\n저희 KSP가 처음이시군요!\nKSP 서비스 이용을 위해서는 아래와 같은 약관의 동의가 필요합니다.'
             }
             style={styles.contentText}
           />
-          <RowView style={styles.allAgree}>
+          <RowView
+            style={{
+              backgroundColor: allAgree === true ? '#46A0BD' : '#fff',
+              paddingVertical: 12,
+              paddingHorizontal: 17.25,
+              marginTop: 46,
+              borderRadius: 10,
+            }}>
             <Touchable onPress={() => getAllAgree()}>
-              <Ionicons
-                name={'checkmark-circle-outline'}
-                size={19.5}
-                style={{color: '#C4C4C4'}}
-              />
+              {allAgree === false ? (
+                <Ionicons
+                  name={'checkmark-circle-outline'}
+                  size={19.5}
+                  style={{color: '#C4C4C4'}}
+                />
+              ) : (
+                <Ionicons
+                  name={'checkmark-circle'}
+                  size={19.5}
+                  style={{color: '#fff'}}
+                />
+              )}
             </Touchable>
 
             <BoldLabelSubTitle
@@ -91,7 +139,7 @@ const SignUpAgree = ({navigation}) => {
                 fontWeight: '700',
                 lineheight: 26.06,
                 marginLeft: 13.25,
-                color: '#555555',
+                color: allAgree === false ? '#555555' : '#fff',
               }}
             />
           </RowView>
@@ -108,13 +156,21 @@ const SignUpAgree = ({navigation}) => {
                 <RowView>
                   <Touchable
                     onPress={() => {
-                      getEachAgree(menu?.path);
+                      getEachAgree(menu?.path, menu?.id);
                     }}>
-                    <Ionicons
-                      name={'checkmark-circle-outline'}
-                      size={15}
-                      style={styles.offSmallIcon}
-                    />
+                    {serviceAgree === false ? (
+                      <Ionicons
+                        name={'checkmark-circle-outline'}
+                        size={15}
+                        style={styles.offSmallIcon}
+                      />
+                    ) : (
+                      <Ionicons
+                        name={'checkmark-circle'}
+                        size={15}
+                        style={styles.onSmallIcon}
+                      />
+                    )}
                   </Touchable>
 
                   <BoldLabelSubTitle
@@ -171,6 +227,10 @@ const styles = StyleSheet.create({
   //   borderBottomColor: '#E5E5E5',
   //   borderBottomWidth: 1,
   // },
+  onSmallIcon: {
+    color: '#46A0BD',
+    paddingRight: 11.5,
+  },
   offSmallIcon: {
     color: '#C4C4C4',
     paddingRight: 11.5,
@@ -183,7 +243,6 @@ const styles = StyleSheet.create({
   },
   subAgreeBox: {
     backgroundColor: '#fff',
-    height: 170,
     borderRadius: 10,
     marginTop: 10,
   },
