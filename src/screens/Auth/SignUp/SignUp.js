@@ -137,6 +137,7 @@ const SignUp = ({navigation}) => {
           <BottomButton
             style={{marginBottom: 30, marginTop: 88}}
             text={'다음'}
+            onPress={() => navigation.navigate('SignUpComplete')}
           />
         </ContainerStyled>
       </ScrollView>

@@ -5,6 +5,7 @@ import SignUpAgree from '../screens/Auth/SignUp/SignUpAgree';
 import SignUp from '../screens/Auth/SignUp/SignUp';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SelfAuth from '../screens/Auth/SignUp/SelfAuth/SelfAuth';
+import SignUpComplete from '../screens/Auth/SignUp/SignUpComplete';
 
 const Auth = createNativeStackNavigator();
 
@@ -29,6 +30,11 @@ export const AuthStack = () => {
       <Auth.Screen
         name="SignUp"
         component={SignUp}
+        options={{headerShown: false}}
+      />
+      <Auth.Screen
+        name="SignUpComplete"
+        component={SignUpComplete}
         options={{headerShown: false}}
       />
     </Auth.Navigator>
