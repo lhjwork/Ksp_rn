@@ -4,10 +4,15 @@ import RowView from './Views/RowView';
 import Touchable from '../components/Touchable';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const HeaderCompnent = ({navigation, onPerssDrawer, rightView}) => {
+const HeaderCompnent = ({
+  navigation,
+  onPerssDrawer,
+  rightView,
+  onPressLeftBtn,
+}) => {
   return (
     <RowView style={styles.headerRow}>
-      <Touchable>
+      <Touchable onPress={onPressLeftBtn}>
         <AntDesign
           name={'left'}
           size={15}

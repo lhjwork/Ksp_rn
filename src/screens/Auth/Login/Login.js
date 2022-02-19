@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
               placeholder={'아이디'}
               source={require('../../../asssets/icons/Login/login_id_icon.png')}
             />
-            <PasswordInput />
+            <PasswordInput styleBox={{marginTop: 15}} noneImage={true} />
             <RowView style={styles.searchAndRePassword}>
               <Touchable>
                 <RowView>

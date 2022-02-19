@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Touchable from '../../../components/Touchable';
 import {BottomButton} from '../../../components/Buttons/Buttons';
 import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
-import Numbering from '../../../components/SignUp/Numbering';
+import PageNumbering from '../../../components/SignUp/PageNumbering';
 
 const SUB_CONTENT_DATA = [
   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -96,7 +96,7 @@ const SignUpAgree = ({navigation}) => {
             <RowView>
               {SIGNUP_NUM_DATA.map((num, index) => (
                 <>
-                  <Numbering numId={num?.id} key={index} pageNum={1} />
+                  <PageNumbering numId={num?.id} key={index} pageNum={1} />
                 </>
               ))}
             </RowView>
@@ -190,13 +190,21 @@ const SignUpAgree = ({navigation}) => {
         </View>
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        <View style={styles.agreeNeed}>
-          <LabelNone
-            text={'필수 약관의 동의가 필요합니다.'}
-            style={styles.agreeText}
-          />
-        </View>
-        <BottomButton text={'다음'} />
+        {allAgree === true ? (
+          <></>
+        ) : (
+          <View style={styles.agreeNeed}>
+            <LabelNone
+              text={'필수 약관의 동의가 필요합니다.'}
+              style={styles.agreeText}
+            />
+          </View>
+        )}
+
+        <BottomButton
+          text={'다음'}
+          onPress={() => navigation.navigate('SelfAuth')}
+        />
       </View>
     </LinearGradient>
   );

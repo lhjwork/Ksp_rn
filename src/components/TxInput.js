@@ -2,6 +2,7 @@ import React from 'react';
 import {TextInput, StyleSheet, Image} from 'react-native';
 import RowView from './Views/RowView';
 import Touchable from './Touchable';
+import {immerable} from 'immer';
 
 export const TitleInput = ({value, onChangeText, style}) => {
   return (
@@ -20,14 +21,51 @@ export const ContentInput = ({
   source,
   onChange,
   placeholder,
+  textStyle,
+  imageNone = true,
 }) => {
   return (
     <RowView style={styles.idTextInput}>
-      <Image source={source} resizeMode="contain" style={styles.contentImg} />
+      {imageNone === true ? (
+        <Image source={source} resizeMode="contain" style={styles.contentImg} />
+      ) : (
+        <></>
+      )}
+
       <TextInput
         style={{
           width: '100%',
           height: 50,
+          ...textStyle,
+        }}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+    </RowView>
+  );
+};
+
+export const NoneInput = ({
+  value,
+  onChangeText,
+  style,
+  source,
+  onChange,
+  placeholder,
+  imageNone,
+  textStyle,
+}) => {
+  return (
+    <RowView style={styles.noneInputBox}>
+      {imageNone === false ? null : (
+        <Image source={source} resizeMode="contain" style={styles.contentImg} />
+      )}
+
+      <TextInput
+        style={{
+          height: 50,
+          ...textStyle,
         }}
         placeholder={placeholder}
         value={value}
@@ -48,6 +86,9 @@ export const PasswordInput = ({
   onChange,
   passwordImgVisible,
   booleans,
+  noneImage = true,
+  textStlye,
+  styleBox,
 }) => {
   return (
     // <TextInput
@@ -55,17 +96,33 @@ export const PasswordInput = ({
     //   onChangeText={onChangeText}
     //   style={[styles.password, style]}
     // />
-    <RowView style={styles.idTextInput2}>
+    <RowView
+      style={{
+        width: '100%',
+        height: 52,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#c4c4c4',
+        justifyContent: 'space-between',
+        ...styleBox,
+      }}>
       <RowView>
-        <Image
-          source={require('../asssets/icons/Login/login_password_icon.png')}
-          resizeMode="contain"
-          style={styles.passwordImg}
-        />
+        {noneImage === true ? (
+          <Image
+            source={require('../asssets/icons/Login/login_password_icon.png')}
+            resizeMode="contain"
+            style={styles.passwordImg}
+          />
+        ) : (
+          <></>
+        )}
+
         <TextInput
           style={{
             width: '73%',
             height: 50,
+            ...textStlye,
           }}
           placeholder="비밀번호"
           value={value}
@@ -97,6 +154,14 @@ export const PasswordInput = ({
 };
 
 const styles = StyleSheet.create({
+  noneInputBox: {
+    flex: 1,
+    height: 52,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#c4c4c4',
+  },
   contentImg: {marginLeft: 16, marginRight: 12, width: 24, height: 24},
   idTextInput: {
     width: '100%',
