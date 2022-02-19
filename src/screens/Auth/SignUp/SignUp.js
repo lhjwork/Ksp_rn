@@ -52,10 +52,7 @@ const SignUp = ({navigation}) => {
             text={'아이디'}
             style={{marginTop: 72, marginBottom: 9}}
           />
-          <ContentInput
-            placeholder={'아이디입력'}
-            textStyle={{marginLeft: 23}}
-          />
+          <ContentInput placeholder={'아이디입력'} textStyle={{}} />
           <BoldLabel14
             text={'비밀번호'}
             style={{marginTop: 28, marginBottom: 9}}

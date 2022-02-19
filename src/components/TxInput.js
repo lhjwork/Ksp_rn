@@ -22,7 +22,7 @@ export const ContentInput = ({
   onChange,
   placeholder,
   textStyle,
-  imageNone = true,
+  imageNone = false,
 }) => {
   return (
     <RowView style={styles.idTextInput}>
@@ -86,9 +86,10 @@ export const PasswordInput = ({
   onChange,
   passwordImgVisible,
   booleans,
-  noneImage = true,
+  noneImage = false,
   textStlye,
   styleBox,
+  placeholder,
 }) => {
   return (
     // <TextInput
@@ -124,7 +125,7 @@ export const PasswordInput = ({
             height: 50,
             ...textStlye,
           }}
-          placeholder="비밀번호"
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
           autoCapitalize="none"

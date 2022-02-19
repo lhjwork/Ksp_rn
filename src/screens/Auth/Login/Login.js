@@ -38,8 +38,13 @@ const Login = ({navigation}) => {
             <ContentInput
               placeholder={'아이디'}
               source={require('../../../asssets/icons/Login/login_id_icon.png')}
+              imageNone={true}
             />
-            <PasswordInput styleBox={{marginTop: 15}} noneImage={true} />
+            <PasswordInput
+              styleBox={{marginTop: 15}}
+              noneImage={true}
+              placeholder={'비밀번호'}
+            />
             <RowView style={styles.searchAndRePassword}>
               <Touchable>
                 <RowView>
