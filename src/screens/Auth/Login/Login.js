@@ -44,6 +44,9 @@ const Login = ({navigation}) => {
               styleBox={{marginTop: 15}}
               noneImage={true}
               placeholder={'비밀번호'}
+              eyeSytle={{marginRight: 18}}
+              secureTextEntry={passwordVisible}
+              onPress={() => visiblePassword()}
             />
             <RowView style={styles.searchAndRePassword}>
               <Touchable>

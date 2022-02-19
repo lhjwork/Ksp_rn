@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, StyleSheet, Image} from 'react-native';
+import {TextInput, StyleSheet, Image, View} from 'react-native';
 import RowView from './Views/RowView';
 import Touchable from './Touchable';
 import {immerable} from 'immer';
@@ -84,12 +84,11 @@ export const PasswordInput = ({
   secureTextEntry,
   source,
   onChange,
-  passwordImgVisible,
-  booleans,
   noneImage = false,
-  textStlye,
+  textStyle,
   styleBox,
   placeholder,
+  eyeSytle,
 }) => {
   return (
     // <TextInput
@@ -123,7 +122,7 @@ export const PasswordInput = ({
           style={{
             width: '73%',
             height: 50,
-            ...textStlye,
+            ...textStyle,
           }}
           placeholder={placeholder}
           value={value}
@@ -136,12 +135,12 @@ export const PasswordInput = ({
         />
       </RowView>
 
-      <Touchable style={{marginRight: 100}} onPress={onPress}>
+      <Touchable style={eyeSytle} onPress={onPress}>
         <Image
           source={
-            booleans
-              ? require('../asssets/icons/Login/password_open.png')
-              : require('../asssets/icons/Login/passwrord_hide.png')
+            secureTextEntry
+              ? require('../asssets/icons/Login/passwrord_hide.png')
+              : require('../asssets/icons/Login/password_open.png')
           }
           resizeMode="contain"
           style={{
