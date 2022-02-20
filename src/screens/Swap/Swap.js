@@ -17,57 +17,53 @@ const Swap = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent onPerssDrawer={() => navigation.goBack()} />
-      {/* <ScrollView> */}
-      <View style={{marginHorizontal: 24, flex: 1}}>
-        <BoldLabelTitle text={'스왑'} style={{marginTop: 27.5}} />
-        <BoldLabelSubTitle
-          text={'TOTAL PORTFOLIO VALUE'}
-          style={{marginTop: 13}}
-        />
-        <RowView style={styles.kspPointBox}>
-          <Image
-            source={require('../../asssets/images/white_circle_in_logo.png')}
-            style={{width: 73, height: 73}}
-            resizeMode="contain"
+      <ScrollView>
+        <View style={{marginHorizontal: 24, flex: 1}}>
+          <BoldLabelTitle text={'스왑'} style={{marginTop: 27.5}} />
+          <BoldLabelSubTitle
+            text={'TOTAL PORTFOLIO VALUE'}
+            style={{marginTop: 13}}
           />
-          <RowView>
-            <LabelNone
-              text={kspPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              style={styles.kspPoint}
+          <RowView style={styles.kspPointBox}>
+            <Image
+              source={require('../../asssets/images/white_circle_in_logo.png')}
+              style={{width: 73, height: 73}}
+              resizeMode="contain"
             />
-            <LabelNone text={'KSP'} style={styles.KspUnit} />
+            <RowView>
+              <LabelNone
+                text={kspPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                style={styles.kspPoint}
+              />
+              <LabelNone text={'KSP'} style={styles.KspUnit} />
+            </RowView>
           </RowView>
-        </RowView>
-        <AmountInput
-          placeholder={'수량을 입력해주세요.'}
-          textStyle={{marginLeft: 19}}
-          rightText={'KSPC'}
-          rightTextStyle={{marginRight: 16}}
-          outStyle={{marginTop: 26}}
-        />
-      </View>
-      <View
-        style={{
-          marginHorizontal: 24,
-        }}>
-        <LabelNone
-          text={
-            '[유의사항]\n\n' +
-            '\t• 개인정보 입력에 유의해 주세요.\n' +
-            '\t• KSPC 이외의 주소로는 전송되지 않아요.\n' +
-            '\t• KSPC를 전송할 경우에는 이더리움 가스비가 필요합니다.\n' +
-            '\t• 미리 이더리움을 충전해 놓으시기 바랍니다.'
-          }
-          style={{
-            fontSize: 12,
-            color: '#fff',
-            fontWeight: '700',
-            marginBottom: 26,
-          }}
-        />
-        <BottomButton style={styles.bottomBtnPosition} text={'포인트 전환'} />
-      </View>
-      {/* </ScrollView> */}
+          <AmountInput
+            placeholder={'수량을 입력해주세요.'}
+            textStyle={{marginLeft: 19}}
+            rightText={'KSPC'}
+            rightTextStyle={{marginRight: 16}}
+            outStyle={{marginTop: 26}}
+          />
+          <LabelNone
+            text={
+              '[유의사항]\n\n' +
+              '\t• 개인정보 입력에 유의해 주세요.\n' +
+              '\t• KSPC 이외의 주소로는 전송되지 않아요.\n' +
+              '\t• KSPC를 전송할 경우에는 이더리움 가스비가 필요합니다.\n' +
+              '\t• 미리 이더리움을 충전해 놓으시기 바랍니다.'
+            }
+            style={{
+              fontSize: 12,
+              color: '#fff',
+              fontWeight: '700',
+              marginBottom: 26,
+              marginTop: SCREEN_HEIGHT * 0.17,
+            }}
+          />
+          <BottomButton style={styles.bottomBtnPosition} text={'포인트 전환'} />
+        </View>
+      </ScrollView>
     </LinearGradient>
   );
 };
