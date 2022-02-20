@@ -3,6 +3,7 @@ import {TextInput, StyleSheet, Image, View} from 'react-native';
 import RowView from './Views/RowView';
 import Touchable from './Touchable';
 import {immerable} from 'immer';
+import {LabelNone} from './Labels';
 
 export const TitleInput = ({value, onChangeText, style}) => {
   return (
@@ -17,7 +18,7 @@ export const TitleInput = ({value, onChangeText, style}) => {
 export const ContentInput = ({
   value,
   onChangeText,
-  style,
+  outStyle,
   source,
   onChange,
   placeholder,
@@ -25,13 +26,21 @@ export const ContentInput = ({
   imageNone = false,
 }) => {
   return (
-    <RowView style={styles.idTextInput}>
+    <RowView
+      style={{
+        width: '100%',
+        height: 52,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#c4c4c4',
+        ...outStyle,
+      }}>
       {imageNone === true ? (
         <Image source={source} resizeMode="contain" style={styles.contentImg} />
       ) : (
         <></>
       )}
-
       <TextInput
         style={{
           width: '100%',
@@ -42,6 +51,54 @@ export const ContentInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+      />
+    </RowView>
+  );
+};
+
+export const AmountInput = ({
+  value,
+  onChangeText,
+  outStyle,
+  source,
+  onChange,
+  placeholder,
+  textStyle,
+  rightText,
+  rightTextStyle,
+}) => {
+  return (
+    <RowView
+      style={{
+        width: '100%',
+        height: 52,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#c4c4c4',
+        justifyContent: 'space-between',
+        ...outStyle,
+      }}>
+      <TextInput
+        style={{
+          height: 50,
+          color: '#000',
+          ...textStyle,
+        }}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        keyboardType="number-pad"
+      />
+      <LabelNone
+        text={rightText}
+        style={{
+          color: '#94D2E9',
+          marginRight: 12,
+          fontSize: 14,
+          lineHeight: 18,
+          ...rightTextStyle,
+        }}
       />
     </RowView>
   );
@@ -58,7 +115,16 @@ export const NoneInput = ({
   textStyle,
 }) => {
   return (
-    <RowView style={styles.noneInputBox}>
+    <RowView
+      style={{
+        width: '100%',
+        height: 52,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#c4c4c4',
+        ...style,
+      }}>
       {imageNone === false ? null : (
         <Image source={source} resizeMode="contain" style={styles.contentImg} />
       )}
