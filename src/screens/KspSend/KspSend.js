@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
-const Swap = () => {
+const KspSend = () => {
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
@@ -9,4 +9,4 @@ const Swap = () => {
   );
 };
 
-export default Swap;
+export default KspSend;
