@@ -36,6 +36,7 @@ export const ContentInput = ({
         style={{
           width: '100%',
           height: 50,
+          color: '#000',
           ...textStyle,
         }}
         placeholder={placeholder}
@@ -65,6 +66,7 @@ export const NoneInput = ({
       <TextInput
         style={{
           height: 50,
+          color: '#000',
           ...textStyle,
         }}
         placeholder={placeholder}

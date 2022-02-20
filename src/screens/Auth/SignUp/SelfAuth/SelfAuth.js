@@ -16,7 +16,6 @@ import {
   SmallButton,
   BottomButton,
 } from '../../../../components/Buttons/Buttons';
-import {styled} from 'styled-components';
 
 const SelfAuth = ({navigation}) => {
   return (

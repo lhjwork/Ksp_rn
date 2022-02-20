@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../../components/HeaderCompnent';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
 import {ContainerStyled} from '../../../components/StyledComponents/StyledComponents';
 import RowView from '../../../components/Views/RowView';
