@@ -35,19 +35,19 @@ const WalletKsp = ({navigation}) => {
       id: 1,
       titie: 'KSPC 보내기',
       img: require('../../asssets/icons/WalletKsp/wallet_kspc.png'),
-      path: '',
+      path: 'KspSend',
     },
     {
       id: 1,
       titie: '이더리움 보내기',
       img: require('../../asssets/icons/WalletKsp/wallet_ethereum.png'),
-      path: '',
+      path: 'EtherSend',
     },
     {
       id: 1,
       titie: '스테이킹',
       img: require('../../asssets/icons/WalletKsp/wallet_staking.png'),
-      path: '',
+      path: 'StackingApply',
     },
   ];
 
@@ -97,7 +97,10 @@ const WalletKsp = ({navigation}) => {
             {/* 지갑 주소 복사 버튼 end*/}
 
             {DATAES_COIN_SEND.map((item, index) => (
-              <Touchable key={index} style={{marginTop: 15}}>
+              <Touchable
+                key={index}
+                style={{marginTop: 15}}
+                onPress={() => navigation.navigate(item?.path)}>
                 <RowView style={styles.sendBox}>
                   <RowView style={{marginLeft: 23}}>
                     <Image

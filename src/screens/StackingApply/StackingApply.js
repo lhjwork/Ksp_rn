@@ -1,13 +1,13 @@
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 
-const KspSend = () => {
+const StackingApply = () => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <Text>KspSend</Text>
+      <Text>StackingApply</Text>
     </LinearGradient>
   );
 };
 
-export default KspSend;
+export default StackingApply;

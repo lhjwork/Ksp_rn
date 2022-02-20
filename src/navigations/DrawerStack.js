@@ -14,6 +14,9 @@ import Myinfo from '../screens/MyInfo/Myinfo';
 import Calendar from '../screens/Calendar/Calendar';
 import Notification from '../screens/Notification/Notification';
 import Terms from '../screens/Terms/Terms';
+import KspSend from '../screens/KspSend/KspSend';
+import EtherSend from '../screens/EtherSend/EtherSend';
+import StackingApply from '../screens/StackingApply/StackingApply';
 
 const Drawer = createDrawerNavigator();
 
@@ -52,6 +55,21 @@ export const DrawerStack = ({navigation}) => {
       <Drawer.Screen
         name="Terms"
         component={Terms}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="KspSend"
+        component={KspSend}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="EtherSend"
+        component={EtherSend}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="StackingApply"
+        component={StackingApply}
         options={{headerShown: false}}
       />
       {/* <Drawer.Screen
