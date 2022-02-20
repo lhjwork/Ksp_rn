@@ -39,7 +39,16 @@ const ShoppingMall = ({navigation}) => {
               style={{marginTop: 13}}
             />
           </View>
-          <View style={styles.adverBanner}></View>
+          <Touchable onPress={() => navigation.navigate('Calendar')}>
+            <View style={styles.adverBanner}>
+              <Image
+                source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
+                resizeMode="contain"
+                style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
+              />
+            </View>
+          </Touchable>
+
           <View style={{marginHorizontal: 30}}>
             <RowView
               style={{
@@ -130,8 +139,7 @@ export default ShoppingMall;
 
 const styles = StyleSheet.create({
   adverBanner: {
-    height: SCREEN_HEIGHT * 0.15,
-    backgroundColor: '#c4c4c4',
+    // height: SCREEN_HEIGHT * 0.15,
     marginTop: 24,
     marginBottom: 57,
   },
