@@ -53,7 +53,7 @@ const DrawerComponent = ({navigation}) => {
               text={'김코나'}
               style={{color: '#46A0BD', marginLeft: 9}}
             />
-            <BoldLabel14 text={'님,안녕하세요.'} style={{color: '#000'}} />
+            <BoldLabel14 text={' 님,안녕하세요.'} style={{color: '#000'}} />
           </RowView>
           <LabelNone
             text={'kona123@gmail.com'}

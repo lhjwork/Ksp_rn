@@ -30,6 +30,7 @@ const KspSend = ({navigation}) => {
           outStyle={{marginTop: 136, marginBottom: 15}}
           textStyle={{marginLeft: 19}}
         />
+
         <AmountInput
           placeholder={'수량을 입력해주세요.'}
           textStyle={{marginLeft: 19}}

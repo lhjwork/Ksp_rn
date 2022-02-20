@@ -16,7 +16,10 @@ const Swap = ({navigation}) => {
   const [kspPoint, setKspPoint] = useState(20000);
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <HeaderCompnent onPerssDrawer={() => navigation.goBack()} />
+      <HeaderCompnent
+        onPerssDrawer={() => navigation.goBack()}
+        onPerssDrawer={() => navigation.openDrawer()}
+      />
       <ScrollView>
         <View style={{marginHorizontal: 24, flex: 1}}>
           <BoldLabelTitle text={'스왑'} style={{marginTop: 27.5}} />

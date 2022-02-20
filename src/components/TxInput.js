@@ -70,7 +70,7 @@ export const AmountInput = ({
   return (
     <RowView
       style={{
-        width: '100%',
+        // width: '100%',
         height: 52,
         backgroundColor: '#fff',
         borderRadius: 20,
