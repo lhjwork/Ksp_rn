@@ -7,11 +7,20 @@ import RowView from '../../components/Views/RowView';
 import {AmountInput, NoneInput} from '../../components/TxInput';
 import {SmallButton} from '../../components/Buttons/Buttons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+<<<<<<< HEAD
 import {TableContainer, CalendarInformation} from './styles';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 
 const StackingApply = ({navigation}) => {
   const [interest, setInterest] = useState('start');
+=======
+import {SCREEN_HEIGHT} from '../../constants';
+import {TableContainer, CalendarInformation} from './styles';
+
+const StackingApply = ({navigation}) => {
+  const [interest, setInterest] = useState('start');
+
+>>>>>>> bb361ab9d82f5f6d8b257f020317c43e510e693e
   let interestInforFirst =
     interest === 'start' ? 560000 : parseInt(parseInt(interest) * 0.07);
   let interestInforTwo =
@@ -66,12 +75,12 @@ const StackingApply = ({navigation}) => {
   ];
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <HeaderCompnent
-        onPressLeftBtn={() => navigation.goBack()}
-        onPerssDrawer={() => navigation.openDrawer()}
-      />
       <ScrollView>
-        <View style={{marginHorizontal: 24}}>
+        <HeaderCompnent
+          onPressLeftBtn={() => navigation.goBack()}
+          onPerssDrawer={() => navigation.openDrawer()}
+        />
+        <View style={{marginHorizontal: 24, flex: 1}}>
           <BoldLabelTitle
             text={'KSP - 스테이킹 신청'}
             style={{marginTop: 27.5, marginBottom: 33}}
@@ -115,7 +124,8 @@ const StackingApply = ({navigation}) => {
           />
         </View>
 
-        <View style={styles.stakingTableBox}>
+        <View style={styles.bottomBox}>
+
           <TableContainer>
             <FlatList
               data={calendarData}
@@ -140,15 +150,14 @@ const calendarRender = ({item, index}) => {
         flex: 1,
         justifyContent: 'space-between',
         borderBottomColor: '#aaa',
-        borderBottomWidth: 1,
+
+        borderBottomWidth:
+          index === 0 ? 1 : index === 4 ? 1 : index === 5 ? 1 : 0,
       }}>
-      <CalendarInformation
-        total={true}
-        bold={index === 0}
-        color={index === 5}
-        style={{flex: 0.1}}>
+      <CalendarInformation total={true} color={index === 5} style={{flex: 0.1}}>
         {item[0]}
       </CalendarInformation>
+
       <CalendarInformation style={{flex: 0.275}}>{item[1]}</CalendarInformation>
       <CalendarInformation style={{flex: 0.265}} color={index === 5}>
         {item[2]}
@@ -162,11 +171,22 @@ const calendarRender = ({item, index}) => {
 };
 
 const styles = StyleSheet.create({
-  stakingTableBox: {
+
+
+  tableTitleText: {
+    fontSize: 12,
+    fontWeight: '700',
+    lineHeight: 16,
+    flex: 1,
+    marginHorizontal: 9,
+  },
+  bottomBox: {
     height: SCREEN_HEIGHT * 0.45,
     backgroundColor: '#fff',
-    borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    elevation: 5,
+
   },
   noticeText: {
     color: '#000',

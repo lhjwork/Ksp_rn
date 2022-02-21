@@ -21,7 +21,7 @@ import {SCREEN_WIDTH} from '../constants';
 
 const Drawer = createDrawerNavigator();
 
-export const DrawerStack = ({navigation}) => {
+export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator
       initialRouteName="BottomTabs"
