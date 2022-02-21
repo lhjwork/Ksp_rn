@@ -38,7 +38,7 @@ const Myinfo = ({navigation}) => {
             <MyInfoInput text={menu?.info} />
           </View>
         ))}
-        <Touchable>
+        <Touchable onPress={() => navigation.navigate('passwordChange')}>
           <RowView style={styles.passwordText}>
             <BoldLabel14
               text={'비밀번호 변경하기'}
