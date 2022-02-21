@@ -170,40 +170,13 @@ const Scann = ({navigation}) => {
         style={{
           backgroundColor: 'rgba(0,0,0,0.6)',
         }}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-
-            alignSelf: 'center',
-            width: 350,
-            height: 425,
-            position: 'absolute',
-            top: SCREEN_HEIGHT * 0.1,
-          }}>
+        <View style={styles.modalInsideBox}>
           <ImageBackground
             source={require('../../asssets/images/scann_modal_img.png')}
             style={{resizeMode: 'cover', flex: 1, alignItems: 'center'}}>
-            <RowView
-              style={{
-                marginTop: 220,
-                width: 300,
-                justifyContent: 'space-between',
-                paddingLeft: 42,
-                paddingRight: 22,
-              }}>
-              <LabelNone
-                text={'+1,200'}
-                style={{fontSize: 36, color: '#46A0BD', lineHeight: 42}}
-              />
-              <LabelNone
-                text={'KSP'}
-                style={{
-                  fontSize: 18,
-                  color: '#555',
-                  lineHeight: 22,
-                }}
-              />
+            <RowView style={styles.modalPointRowBox}>
+              <LabelNone text={'+1,200'} style={styles.ksPoint} />
+              <LabelNone text={'KSP'} style={styles.kspUnit} />
             </RowView>
             <BottomButton
               text={'적립완료'}
@@ -259,5 +232,27 @@ const Scann = ({navigation}) => {
 export default Scann;
 
 const styles = StyleSheet.create({
+  kspUnit: {
+    fontSize: 18,
+    color: '#555',
+    lineHeight: 22,
+  },
+  ksPoint: {fontSize: 36, color: '#46A0BD', lineHeight: 42},
+  modalPointRowBox: {
+    marginTop: 220,
+    width: 300,
+    justifyContent: 'space-between',
+    paddingLeft: 42,
+    paddingRight: 22,
+  },
+  modalInsideBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center',
+    width: 350,
+    height: 425,
+    position: 'absolute',
+    top: SCREEN_HEIGHT * 0.1,
+  },
   textStyle: {fontWeight: '700', padding: 10},
 });
