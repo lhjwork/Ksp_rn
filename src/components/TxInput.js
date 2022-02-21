@@ -143,6 +143,26 @@ export const NoneInput = ({
   );
 };
 
+export const MyInfoInput = ({text, style}) => {
+  return (
+    <>
+      <TextInput
+        editable={false}
+        value={text}
+        textAlign="center"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.4)',
+          borderRadius: 20,
+          borderWidth: 1,
+          borderColor: '#c4c4c4',
+          color: '#555',
+          ...style,
+        }}
+      />
+    </>
+  );
+};
+
 export const PasswordInput = ({
   value,
   onChangeText,
