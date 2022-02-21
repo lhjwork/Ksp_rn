@@ -47,6 +47,8 @@ const Login = ({navigation}) => {
               eyeSytle={{marginRight: 18}}
               secureTextEntry={passwordVisible}
               onPress={() => visiblePassword()}
+              value={password}
+              onChangeText={text => setPassword(text)}
             />
             <RowView style={styles.searchAndRePassword}>
               <Touchable>

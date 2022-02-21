@@ -219,6 +219,7 @@ export const PasswordInput = ({
           textContentType="password"
           autoCorrect={false}
           secureTextEntry={secureTextEntry}
+          onChangeText={onChangeText}
           // onBlur={() => Keyboard.dismiss()}
         />
       </RowView>
