@@ -24,8 +24,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import api from '../../api';
 import {resetAuth} from '../../../redux/authSlice';
 import {useSelector} from 'react-redux';
-import {BoldLabel14} from '../../components/Labels';
+import {BoldLabel14, LabelNone} from '../../components/Labels';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
+import {BottomButton} from '../../components/Buttons/Buttons';
 
 const {height, width} = Dimensions.get('window');
 
@@ -38,6 +39,7 @@ const Scann = ({navigation}) => {
   const [isReactivate, setReactivate] = useState(false);
   const auth = useSelector(state => state.auth);
   const [iscameraTypeback, setIsCameraTypeback] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     if (Platform.OS === 'android') {
       // console.log(' 111 ');
@@ -83,6 +85,7 @@ const Scann = ({navigation}) => {
     await launchImageLibrary(options)
       .then(res => {
         console.log(res);
+
         // console.log(res.assets[0].base64.slice(4, res.assets[0].base64.length));
         // // ImagePick(res.assets[0].base64.slice(4, res.assets[0].base64.length));
         // ImagePick(res.assets[0].base64);
@@ -153,7 +156,7 @@ const Scann = ({navigation}) => {
       // navigation.navigate('Wallet');
       // console.log('test', res.data.Result);
     } catch (err) {
-      Alert.alert('', '서버와 통신에 실패');
+      // Alert.alert('', '서버와 통신에 실패');
       console.log('err', err);
     }
   };
@@ -162,7 +165,7 @@ const Scann = ({navigation}) => {
     <View>
       {/* -------- 1회 스캔한 큐알코드는~~~ start ------- */}
       <Modal
-        visible={true}
+        visible={modalVisible}
         transparent
         style={{
           backgroundColor: 'rgba(0,0,0,0.6)',
@@ -180,7 +183,34 @@ const Scann = ({navigation}) => {
           }}>
           <ImageBackground
             source={require('../../asssets/images/scann_modal_img.png')}
-            style={{resizeMode: 'cover', flex: 1}}></ImageBackground>
+            style={{resizeMode: 'cover', flex: 1, alignItems: 'center'}}>
+            <RowView
+              style={{
+                marginTop: 220,
+                width: 300,
+                justifyContent: 'space-between',
+                paddingLeft: 42,
+                paddingRight: 22,
+              }}>
+              <LabelNone
+                text={'+1,200'}
+                style={{fontSize: 36, color: '#46A0BD', lineHeight: 42}}
+              />
+              <LabelNone
+                text={'KSP'}
+                style={{
+                  fontSize: 18,
+                  color: '#555',
+                  lineHeight: 22,
+                }}
+              />
+            </RowView>
+            <BottomButton
+              text={'적립완료'}
+              style={{width: 280, marginTop: 79}}
+              onPress={() => setModalVisible(false)}
+            />
+          </ImageBackground>
         </View>
       </Modal>
       <QRCodeScanner
@@ -206,10 +236,15 @@ const Scann = ({navigation}) => {
           top: height * 0.8,
           paddingHorizontal: 24,
         }}>
-        <TouchableOpacity onPress={() => internalScan()}>
+        {/* 실제 내부스켄시 주석 풀기 ------------------------------------------------ */}
+        {/* <TouchableOpacity onPress={() => internalScan()}> */}
+        <TouchableOpacity
+          onPress={() => {
+            internalScan();
+            setModalVisible(true);
+          }}>
           <BoldLabel14 text={'내부스캔'} style={styles.textStyle} />
         </TouchableOpacity>
-
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('ScannHistory');
