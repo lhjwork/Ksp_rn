@@ -17,6 +17,7 @@ import Terms from '../screens/Terms/Terms';
 import KspSend from '../screens/KspSend/KspSend';
 import EtherSend from '../screens/EtherSend/EtherSend';
 import StackingApply from '../screens/StackingApply/StackingApply';
+import {SCREEN_WIDTH} from '../constants';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,7 +28,9 @@ export const DrawerStack = ({navigation}) => {
       screenOptions={{
         drawerPosition: 'right',
         drawerStyle: {
-          width: '73%',
+          width: '80%',
+          position: 'absolute',
+          left: SCREEN_WIDTH * 0.2,
           drawerInactiveBackgroundColor: 'rgba(0,0,0,0.45)',
         },
       }}
