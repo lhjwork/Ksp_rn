@@ -20,7 +20,7 @@ import StackingApply from '../screens/StackingApply/StackingApply';
 
 const Drawer = createDrawerNavigator();
 
-export const DrawerStack = ({navigation}) => {
+export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator
       initialRouteName="BottomTabs"

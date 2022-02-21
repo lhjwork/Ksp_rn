@@ -68,8 +68,10 @@ const DrawerComponent = ({navigation}) => {
         <RowView style={styles.solidLine} />
 
         {DRAWER_LIST_DATA.map((menu, index) => (
-          <Touchable onPress={() => navigation.navigate(menu?.path)}>
-            <RowView style={styles.imgAndtextRow} key={index}>
+          <Touchable
+            onPress={() => navigation.navigate(menu?.path)}
+            key={index}>
+            <RowView style={styles.imgAndtextRow}>
               <RowView style={{marginLeft: 13.5}}>
                 <Image
                   source={menu?.img}

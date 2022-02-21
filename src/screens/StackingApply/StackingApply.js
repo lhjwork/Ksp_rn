@@ -1,22 +1,78 @@
-import React from 'react';
+import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {Text, View, ScrollView, StyleSheet} from 'react-native';
+import {Text, View, ScrollView, StyleSheet, FlatList} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabelTitle, LabelNone, BoldLabel14} from '../../components/Labels';
 import RowView from '../../components/Views/RowView';
 import {AmountInput, NoneInput} from '../../components/TxInput';
 import {SmallButton} from '../../components/Buttons/Buttons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {SCREEN_HEIGHT} from '../../constants';
+import {TableContainer, CalendarInformation} from './styles';
 
 const StackingApply = ({navigation}) => {
+  const [interest, setInterest] = useState('start');
+
+  let interestInforFirst =
+    interest === 'start' ? 560000 : parseInt(parseInt(interest) * 0.07);
+  let interestInforTwo =
+    interest === 'start' ? 560000 : parseInt(parseInt(interest) * 0.07);
+  let interestInforThree =
+    interest === 'start' ? 560000 : parseInt(parseInt(interest) * 0.07);
+  let interestInforFour =
+    interest === 'start' ? 795000 : parseInt(parseInt(interest) * 0.07);
+  let totals =
+    interestInforTwo +
+    interestInforFour +
+    interestInforThree +
+    interestInforFirst;
+
+  let calendarData = [
+    ['분기', '모집기간', '지급이자(7%)', '모집수량', '지급일자'],
+    [
+      '1',
+      '01.01-01.10',
+      interestInforFirst?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      '8,000,000',
+      '04.10',
+    ],
+    [
+      '2',
+      '04.01-04.10',
+      interestInforTwo?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      '8,000,000',
+      '07.10',
+    ],
+    [
+      '3',
+      '07.01-07.10',
+      interestInforThree?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      '8,000,000',
+      '10.10',
+    ],
+    [
+      '4',
+      '10.01-10.10',
+      interestInforFour?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      '11,375,140',
+      '01.10',
+    ],
+    [
+      'Total',
+      '',
+      totals?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+      '35,375,140',
+      '',
+    ],
+  ];
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <HeaderCompnent
-        onPressLeftBtn={() => navigation.goBack()}
-        onPerssDrawer={() => navigation.openDrawer()}
-      />
       <ScrollView>
-        <View style={{marginHorizontal: 24}}>
+        <HeaderCompnent
+          onPressLeftBtn={() => navigation.goBack()}
+          onPerssDrawer={() => navigation.openDrawer()}
+        />
+        <View style={{marginHorizontal: 24, flex: 1}}>
           <BoldLabelTitle
             text={'KSP - 스테이킹 신청'}
             style={{marginTop: 27.5, marginBottom: 33}}
@@ -59,6 +115,15 @@ const StackingApply = ({navigation}) => {
             style={styles.noticeText}
           />
         </View>
+        <View style={styles.bottomBox}>
+          <TableContainer>
+            <FlatList
+              data={calendarData}
+              renderItem={calendarRender}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </TableContainer>
+        </View>
       </ScrollView>
     </LinearGradient>
   );
@@ -66,13 +131,56 @@ const StackingApply = ({navigation}) => {
 
 export default StackingApply;
 
+const calendarRender = ({item, index}) => {
+  return (
+    <View
+      key={index}
+      style={{
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-between',
+        borderBottomColor: '#aaa',
+        borderBottomWidth:
+          index === 0 ? 1 : index === 4 ? 1 : index === 5 ? 1 : 0,
+      }}>
+      <CalendarInformation total={true} color={index === 5} style={{flex: 0.1}}>
+        {item[0]}
+      </CalendarInformation>
+
+      <CalendarInformation style={{flex: 0.275}}>{item[1]}</CalendarInformation>
+      <CalendarInformation style={{flex: 0.265}} color={index === 5}>
+        {item[2]}
+      </CalendarInformation>
+      <CalendarInformation style={{flex: 0.2}} color={index === 5}>
+        {item[3]}
+      </CalendarInformation>
+      <CalendarInformation style={{flex: 0.16}}>{item[4]}</CalendarInformation>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
+  tableTitleText: {
+    fontSize: 12,
+    fontWeight: '700',
+    lineHeight: 16,
+    flex: 1,
+    marginHorizontal: 9,
+  },
+  bottomBox: {
+    height: SCREEN_HEIGHT * 0.45,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    elevation: 5,
+  },
   noticeText: {
     color: '#000',
     marginTop: 9,
     paddingBottom: 11,
     borderBottomWidth: 1,
     borderBottomColor: '#DF8600',
+    marginBottom: 22,
   },
   exclamationText: {
     color: '#DF8600',
