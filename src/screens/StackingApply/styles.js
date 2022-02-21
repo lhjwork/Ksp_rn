@@ -11,5 +11,5 @@ export const CalendarInformation = styled.Text`
   padding: 8px 0px;
   font-size: 12px;
   font-weight: ${props => (props.total || props.bold ? 'bold' : 'normal')};
-  color: ${props => (props.color ? '#5F408F' : '#000000')};
+  color: ${props => (props.color ? '#46A0BD' : '#000000')};
 `;
