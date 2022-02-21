@@ -5,7 +5,7 @@ import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabelTitle, LabelNone, BoldLabel14} from '../../components/Labels';
 import RowView from '../../components/Views/RowView';
 import {AmountInput, NoneInput} from '../../components/TxInput';
-import {SmallButton} from '../../components/Buttons/Buttons';
+import {BottomButton, SmallButton} from '../../components/Buttons/Buttons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {TableContainer, CalendarInformation} from './styles';
@@ -125,6 +125,20 @@ const StackingApply = ({navigation}) => {
               keyExtractor={(item, index) => index.toString()}
             />
           </TableContainer>
+          <View style={{marginHorizontal: 24}}>
+            <LabelNone
+              text={'최소 신청 수량은 1,000KSP 입니다.'}
+              style={{
+                textAlign: 'center',
+                fontSize: 12,
+                fontWeight: '700',
+                lineHeight: 17,
+                color: '#46A0BD',
+                marginBottom: 9,
+              }}
+            />
+            <BottomButton text={'신청하기'} />
+          </View>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -171,7 +185,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 9,
   },
   bottomBox: {
-    height: SCREEN_HEIGHT * 0.45,
+    height: SCREEN_HEIGHT * 0.49,
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

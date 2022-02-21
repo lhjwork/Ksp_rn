@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TableContainer = styled.View`
   margin-top: 30px;
-  margin-bottom: 41px;
+  margin-bottom: 19px;
   padding: 0 10px;
 `;
 
