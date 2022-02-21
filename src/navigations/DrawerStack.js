@@ -20,7 +20,7 @@ import StackingApply from '../screens/StackingApply/StackingApply';
 import {SCREEN_WIDTH} from '../constants';
 
 const Drawer = createDrawerNavigator();
-
+// test
 export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator
@@ -28,9 +28,9 @@ export const DrawerStack = ({props}) => {
       screenOptions={{
         drawerPosition: 'right',
         drawerStyle: {
-          width: '80%',
+          width: '85%',
           position: 'absolute',
-          left: SCREEN_WIDTH * 0.21,
+          left: SCREEN_WIDTH * 0.16,
           drawerInactiveBackgroundColor: 'rgba(0,0,0,0.45)',
         },
       }}
