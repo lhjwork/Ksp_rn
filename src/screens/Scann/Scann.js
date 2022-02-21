@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Linking,
   Alert,
+  Modal,
 } from 'react-native';
 
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -24,6 +25,7 @@ import api from '../../api';
 import {resetAuth} from '../../../redux/authSlice';
 import {useSelector} from 'react-redux';
 import {BoldLabel14} from '../../components/Labels';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 
 const {height, width} = Dimensions.get('window');
 
@@ -159,7 +161,28 @@ const Scann = ({navigation}) => {
   return (
     <View>
       {/* -------- 1회 스캔한 큐알코드는~~~ start ------- */}
+      <Modal
+        visible={true}
+        transparent
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.6)',
+        }}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
 
+            alignSelf: 'center',
+            width: 350,
+            height: 425,
+            position: 'absolute',
+            top: SCREEN_HEIGHT * 0.1,
+          }}>
+          <ImageBackground
+            source={require('../../asssets/images/scann_modal_img.png')}
+            style={{resizeMode: 'cover', flex: 1}}></ImageBackground>
+        </View>
+      </Modal>
       <QRCodeScanner
         cameraType={iscameraTypeback ? 'back' : 'front'}
         reactivate={true}
