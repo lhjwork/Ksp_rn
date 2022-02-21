@@ -15,7 +15,7 @@ const HeaderCompnent = ({
       <Touchable onPress={onPressLeftBtn}>
         <AntDesign
           name={'left'}
-          size={15}
+          size={20}
           style={{marginLeft: 27.5, color: '#fff'}}
         />
       </Touchable>
@@ -25,7 +25,7 @@ const HeaderCompnent = ({
         <Touchable onPress={onPerssDrawer}>
           <Image
             source={require('../asssets/icons/headerRight_more.png')}
-            style={{marginRight: 27, height: 12, width: 18}}
+            style={{marginRight: 27, height: 25, width: 25}}
           />
         </Touchable>
       )}

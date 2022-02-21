@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Alert} from 'react-native';
 import {BoldLabelTitle, LabelNone, BoldLabel14} from './Labels';
 import {ContainerStyled} from './StyledComponents/StyledComponents';
 import Feather from 'react-native-vector-icons/Feather';
@@ -69,7 +69,14 @@ const DrawerComponent = ({navigation}) => {
 
         {DRAWER_LIST_DATA.map((menu, index) => (
           <Touchable
-            onPress={() => navigation.navigate(menu?.path)}
+            onPress={() => {
+              if (menu.path === 'MyInfo') {
+                navigation.navigate(menu?.path);
+              } else {
+                Alert.alert('준비중입니다.');
+                return;
+              }
+            }}
             key={index}>
             <RowView style={styles.imgAndtextRow}>
               <RowView style={{marginLeft: 13.5}}>

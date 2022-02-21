@@ -87,7 +87,10 @@ const SignUpAgree = ({navigation}) => {
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <HeaderCompnent rightView={false} />
+      <HeaderCompnent
+        rightView={false}
+        onPressLeftBtn={() => navigation.goBack()}
+      />
 
       <ContainerStyled>
         <View style={{marginHorizontal: 24}}>

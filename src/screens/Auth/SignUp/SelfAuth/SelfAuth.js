@@ -11,7 +11,11 @@ import {
   LabelNone,
 } from '../../../../components/Labels';
 import PageNumbering from '../../../../components/SignUp/PageNumbering';
-import {ContentInput, NoneInput} from '../../../../components/TxInput';
+import {
+  ContentInput,
+  NoneInput,
+  AmountInput,
+} from '../../../../components/TxInput';
 import {
   SmallButton,
   BottomButton,
@@ -22,7 +26,7 @@ const SelfAuth = ({navigation}) => {
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
         rightView={false}
-        onPressLeftBtn={() => navigation.ogBack()}
+        onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled>
         <View style={{marginHorizontal: 24}}>
@@ -48,17 +52,29 @@ const SelfAuth = ({navigation}) => {
           />
           <LabelNone text={'휴대폰 번호'} style={styles.subTitle} />
           <RowView>
-            <NoneInput
+            <AmountInput
+              outStyle={{flex: 1}}
+              // rightText={'KSP'}
+              placeholder="숫자만 입력해주세요."
+              textStyle={{marginLeft: 23}}
+            />
+            {/* <NoneInput
               placeholder={'숫자만 입력해주세요.'}
               imageNone={false}
               textStyle={{marginLeft: 23}}
-            />
+            /> */}
             <SmallButton style={styles.button} text={'전송'} />
           </RowView>
           <RowView style={{marginTop: 5}}>
-            <NoneInput
+            {/* <NoneInput
               placeholder={'인증번호를 입력해주세요.'}
               imageNone={false}
+              textStyle={{marginLeft: 23}}
+            /> */}
+            <AmountInput
+              outStyle={{flex: 1}}
+              // rightText={'KSP'}
+              placeholder="인증번호를 입력해주세요."
               textStyle={{marginLeft: 23}}
             />
             <SmallButton style={styles.button} text={'확인'} />
