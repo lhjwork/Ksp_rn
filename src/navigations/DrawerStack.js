@@ -30,7 +30,7 @@ export const DrawerStack = ({props}) => {
         drawerStyle: {
           width: '80%',
           position: 'absolute',
-          left: SCREEN_WIDTH * 0.2,
+          left: SCREEN_WIDTH * 0.21,
           drawerInactiveBackgroundColor: 'rgba(0,0,0,0.45)',
         },
       }}
