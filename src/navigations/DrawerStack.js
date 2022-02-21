@@ -18,6 +18,7 @@ import KspSend from '../screens/KspSend/KspSend';
 import EtherSend from '../screens/EtherSend/EtherSend';
 import StackingApply from '../screens/StackingApply/StackingApply';
 import {SCREEN_WIDTH} from '../constants';
+import ScannHistory from '../screens/ScannHistory/ScannHistory';
 
 const Drawer = createDrawerNavigator();
 // test
@@ -73,6 +74,11 @@ export const DrawerStack = ({props}) => {
       <Drawer.Screen
         name="StackingApply"
         component={StackingApply}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="ScannHistory"
+        component={ScannHistory}
         options={{headerShown: false}}
       />
       {/* <Drawer.Screen

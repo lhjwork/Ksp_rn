@@ -24,6 +24,7 @@ const RootStack = () => {
         component={AuthStack}
         options={{headerShown: false}}
       />
+
       {/* <Stack.Screen
         name="Login"
         component={Login}

@@ -189,7 +189,7 @@ const Scann = ({navigation}) => {
 
         <TouchableOpacity
           onPress={() => {
-            null;
+            navigation.navigate('ScannHistory');
           }}>
           <BoldLabel14 text={'히스토리'} style={styles.textStyle} />
         </TouchableOpacity>
