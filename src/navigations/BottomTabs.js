@@ -51,6 +51,7 @@ const BottomTabs = ({navigation}) => {
         options={{
           headerShown: false,
           tabBarLabel: '스캔',
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({focused}) => (
             <TabBarIcon
               focusImage={require('../asssets/icons/scan_bttom_icon.png')}

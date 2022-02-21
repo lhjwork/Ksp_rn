@@ -23,6 +23,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import api from '../../api';
 import {resetAuth} from '../../../redux/authSlice';
 import {useSelector} from 'react-redux';
+import {BoldLabel14} from '../../components/Labels';
+
 const {height, width} = Dimensions.get('window');
 
 const vh = height / 100;
@@ -171,92 +173,25 @@ const Scann = ({navigation}) => {
           height: width * 0.7,
         }}
       />
-      <TouchableOpacity
-        style={{position: 'absolute', top: 20, left: 10}}
-        onPress={() => {
-          setIsCameraTypeback(!iscameraTypeback);
-        }}>
-        <Image
-          resizeMode="contain"
-          style={{
-            width: 40,
-            height: 30,
-          }}
-        />
-      </TouchableOpacity>
+
       <RowView
         style={{
           width: '100%',
-          justifyContent: 'space-around',
+          justifyContent: 'space-between',
           zIndex: 1,
           position: 'absolute',
-          top: height * 0.7,
-          backgroundColor: 'transparent',
+          top: height * 0.8,
+          paddingHorizontal: 24,
         }}>
-        <TouchableOpacity>
-          <Image
-            style={{
-              resizeMode: 'contain',
-              width: width * 0.2,
-              height: height * 0.1,
-            }}
-          />
-          <View
-            style={{
-              width: width * 0.25,
-            }}
-          />
-        </TouchableOpacity>
-        {/* <Image
-          source={require('../../../assets/images/random_bar.png')}
-          style={{
-            resizeMode: 'contain',
-            width: width * 0.008,
-          }}
-        /> */}
-        <View
-          style={{
-            width: width * 0.05,
-          }}
-        />
         <TouchableOpacity onPress={() => internalScan()}>
-          <View
-            style={{
-              width: width * 0.25,
-            }}
-          />
-          <Image
-            style={{
-              resizeMode: 'contain',
-              width: width * 0.2,
-              height: height * 0.1,
-            }}
-          />
+          <BoldLabel14 text={'내부스캔'} style={styles.textStyle} />
         </TouchableOpacity>
-        {/* <Image
-          source={require('../../../assets/images/random_bar.png')}
-          style={{
-            resizeMode: 'contain',
-            width: width * 0.008,
-          }}
-        /> */}
-        <View
-          style={{
-            width: width * 0.05,
-          }}
-        />
 
         <TouchableOpacity
           onPress={() => {
             null;
           }}>
-          <Image
-            style={{
-              resizeMode: 'contain',
-              width: width * 0.2,
-              height: height * 0.1,
-            }}
-          />
+          <BoldLabel14 text={'히스토리'} style={styles.textStyle} />
         </TouchableOpacity>
       </RowView>
     </View>
@@ -264,3 +199,7 @@ const Scann = ({navigation}) => {
 };
 
 export default Scann;
+
+const styles = StyleSheet.create({
+  textStyle: {fontWeight: '700', padding: 10},
+});
