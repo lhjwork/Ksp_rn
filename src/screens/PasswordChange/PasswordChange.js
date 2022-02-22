@@ -44,9 +44,10 @@ const PasswordChange = ({navigation}) => {
           style={{marginTop: 23, marginBottom: 9}}
         />
         <PasswordInput
-          noneImage={true}
+          noneImage={false}
           placeholder={'새 비밀번호'}
           eyeSytle={{marginRight: 18}}
+          textStyle={{marginLeft: 24}}
           secureTextEntry={passwordVisible1}
           onPress={() => visiblePassword1()}
           value={passwordValue1}
@@ -54,9 +55,10 @@ const PasswordChange = ({navigation}) => {
         />
         <PasswordInput
           styleBox={{marginTop: 10}}
-          noneImage={true}
+          noneImage={false}
           placeholder={'새 비밀번호 확인'}
           eyeSytle={{marginRight: 18}}
+          textStyle={{marginLeft: 24}}
           secureTextEntry={passwordVisible2}
           onPress={() => visiblePassword2()}
           value={passwordValue2}
