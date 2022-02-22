@@ -38,7 +38,7 @@ const ShoppingMall = ({navigation}) => {
           <View style={{marginHorizontal: 30}}>
             <BoldLabelTitle text={'코나 쇼핑몰'} style={{marginTop: 27.5}} />
             <BoldLabelSubTitle
-              text={'TOTAL PORTFOLIL VALUE'}
+              text={'TOTAL PORTFOLIO VALUE'}
               style={{marginTop: 13}}
             />
           </View>

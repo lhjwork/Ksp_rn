@@ -143,6 +143,6 @@ const styles = StyleSheet.create({
   },
   titleRow: {marginTop: 30.4, marginBottom: 14},
   xBtn: {textAlign: 'right', padding: 5, color: '#46A0BD'},
-  titleBox: {marginHorizontal: 24, height: 130.6},
+  titleBox: {marginHorizontal: 24, height: 130.6, marginTop: 20},
   itemBox: {marginHorizontal: 24},
 });

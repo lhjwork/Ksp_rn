@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -53,78 +54,83 @@ const WalletKsp = ({navigation}) => {
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <ScrollView>
-        <HeaderCompnent
-          onPerssDrawer={() => navigation.openDrawer()}
-          onPressLeftBtn={() => navigation.goBack()}
-        />
-        <ContainerStyled>
-          <View style={{marginHorizontal: 30}}>
-            <BoldLabelTitle text={'지갑'} style={{marginTop: 27.5}} />
-            <BoldLabelSubTitle
-              text={'TOTAL PORTFOLIL VALUE'}
-              style={{marginTop: 13}}
-            />
-            <ImageBackground
-              source={require('../../asssets/images/ShoppingMall/cardBackground.png')}
-              resizeMode="cover"
-              style={styles.cardBackground}>
-              <RowView style={styles.walletPoint}>
-                <BoldLabel20
-                  text={isKspc
-                    ?.toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  style={{color: '#46A0BD'}}
-                />
-                <LabelNone text={'KSPC'} style={styles.kspcUnit} />
-              </RowView>
-              <LabelNone text={walletAddress} style={styles.walletAddress} />
-            </ImageBackground>
-
-            {/* 지갑 주소 복사 버튼 start*/}
-
-            <View style={styles.walletCopyBox}>
-              <View style={styles.touchBackground}>
-                <Touchable style={styles.walletCopyTouch}>
-                  <LabelNone
-                    text={'지갑 주소 복사'}
-                    style={styles.walletCopyText}
+      <SafeAreaView>
+        <ScrollView>
+          <HeaderCompnent
+            onPerssDrawer={() => navigation.openDrawer()}
+            onPressLeftBtn={() => navigation.goBack()}
+          />
+          <ContainerStyled>
+            <View style={{marginHorizontal: 30}}>
+              <BoldLabelTitle text={'지갑'} style={{marginTop: 27.5}} />
+              <BoldLabelSubTitle
+                text={'TOTAL PORTFOLIO VALUE'}
+                style={{marginTop: 13}}
+              />
+              <ImageBackground
+                source={require('../../asssets/images/ShoppingMall/cardBackground.png')}
+                resizeMode="cover"
+                style={styles.cardBackground}>
+                <RowView style={styles.walletPoint}>
+                  <BoldLabel20
+                    text={isKspc
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    style={{color: '#46A0BD'}}
                   />
-                  <Image
-                    source={require('../../asssets/icons/walletAddressCopyIcon.png')}
-                    style={styles.walletCopyIcon}
-                  />
-                </Touchable>
-              </View>
-            </View>
-            {/* 지갑 주소 복사 버튼 end*/}
-
-            {DATAES_COIN_SEND.map((item, index) => (
-              <Touchable
-                key={index}
-                style={{marginTop: 15}}
-                onPress={() => navigation.navigate(item?.path)}>
-                <RowView style={styles.sendBox}>
-                  <RowView style={{marginLeft: 23}}>
-                    <Image
-                      source={item.img}
-                      resizeMode="contain"
-                      style={styles.bottomIcons}
-                    />
-                    <BoldLabel16 text={item.titie} style={styles.boldLabel16} />
-                  </RowView>
-
-                  <AntDesign
-                    name={'right'}
-                    size={8}
-                    style={{marginRight: 25, color: '#46A0BD'}}
-                  />
+                  <LabelNone text={'KSPC'} style={styles.kspcUnit} />
                 </RowView>
-              </Touchable>
-            ))}
-          </View>
-        </ContainerStyled>
-      </ScrollView>
+                <LabelNone text={walletAddress} style={styles.walletAddress} />
+              </ImageBackground>
+
+              {/* 지갑 주소 복사 버튼 start*/}
+
+              <View style={styles.walletCopyBox}>
+                <View style={styles.touchBackground}>
+                  <Touchable style={styles.walletCopyTouch}>
+                    <LabelNone
+                      text={'지갑 주소 복사'}
+                      style={styles.walletCopyText}
+                    />
+                    <Image
+                      source={require('../../asssets/icons/walletAddressCopyIcon.png')}
+                      style={styles.walletCopyIcon}
+                    />
+                  </Touchable>
+                </View>
+              </View>
+              {/* 지갑 주소 복사 버튼 end*/}
+
+              {DATAES_COIN_SEND.map((item, index) => (
+                <Touchable
+                  key={index}
+                  style={{marginTop: 15}}
+                  onPress={() => navigation.navigate(item?.path)}>
+                  <RowView style={styles.sendBox}>
+                    <RowView style={{marginLeft: 23}}>
+                      <Image
+                        source={item.img}
+                        resizeMode="contain"
+                        style={styles.bottomIcons}
+                      />
+                      <BoldLabel16
+                        text={item.titie}
+                        style={styles.boldLabel16}
+                      />
+                    </RowView>
+
+                    <AntDesign
+                      name={'right'}
+                      size={8}
+                      style={{marginRight: 25, color: '#46A0BD'}}
+                    />
+                  </RowView>
+                </Touchable>
+              ))}
+            </View>
+          </ContainerStyled>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 };

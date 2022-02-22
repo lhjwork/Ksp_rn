@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabel14, BoldLabelTitle} from '../../components/Labels';
@@ -20,42 +20,47 @@ const Data = [
 const ScannHistory = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <ScrollView style={{flex: 1}}>
-        <HeaderCompnent
-          onPerssDrawer={() => navigation.openDrawer()}
-          onPressLeftBtn={() => navigation.goBack()}
-        />
-        <View style={{marginHorizontal: 24, flex: 1}}>
-          <BoldLabelTitle text={'스캔 히스토리'} style={{marginTop: 27.5}} />
-        </View>
-        <RowView style={styles.tableTitleBox}>
-          <BoldLabel14 text={'날짜'} style={styles.tableTitleText1} />
-          <BoldLabel14 text={'금액'} style={styles.tableTitleText1} />
-          <BoldLabel14 text={'브랜스'} style={styles.tableTitleText1} />
-        </RowView>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: '#fff',
-            height: SCREEN_HEIGHT * 0.85,
-          }}>
-          <ScrollView nestedScrollEnabled={true}>
-            {Data.map((menu, index) => (
-              <RowView style={styles.tableDataBox}>
-                <BoldLabel14 text={menu?.date} style={styles.tableTitleData1} />
-                <BoldLabel14
-                  text={menu?.amount}
-                  style={styles.tableTitleData1}
-                />
-                <BoldLabel14
-                  text={menu?.brand}
-                  style={styles.tableTitleData1}
-                />
-              </RowView>
-            ))}
-          </ScrollView>
-        </View>
-      </ScrollView>
+      <SafeAreaView style={{flex: 1}}>
+        <ScrollView>
+          <HeaderCompnent
+            onPerssDrawer={() => navigation.openDrawer()}
+            onPressLeftBtn={() => navigation.goBack()}
+          />
+          <View style={{marginHorizontal: 24, flex: 1}}>
+            <BoldLabelTitle text={'스캔 히스토리'} style={{marginTop: 27.5}} />
+          </View>
+          <RowView style={styles.tableTitleBox}>
+            <BoldLabel14 text={'날짜'} style={styles.tableTitleText1} />
+            <BoldLabel14 text={'금액'} style={styles.tableTitleText1} />
+            <BoldLabel14 text={'브랜스'} style={styles.tableTitleText1} />
+          </RowView>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: '#fff',
+              height: SCREEN_HEIGHT * 0.85,
+            }}>
+            <ScrollView nestedScrollEnabled={true}>
+              {Data.map((menu, index) => (
+                <RowView style={styles.tableDataBox}>
+                  <BoldLabel14
+                    text={menu?.date}
+                    style={styles.tableTitleData1}
+                  />
+                  <BoldLabel14
+                    text={menu?.amount}
+                    style={styles.tableTitleData1}
+                  />
+                  <BoldLabel14
+                    text={menu?.brand}
+                    style={styles.tableTitleData1}
+                  />
+                </RowView>
+              ))}
+            </ScrollView>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </LinearGradient>
   );
 };

@@ -38,5 +38,6 @@ export default HeaderCompnent;
 const styles = StyleSheet.create({
   headerRow: {
     justifyContent: 'space-between',
+    marginTop: 26,
   },
 });

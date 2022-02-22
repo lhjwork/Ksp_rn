@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StatusBar, useColorScheme} from 'react-native';
+import {View, StatusBar, useColorScheme, SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './src/navigations/RootStack';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -13,8 +13,9 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <SafeAreaProvider>
+          <StatusBar translucent={false} hidden={true} />
           <NavigationContainer>
-            <StatusBar barStyle="light-content" />
+            {/* <StatusBar showHideTransition="fade" /> */}
             <RootStack />
           </NavigationContainer>
         </SafeAreaProvider>

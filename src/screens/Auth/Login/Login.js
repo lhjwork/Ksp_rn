@@ -1,5 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, TextInput, keyboard} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  keyboard,
+  StatusBar,
+  SafeAreaView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {LabelNone} from '../../../components/Labels';
 import {ContainerStyled} from '../../../components/StyledComponents/StyledComponents';

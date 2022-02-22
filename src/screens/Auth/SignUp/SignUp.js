@@ -19,7 +19,10 @@ import {SCREEN_WIDTH} from '../../../constants';
 
 const SignUp = ({navigation}) => {
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const [genderMale, setGenderMale] = useState(false);
+  const [genderFeMale, setGenderFeMale] = useState(false);
 
+  console.log('genderFeMale', genderFeMale);
   const visiblePassword = () => {
     if (passwordVisible === true) {
       setPasswordVisible(false);
@@ -107,20 +110,49 @@ const SignUp = ({navigation}) => {
             style={{marginTop: 25, marginBottom: 11}}
           />
           <RowView style={{justifyContent: 'space-between'}}>
-            <Touchable style={{width: SCREEN_WIDTH * 0.44, height: 52}}>
-              <View style={styles.genderMale}>
+            <Touchable
+              style={{width: SCREEN_WIDTH * 0.445, height: 52}}
+              onPress={() => {
+                if (genderMale === false) {
+                  setGenderMale(true);
+                } else {
+                  setGenderMale(false);
+                }
+              }}>
+              <View
+                style={
+                  genderMale === false ? styles.genderMale : styles.genderMale2
+                }>
                 <BoldLabel14
                   text={'남'}
                   style={{
-                    color: '#c4c4c4',
+                    color: genderMale === false ? '#c4c4c4' : '#46A0BD',
                   }}
                 />
               </View>
             </Touchable>
 
-            <Touchable style={{width: SCREEN_WIDTH * 0.44, height: 52}}>
-              <View style={styles.genderFeMale}>
-                <BoldLabel14 text={'여'} style={{color: '#c4c4c4'}} />
+            <Touchable
+              style={{width: SCREEN_WIDTH * 0.445, height: 52}}
+              onPress={() => {
+                if (genderFeMale === false) {
+                  setGenderFeMale(true);
+                } else {
+                  setGenderFeMale(false);
+                }
+              }}>
+              <View
+                style={
+                  genderFeMale === false
+                    ? styles.genderFeMale
+                    : styles.genderFeMale2
+                }>
+                <BoldLabel14
+                  text={'여'}
+                  style={{
+                    color: genderFeMale === false ? '#c4c4c4' : '#46A0BD',
+                  }}
+                />
               </View>
             </Touchable>
           </RowView>
@@ -154,8 +186,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#c4c4c4',
+  },
+  genderFeMale2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    borderWidth: 2,
+    borderColor: '#46A0BD',
   },
   genderMale: {
     flex: 1,
@@ -164,9 +206,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#c4c4c4',
   },
+  genderMale2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderWidth: 2,
+    borderColor: '#46A0BD',
+  },
+
   contentText: {marginTop: 14, fontSize: 14, lineheight: 17},
   textStlye: {marginLeft: 23},
   idTextInput: {
