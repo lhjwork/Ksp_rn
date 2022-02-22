@@ -27,6 +27,7 @@ import {useSelector} from 'react-redux';
 import {BoldLabel14, LabelNone} from '../../components/Labels';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import {BottomButton} from '../../components/Buttons/Buttons';
+import ColumnView from '../../components/Views/Column';
 
 const {height, width} = Dimensions.get('window');
 
@@ -194,14 +195,24 @@ const Scann = ({navigation}) => {
         }}
       />
 
-      <RowView
+      <ColumnView
         style={{
           width: '100%',
           position: 'absolute',
           zIndex: 1,
           justifyContent: 'center',
-          top: SCREEN_HEIGHT * 0.22,
+          top: SCREEN_HEIGHT * 0.13,
         }}>
+        <LabelNone
+          text={'QR코드,바코드를 인식해서\n랜던으로 잭팟을!'}
+          style={{
+            textAlign: 'center',
+            marginBottom: 38,
+            fontSize: 12,
+            lineHeight: 16,
+            fontWeight: '400',
+          }}
+        />
         <ImageBackground
           source={require('../../asssets/images/ksp_scann_pointer.png')}
           style={{
@@ -209,7 +220,7 @@ const Scann = ({navigation}) => {
             width: SCREEN_WIDTH * 0.66,
             textAlign: 'center',
           }}></ImageBackground>
-      </RowView>
+      </ColumnView>
 
       <RowView
         style={{
