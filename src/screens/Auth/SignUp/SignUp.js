@@ -22,7 +22,6 @@ const SignUp = ({navigation}) => {
   const [genderMale, setGenderMale] = useState(false);
   const [genderFeMale, setGenderFeMale] = useState(false);
 
-  console.log('genderFeMale', genderFeMale);
   const visiblePassword = () => {
     if (passwordVisible === true) {
       setPasswordVisible(false);

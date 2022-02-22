@@ -159,7 +159,7 @@ const SignUpAgree = ({navigation}) => {
                 <RowView>
                   <Touchable
                     onPress={() => {
-                      getEachAgree(menu?.path, menu?.id);
+                      // getEachAgree(menu?.path, menu?.id);
                     }}>
                     {serviceAgree === false ? (
                       <Ionicons

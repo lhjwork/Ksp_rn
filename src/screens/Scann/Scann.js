@@ -183,7 +183,7 @@ const Scann = ({navigation}) => {
       <QRCodeScanner
         cameraType={iscameraTypeback ? 'back' : 'front'}
         reactivate={true}
-        showMarker={true}
+        // showMarker={true}
         onRead={onSuccess}
         reactivateTimeout={3500}
         cameraStyle={{height: height - 50}}
@@ -193,6 +193,23 @@ const Scann = ({navigation}) => {
           height: width * 0.7,
         }}
       />
+
+      <RowView
+        style={{
+          width: '100%',
+          position: 'absolute',
+          zIndex: 1,
+          justifyContent: 'center',
+          top: SCREEN_HEIGHT * 0.22,
+        }}>
+        <ImageBackground
+          source={require('../../asssets/images/ksp_scann_pointer.png')}
+          style={{
+            height: SCREEN_HEIGHT * 0.3,
+            width: SCREEN_WIDTH * 0.66,
+            textAlign: 'center',
+          }}></ImageBackground>
+      </RowView>
 
       <RowView
         style={{
