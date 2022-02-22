@@ -6,6 +6,7 @@ import SignUp from '../screens/Auth/SignUp/SignUp';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SelfAuth from '../screens/Auth/SignUp/SelfAuth/SelfAuth';
 import SignUpComplete from '../screens/Auth/SignUp/SignUpComplete';
+// import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const Auth = createNativeStackNavigator();
 
