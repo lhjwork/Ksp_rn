@@ -41,27 +41,21 @@ const Scann = ({navigation}) => {
   const [iscameraTypeback, setIsCameraTypeback] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
-    if (Platform.OS === 'android') {
-      // console.log(' 111 ');
-      PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-      ]).then(result => {
-        // console.log(result);
-        /*
-              if (
-                result['android.permission.CAMERA'] === 'granted' &&
-                result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted' &&
-                result['android.permission.RECORD_AUDIO'] === 'granted'
-              ) {
-                this.setState({permissionsGranted: true, showPermsAlert: false});
-              } else {
-                this.setState({permissionsGranted: false, showPermsAlert: true});
-              }
-              */
-      });
-    }
+    // 일단 주석 처리...............====================
+    // 일단 주석 처리...............====================
+    // 일단 주석 처리...............====================
+    // 일단 주석 처리...............====================
+    // if (Platform.OS === 'android') {
+    //   // console.log(' 111 ');
+    //   PermissionsAndroid.requestMultiple([
+    //     PermissionsAndroid.PERMISSIONS.CAMERA,
+    //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    //     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+    //   ]).then(result => {});
+    // 일단 주석 처리...............====================
+    // 일단 주석 처리...............====================
+    // 일단 주석 처리...............====================
+    // }
   }, []);
 
   // render({navigation}) {

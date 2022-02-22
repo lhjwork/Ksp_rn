@@ -11,6 +11,7 @@ export const TitleInput = ({value, onChangeText, style}) => {
       style={[styles.input, style]}
       onChangeText={onChangeText}
       value={value}
+      placeholderTextColor={'#c4c4c4'}
     />
   );
 };
@@ -51,6 +52,7 @@ export const ContentInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        placeholderTextColor={'#c4c4c4'}
       />
     </RowView>
   );
@@ -89,6 +91,7 @@ export const AmountInput = ({
         value={value}
         onChange={onChange}
         keyboardType="number-pad"
+        placeholderTextColor={'#c4c4c4'}
       />
       <LabelNone
         text={rightText}
@@ -138,6 +141,7 @@ export const NoneInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        placeholderTextColor={'#c4c4c4'}
       />
     </RowView>
   );
@@ -147,6 +151,7 @@ export const MyInfoInput = ({text, style}) => {
   return (
     <>
       <TextInput
+        placeholderTextColor={'#c4c4c4'}
         editable={false}
         value={text}
         textAlign="center"
@@ -208,6 +213,7 @@ export const PasswordInput = ({
 
         <TextInput
           style={{
+            color: '#000',
             width: '73%',
             height: 50,
             ...textStyle,
@@ -220,6 +226,7 @@ export const PasswordInput = ({
           autoCorrect={false}
           secureTextEntry={secureTextEntry}
           onChangeText={onChangeText}
+          placeholderTextColor={'#c4c4c4'}
           // onBlur={() => Keyboard.dismiss()}
         />
       </RowView>

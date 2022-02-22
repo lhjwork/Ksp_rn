@@ -3,13 +3,16 @@ import {View, ImageBackground, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {BoldLabelSubTitle} from '../../components/Labels';
 import {SCREEN_HEIGHT} from '../../constants';
+import Touchable from '../../components/Touchable';
 
 const Splash = ({navigation}) => {
+  console.log('dd');
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('AuthStack');
     }, 1500);
-  });
+  }, []);
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ImageBackground
@@ -26,6 +29,7 @@ const Splash = ({navigation}) => {
           fontWeight: '500',
         }}
       />
+      {/* <Touchable onPress={movePage()}></Touchable> */}
     </LinearGradient>
   );
 };
