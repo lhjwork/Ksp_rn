@@ -24,23 +24,21 @@ const Calendar = ({navigation}) => {
           onPressLeftBtn={() => navigation.goBack()}
         />
 
-        <ContainerStyled>
-          <View style={styles.adverBanner}>
-            <Image
-              source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
-              resizeMode="contain"
-              style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
-            />
-          </View>
-          <View style={styles.checkContainer}>
-            <CheckBoxView month={month} attendanceCount={attendanceCount} />
-            <BottomButtonWithIcon
-              text={'출석체크 하기'}
-              iconName={'checkmark-done'}
-              style={{marginTop: 24}}
-            />
-          </View>
-        </ContainerStyled>
+        <View style={styles.adverBanner}>
+          <Image
+            source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
+            resizeMode="contain"
+            style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
+          />
+        </View>
+        <View style={styles.checkContainer}>
+          <CheckBoxView month={month} attendanceCount={attendanceCount} />
+          <BottomButtonWithIcon
+            text={'출석체크 하기'}
+            iconName={'checkmark-done'}
+            style={{marginTop: 24}}
+          />
+        </View>
         <CalendarTc dates={dates} />
       </ScrollView>
     </LinearGradient>
@@ -66,8 +64,8 @@ const CheckBoxView = ({month, attendanceCount}) => {
 
 const styles = StyleSheet.create({
   adverBanner: {
-    marginTop: 16,
-    marginBottom: 57,
+    marginTop: 14.5,
+    marginBottom: 19,
   },
   checkContainer: {
     marginHorizontal: 24,

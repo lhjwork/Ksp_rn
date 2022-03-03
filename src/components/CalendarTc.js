@@ -112,17 +112,17 @@ const CalendarTc = ({dates}) => {
           },
           monthText: {
             fontWeight: 'bold',
-            fontSize: 20,
-            lineHeight: 24,
-            color: '#6f6f6f',
+            fontSize: 18,
+            lineHeight: 22,
+            color: '#46A0BD',
           },
           arrow: {
             padding: 5,
           },
           dayHeader: {
             marginVertical: 9,
-            fontSize: 20,
-            lineHeight: 24,
+            fontSize: 14,
+            lineHeight: 18,
             color: '#fff',
             fontWeight: 'bold',
           },
@@ -132,6 +132,7 @@ const CalendarTc = ({dates}) => {
             justifyContent: 'space-around',
             //   backgroundColor: '#5F408F',
           },
+          day: {fontSize: 14, fontWeight: '400', lineHeight: 20},
         },
         disabledArrowColor: '#adadad',
         todayTextColor: '#5F408F',
@@ -153,6 +154,6 @@ const styles = StyleSheet.create({
   calendar: {
     marginTop: 20,
     borderRadius: 10,
-    paddingVertical: 19,
+    paddingTop: 20,
   },
 });
