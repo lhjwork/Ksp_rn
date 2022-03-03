@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabel14, LabelNone} from '../../components/Labels';
@@ -10,33 +10,39 @@ import {
   BottomButton,
   BottomButtonWithIcon,
 } from '../../components/Buttons/Buttons';
+import CalendarTc from '../../components/CalendarTc';
+
 const Calendar = ({navigation}) => {
   const [month, setMonth] = useState(5);
   const [attendanceCount, setAttendanceCount] = useState(5);
+  const [dates, setDates] = useState([]);
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <HeaderCompnent
-        onPerssDrawer={() => navigation.openDrawer()}
-        onPressLeftBtn={() => navigation.goBack()}
-      />
+      <ScrollView>
+        <HeaderCompnent
+          onPerssDrawer={() => navigation.openDrawer()}
+          onPressLeftBtn={() => navigation.goBack()}
+        />
 
-      <ContainerStyled>
-        <View style={styles.adverBanner}>
-          <Image
-            source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
-            resizeMode="contain"
-            style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
-          />
-        </View>
-        <View style={styles.checkContainer}>
-          <CheckBoxView month={month} attendanceCount={attendanceCount} />
-          <BottomButtonWithIcon
-            text={'출석체크 하기'}
-            iconName={'checkmark-done'}
-            style={{marginTop: 24}}
-          />
-        </View>
-      </ContainerStyled>
+        <ContainerStyled>
+          <View style={styles.adverBanner}>
+            <Image
+              source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
+              resizeMode="contain"
+              style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
+            />
+          </View>
+          <View style={styles.checkContainer}>
+            <CheckBoxView month={month} attendanceCount={attendanceCount} />
+            <BottomButtonWithIcon
+              text={'출석체크 하기'}
+              iconName={'checkmark-done'}
+              style={{marginTop: 24}}
+            />
+          </View>
+        </ContainerStyled>
+        <CalendarTc dates={dates} />
+      </ScrollView>
     </LinearGradient>
   );
 };
