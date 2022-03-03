@@ -11,11 +11,11 @@ import {
 import {ContentInput, AmountInput} from '../../components/TxInput';
 import RowView from '../../components/Views/RowView';
 import {BottomButton, SmallButton} from '../../components/Buttons/Buttons';
-const SearchId = () => {
+const SearchId = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
-        onPerssDrawer={() => navigation.openDrawer()}
+        rightView={false}
         onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled style={{marginHorizontal: 24, marginTop: 27.5}}>
@@ -39,22 +39,12 @@ const SearchId = () => {
             placeholder="숫자만 입력해주세요."
             textStyle={{marginLeft: 23}}
           />
-          {/* <NoneInput
-              placeholder={'숫자만 입력해주세요.'}
-              imageNone={false}
-              textStyle={{marginLeft: 23}}
-            /> */}
+
           <SmallButton style={styles.button} text={'전송'} />
         </RowView>
         <RowView style={{marginTop: 5}}>
-          {/* <NoneInput
-              placeholder={'인증번호를 입력해주세요.'}
-              imageNone={false}
-              textStyle={{marginLeft: 23}}
-            /> */}
           <AmountInput
             outStyle={{flex: 1}}
-            // rightText={'KSP'}
             placeholder="인증번호를 입력해주세요."
             textStyle={{marginLeft: 23}}
           />

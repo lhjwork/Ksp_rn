@@ -20,6 +20,7 @@ import StackingApply from '../screens/StackingApply/StackingApply';
 import {SCREEN_WIDTH} from '../constants';
 import ScannHistory from '../screens/ScannHistory/ScannHistory';
 import PasswordChange from '../screens/PasswordChange/PasswordChange';
+import SearchId from '../screens/SearchId/SearchId';
 
 const Drawer = createDrawerNavigator();
 // test
@@ -87,6 +88,7 @@ export const DrawerStack = ({props}) => {
         component={PasswordChange}
         options={{headerShown: false}}
       />
+
       {/* <Drawer.Screen
         name="WalletKsp"
         component={WalletKsp}
