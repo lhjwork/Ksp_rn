@@ -12,7 +12,7 @@ import {AmountInput, ContentInput} from '../../components/TxInput';
 import RowView from '../../components/Views/RowView';
 import {SmallButton, BottomButton} from '../../components/Buttons/Buttons';
 
-const RePassword = () => {
+const RePassword = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
@@ -60,7 +60,7 @@ const RePassword = () => {
         </ContainerStyled>
       </ScrollView>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        <BottomButton text={'아이디찾기'} />
+        <BottomButton text={'임시 비밀번호 전송'} />
       </View>
     </LinearGradient>
   );
