@@ -70,12 +70,7 @@ const DrawerComponent = ({navigation}) => {
         {DRAWER_LIST_DATA.map((menu, index) => (
           <Touchable
             onPress={() => {
-              if (menu.path === 'MyInfo') {
-                navigation.navigate(menu?.path);
-              } else {
-                Alert.alert('준비중입니다.');
-                return;
-              }
+              navigation.navigate(menu?.path);
             }}
             key={index}>
             <RowView style={styles.imgAndtextRow}>
