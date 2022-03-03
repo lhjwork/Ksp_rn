@@ -42,11 +42,7 @@ const ShoppingMall = ({navigation}) => {
               style={{marginTop: 13}}
             />
           </View>
-          <Touchable
-            onPress={
-              () => null
-              // navigation.navigate('Calendar'
-            }>
+          <Touchable onPress={() => navigation.navigate('Calendar')}>
             <View style={styles.adverBanner}>
               <Image
                 source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
