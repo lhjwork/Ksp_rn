@@ -60,7 +60,7 @@ const Login = ({navigation}) => {
               onChangeText={text => setPassword(text)}
             />
             <RowView style={styles.searchAndRePassword}>
-              <Touchable>
+              <Touchable onPress={() => navigation.navigate('SearchId')}>
                 <RowView>
                   <LabelNone text={'아이디 찾기'} style={styles.searchText} />
                   <AntDesign name={'right'} size={14} style={styles.leftIcon} />
