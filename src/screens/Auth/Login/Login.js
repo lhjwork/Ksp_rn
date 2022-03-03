@@ -67,7 +67,7 @@ const Login = ({navigation}) => {
                 </RowView>
               </Touchable>
 
-              <Touchable>
+              <Touchable onPress={() => navigation.navigate('RePassword')}>
                 <RowView>
                   <LabelNone
                     text={'비밀번호재설정'}
