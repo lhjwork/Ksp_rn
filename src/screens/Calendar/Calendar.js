@@ -6,6 +6,10 @@ import {BoldLabel14, LabelNone} from '../../components/Labels';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
 import RowView from '../../components/Views/RowView';
 import {SCREEN_HEIGHT} from '../../constants';
+import {
+  BottomButton,
+  BottomButtonWithIcon,
+} from '../../components/Buttons/Buttons';
 const Calendar = ({navigation}) => {
   const [month, setMonth] = useState(5);
   const [attendanceCount, setAttendanceCount] = useState(5);
@@ -26,6 +30,11 @@ const Calendar = ({navigation}) => {
         </View>
         <View style={styles.checkContainer}>
           <CheckBoxView month={month} attendanceCount={attendanceCount} />
+          <BottomButtonWithIcon
+            text={'출석체크 하기'}
+            iconName={'checkmark-done'}
+            style={{marginTop: 24}}
+          />
         </View>
       </ContainerStyled>
     </LinearGradient>
