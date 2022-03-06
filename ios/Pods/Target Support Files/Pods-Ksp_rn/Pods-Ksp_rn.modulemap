@@ -1,0 +1,6 @@
+module Pods_Ksp_rn {
+  umbrella header "Pods-Ksp_rn-umbrella.h"
+
+  export *
+  module * { export * }
+}
