@@ -11,15 +11,19 @@ import HeaderCompnent from '../../components/HeaderCompnent';
 import Touchable from '../../components/Touchable';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RowView from '../../components/Views/RowView';
+import Agreement from '../../components/Agreement';
 
-const SUB_CONTENT_DATA = [
-  {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
-  {id: 2, text: '[필수]개인정보 수집 및 이용 동의', path: 'privateInfoAgree'},
-  {id: 3, text: '[선택]마케팅정보 알림 동의', path: 'marketingAgree'},
-];
+// const SUB_CONTENT_DATA = [
+//   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
+//   {id: 2, text: '[필수]개인정보 수집 및 이용 동의', path: 'privateInfoAgree'},
+//   {id: 3, text: '[선택]마케팅정보 알림 동의', path: 'marketingAgree'},
+// ];
 
 const Terms = ({navigation}) => {
   const [serviceAgree, setServiceAgree] = useState(false);
+  const [privateInfoAgree, setPrivateInfoAgress] = useState(false);
+  const [marketingAgree, setMarketingAgree] = useState(false);
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
@@ -37,7 +41,32 @@ const Terms = ({navigation}) => {
             marginTop: 55,
             elevation: 4,
           }}>
-          {SUB_CONTENT_DATA.map((menu, index) => (
+          <Agreement
+            text={'[필수]서비스 이용약관 동의'}
+            isActive={serviceAgree}
+            onPress={() => {
+              setServiceAgree(!serviceAgree);
+            }}
+            DetailOpenPress={() => null}
+          />
+          <Agreement
+            text={'[필수]개인정보 수집 및 이용 동의'}
+            isActive={privateInfoAgree}
+            onPress={() => {
+              setPrivateInfoAgress(!privateInfoAgree);
+            }}
+            DetailOpenPress={() => null}
+          />
+          <Agreement
+            text={'[선택]마케팅정보 알림 동의'}
+            isActive={marketingAgree}
+            onPress={() => {
+              setMarketingAgree(!marketingAgree);
+            }}
+            DetailOpenPress={() => null}
+          />
+          {/* {SUB_CONTENT_DATA.map((menu, index) => (
+           
             <RowView
               style={{
                 justifyContent: 'space-between',
@@ -78,7 +107,7 @@ const Terms = ({navigation}) => {
                 />
               </Touchable>
             </RowView>
-          ))}
+          ))} */}
         </View>
       </ContainerStyled>
     </LinearGradient>
