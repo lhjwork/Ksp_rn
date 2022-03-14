@@ -16,22 +16,43 @@ import {ContentInput, PasswordInput} from '../../../components/TxInput';
 import {BottomButton} from '../../../components/Buttons/Buttons';
 import Touchable from '../../../components/Touchable';
 import {SCREEN_WIDTH} from '../../../constants';
+import api from '../../../api';
 
 const SignUp = ({navigation, route}) => {
   const [passwordVisible1, setPasswordVisible1] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
-  const [genderMale, setGenderMale] = useState(false);
-  const [genderFeMale, setGenderFeMale] = useState(false);
+  const [genderMale, setGenderMale] = useState('');
+  const [genderFeMale, setGenderFeMale] = useState('');
 
   const [loginId, setLoginId] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState(route.params.phoneNumber);
-  const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
 
-  console.log('isphoneNumber', phoneNumber);
+  const onSignUp = async () => {
+    try {
+      body = {
+        Login: loginId,
+        Password: password1,
+        Username: username,
+        Phone: phoneNumber,
+        Email: email,
+      };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const data = await api.post('register', JSON.stringify(body), config);
+      console.log(data);
+      navigation.navigate('SignUpComplete');
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const visiblePassword1 = () => {
     if (passwordVisible1 === true) {
@@ -161,20 +182,19 @@ const SignUp = ({navigation, route}) => {
             <Touchable
               style={{width: SCREEN_WIDTH * 0.445, height: 52}}
               onPress={() => {
-                if (genderMale === false) {
-                  setGenderMale(true);
-                } else {
-                  setGenderMale(false);
+                if (genderMale === '') {
+                  setGenderFeMale('');
+                  setGenderMale('Male');
                 }
               }}>
               <View
                 style={
-                  genderMale === false ? styles.genderMale : styles.genderMale2
+                  genderMale === '' ? styles.genderMale : styles.genderMale2
                 }>
                 <BoldLabel14
                   text={'남'}
                   style={{
-                    color: genderMale === false ? '#c4c4c4' : '#46A0BD',
+                    color: genderMale === '' ? '#c4c4c4' : '#46A0BD',
                   }}
                 />
               </View>
@@ -183,22 +203,21 @@ const SignUp = ({navigation, route}) => {
             <Touchable
               style={{width: SCREEN_WIDTH * 0.445, height: 52}}
               onPress={() => {
-                if (genderFeMale === false) {
-                  setGenderFeMale(true);
-                } else {
-                  setGenderFeMale(false);
+                if (genderFeMale === '') {
+                  setGenderMale('');
+                  setGenderFeMale('FeMale');
                 }
               }}>
               <View
                 style={
-                  genderFeMale === false
+                  genderFeMale === ''
                     ? styles.genderFeMale
                     : styles.genderFeMale2
                 }>
                 <BoldLabel14
                   text={'여'}
                   style={{
-                    color: genderFeMale === false ? '#c4c4c4' : '#46A0BD',
+                    color: genderFeMale === '' ? '#c4c4c4' : '#46A0BD',
                   }}
                 />
               </View>
@@ -212,11 +231,15 @@ const SignUp = ({navigation, route}) => {
           <ContentInput
             placeholder={'이메일을 입력해주세요.'}
             textStyle={styles.textStlye}
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
           <BottomButton
             style={{marginBottom: 30, marginTop: 88}}
             text={'다음'}
-            onPress={() => navigation.navigate('SignUpComplete')}
+            onPress={() => {
+              onSignUp();
+            }}
           />
         </ContainerStyled>
       </ScrollView>
