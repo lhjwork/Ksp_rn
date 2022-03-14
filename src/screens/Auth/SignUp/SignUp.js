@@ -18,15 +18,31 @@ import Touchable from '../../../components/Touchable';
 import {SCREEN_WIDTH} from '../../../constants';
 
 const SignUp = ({navigation}) => {
-  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [passwordVisible1, setPasswordVisible1] = useState(true);
+  const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [genderMale, setGenderMale] = useState(false);
   const [genderFeMale, setGenderFeMale] = useState(false);
 
-  const visiblePassword = () => {
-    if (passwordVisible === true) {
-      setPasswordVisible(false);
+  const [loginId, setLoginId] = useState('');
+  const [password1, setPassword1] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [username, setUsername] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+
+  const visiblePassword1 = () => {
+    if (passwordVisible1 === true) {
+      setPasswordVisible1(false);
     } else {
-      setPasswordVisible(true);
+      setPasswordVisible1(true);
+    }
+  };
+  const visiblePassword2 = () => {
+    if (passwordVisible2 === true) {
+      setPasswordVisible2(false);
+    } else {
+      setPasswordVisible2(true);
     }
   };
 
@@ -79,16 +95,16 @@ const SignUp = ({navigation}) => {
             placeholder={'비밀번호 입력'}
             textStyle={styles.textStlye}
             eyeSytle={{marginRight: 16}}
-            secureTextEntry={passwordVisible}
-            onPress={() => visiblePassword()}
+            secureTextEntry={passwordVisible1}
+            onPress={() => visiblePassword1()}
           />
           <PasswordInput
             placeholder={'비밀번호 재입력'}
             textStyle={styles.textStlye}
             eyeSytle={{marginRight: 16}}
             styleBox={{marginTop: 5}}
-            secureTextEntry={passwordVisible}
-            onPress={() => visiblePassword()}
+            secureTextEntry={passwordVisible2}
+            onPress={() => visiblePassword2()}
           />
           <LabelNone />
           <BoldLabel14 text={'이름'} style={{marginTop: 8, marginBottom: 9}} />
