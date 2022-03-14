@@ -23,11 +23,11 @@ import {
 import api from '../../../../api';
 
 const SelfAuth = ({navigation}) => {
-  const [phonenumber, setPhonenumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [verifiedCode, setVerifiedCode] = useState('');
   const [getCode, setGetCode] = useState('');
 
-  console.log('phonenumber', phonenumber);
+  console.log('phonenumber', phoneNumber);
 
   const sendPhoneNum = async () => {
     try {
@@ -36,7 +36,7 @@ const SelfAuth = ({navigation}) => {
           'Content-Type': 'application/json',
         },
       };
-      body = {Phone: phonenumber};
+      body = {Phone: phoneNumber};
       data = await api.post('smsverification', JSON.stringify(body), config);
       console.log('sendPhoneNum data', data);
     } catch (e) {
@@ -51,7 +51,7 @@ const SelfAuth = ({navigation}) => {
           'Content-Type': 'application/json',
         },
       };
-      body = {Phone: phonenumber, Verification: verifiedCode};
+      body = {Phone: phoneNumber, Verification: verifiedCode};
       data = await api.post('smsverification', JSON.stringify(body), config);
       console.log('Codeverify data', data);
     } catch (e) {
@@ -91,8 +91,8 @@ const SelfAuth = ({navigation}) => {
           <RowView>
             <AmountInput
               outStyle={{flex: 1}}
-              onChangeText={text => setPhonenumber(text)}
-              value={phonenumber}
+              onChangeText={text => setPhoneNumber(text)}
+              value={phoneNumber}
               // rightText={'KSP'}
               placeholder="숫자만 입력해주세요."
               textStyle={{marginLeft: 23}}
@@ -156,7 +156,7 @@ const SelfAuth = ({navigation}) => {
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
         <BottomButton
           text={'다음'}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigation.navigate('SignUp', {phoneNumber})}
         />
       </View>
     </LinearGradient>

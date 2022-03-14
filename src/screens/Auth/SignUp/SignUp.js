@@ -17,7 +17,7 @@ import {BottomButton} from '../../../components/Buttons/Buttons';
 import Touchable from '../../../components/Touchable';
 import {SCREEN_WIDTH} from '../../../constants';
 
-const SignUp = ({navigation}) => {
+const SignUp = ({navigation, route}) => {
   const [passwordVisible1, setPasswordVisible1] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [genderMale, setGenderMale] = useState(false);
@@ -27,9 +27,11 @@ const SignUp = ({navigation}) => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [username, setUsername] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(route.params.phoneNumber);
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
+
+  console.log('isphoneNumber', phoneNumber);
 
   const visiblePassword1 = () => {
     if (passwordVisible1 === true) {
@@ -86,6 +88,8 @@ const SignUp = ({navigation}) => {
           <ContentInput
             placeholder={'아이디입력'}
             textStyle={styles.textStlye}
+            onChangeText={text => setLoginId(text)}
+            value={loginId}
           />
           <BoldLabel14
             text={'비밀번호'}
@@ -97,6 +101,8 @@ const SignUp = ({navigation}) => {
             eyeSytle={{marginRight: 16}}
             secureTextEntry={passwordVisible1}
             onPress={() => visiblePassword1()}
+            onChangeText={text => setPassword1(text)}
+            value={password1}
           />
           <PasswordInput
             placeholder={'비밀번호 재입력'}
@@ -105,12 +111,38 @@ const SignUp = ({navigation}) => {
             styleBox={{marginTop: 5}}
             secureTextEntry={passwordVisible2}
             onPress={() => visiblePassword2()}
+            onChangeText={text => setPassword2(text)}
+            value={password2}
           />
+          {password1 !== password2 ? (
+            <LabelNone
+              text={'비밀번호가 일치하지 않습니다.'}
+              style={{
+                color: '#FF0000',
+                fontSize: 12,
+                marginLeft: 19,
+                marginTop: 5,
+              }}
+            />
+          ) : (
+            <LabelNone
+              text={'비밀번호가 일치합니다.'}
+              style={{
+                color: '#46A0BD',
+                fontSize: 12,
+                marginLeft: 19,
+                marginTop: 5,
+              }}
+            />
+          )}
+
           <LabelNone />
           <BoldLabel14 text={'이름'} style={{marginTop: 8, marginBottom: 9}} />
           <ContentInput
             placeholder={'이름을 입력해주세요.'}
             textStyle={styles.textStlye}
+            onChangeText={text => setUsername(text)}
+            value={username}
           />
           <BoldLabel14
             text={'휴대번호'}
@@ -119,6 +151,7 @@ const SignUp = ({navigation}) => {
           <ContentInput
             placeholder={'ex)01012345678'}
             textStyle={styles.textStlye}
+            value={phoneNumber}
           />
           <BoldLabel14
             text={'성별'}
