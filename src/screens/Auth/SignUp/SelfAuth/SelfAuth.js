@@ -52,10 +52,8 @@ const SelfAuth = ({navigation}) => {
       if (tempboolean === true) {
         setModalVisible(true);
         // setGetRegistered(true);
-        // setGetRegistered(true);
       } else if (tempboolean === false) {
         setModalVisible(false);
-        // setGetRegistered(false);
         // setGetRegistered(false);
       }
     } catch (e) {

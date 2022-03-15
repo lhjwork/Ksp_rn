@@ -17,14 +17,18 @@ import {BottomButton, SmallButton} from '../../../components/Buttons/Buttons';
 import Touchable from '../../../components/Touchable';
 import {SCREEN_WIDTH} from '../../../constants';
 import api from '../../../api';
+import ModalFrame from '../../../components/Modals/ModalFrame';
 
 const SignUp = ({navigation, route}) => {
   const [passwordVisible1, setPasswordVisible1] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [genderMale, setGenderMale] = useState('');
   const [genderFeMale, setGenderFeMale] = useState('');
-  const [loginIdVerify, setLoginIdVerify] = useState(true);
-  const [emailVerify, setEmailVerify] = useState(true);
+  const [loginIdVerify, setLoginIdVerify] = useState('');
+  const [emailVerify, setEmailVerify] = useState('');
+  const [gender, setGender] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState('');
 
   const [loginId, setLoginId] = useState('');
   const [password1, setPassword1] = useState('');
@@ -34,13 +38,16 @@ const SignUp = ({navigation, route}) => {
   const [email, setEmail] = useState('');
 
   const onSignUp = async () => {
+    onBlockSignUp();
+
     try {
       let body = {
-        Login: loginId,
+        LoginId: loginId,
         Password: password1,
         Username: username,
         Phone: phoneNumber,
         Email: email,
+        Gender: gender,
       };
       const config = {
         headers: {
@@ -49,7 +56,7 @@ const SignUp = ({navigation, route}) => {
       };
 
       const res = await api.post('register', JSON.stringify(body), config);
-      console.log(res);
+      console.log('res', res);
       navigation.navigate('SignUpComplete');
     } catch (e) {
       console.log(e);
@@ -125,8 +132,52 @@ const SignUp = ({navigation, route}) => {
     }
   };
 
+  const onBlockSignUp = () => {
+    if (gender.length === 0) {
+      setModalContent('성별을 선택해주세요.');
+      setModalVisible(true);
+      return;
+    }
+    if (loginIdVerify === false || loginIdVerify === '') {
+      setModalContent('아이디 중복확인 후 회원가입이 가능합니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (emailVerify === false || emailVerify === '') {
+      setModalContent('이메일 중복확인 후 회원가입이 가능합니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (loginId.length === 0) {
+      setModalContent('아이디 입력은 필수입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (password1.length === 0) {
+      setModalContent('비밀번호 입력은 필수입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (username.length === 0) {
+      setModalContent('이름 입력은 필수입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (gender.length === 0) {
+      setModalContent('성별을 선택해주세요.');
+      setModalVisible(true);
+      return;
+    }
+  };
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+      <ModalFrame
+        visible={modalVisible}
+        infoText={modalContent}
+        onPress={() => setModalVisible(false)}
+      />
+
       <ScrollView>
         <HeaderCompnent
           rightView={false}
@@ -172,7 +223,7 @@ const SignUp = ({navigation, route}) => {
             />
             <SmallButton text={'중복확인'} onPress={() => onLoginIdVerify()} />
           </RowView>
-          {loginIdVerify === false ? (
+          {loginIdVerify === false || '' ? (
             <LabelNone
               text={'이미 사용중인 아이디 입니다.'}
               style={{
@@ -267,6 +318,7 @@ const SignUp = ({navigation, route}) => {
                 if (genderMale === '') {
                   setGenderFeMale('');
                   setGenderMale('Male');
+                  setGender('Male');
                 }
               }}>
               <View
@@ -288,6 +340,7 @@ const SignUp = ({navigation, route}) => {
                 if (genderFeMale === '') {
                   setGenderMale('');
                   setGenderFeMale('FeMale');
+                  setGender('FeMale');
                 }
               }}>
               <View
@@ -320,9 +373,9 @@ const SignUp = ({navigation, route}) => {
             />
             <SmallButton text={'중복확인'} onPress={() => onEmailVerify()} />
           </RowView>
-          {emailVerify === false ? (
+          {emailVerify === false || '' ? (
             <LabelNone
-              text={'이미 사용중인 이메일 입니다.'}
+              text={'사용중인 이메일 입니다.'}
               style={{
                 color: '#FF0000',
                 fontSize: 12,
