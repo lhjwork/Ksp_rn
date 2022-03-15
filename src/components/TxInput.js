@@ -45,6 +45,7 @@ export const ContentInput = ({
       )}
       <TextInput
         style={{
+          flex: 1,
           height: 50,
           color: '#000',
           ...textStyle,

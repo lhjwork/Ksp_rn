@@ -112,8 +112,9 @@ const SignUp = ({navigation, route}) => {
               textStyle={styles.textStlye}
               onChangeText={text => setLoginId(text)}
               value={loginId}
+              outStyle={{marginRight: 5}}
             />
-            <SmallButton />
+            <SmallButton text={'중복확인'} />
           </RowView>
 
           <BoldLabel14
@@ -232,12 +233,17 @@ const SignUp = ({navigation, route}) => {
             text={'이메일 주소'}
             style={{marginTop: 25, marginBottom: 11}}
           />
-          <ContentInput
-            placeholder={'이메일을 입력해주세요.'}
-            textStyle={styles.textStlye}
-            value={email}
-            onChangeText={text => setEmail(text)}
-          />
+          <RowView>
+            <ContentInput
+              placeholder={'이메일을 입력해주세요.'}
+              textStyle={styles.textStlye}
+              value={email}
+              onChangeText={text => setEmail(text)}
+              outStyle={{marginRight: 5}}
+            />
+            <SmallButton text={'중복확인'} />
+          </RowView>
+
           <BottomButton
             style={{marginBottom: 30, marginTop: 88}}
             text={'다음'}
