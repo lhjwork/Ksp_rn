@@ -28,7 +28,7 @@ const ModalFrame = ({visible, onPress, infoText}) => {
           <View style={styles.centerArray}>
             <View style={{flex: 1, justifyContent: 'center'}}>
               <BoldLabel14
-                text={'등록된 회원정보가 없습니다.'}
+                text={infoText}
                 style={{color: '#555', textAlign: 'center', fontWeight: '500'}}
               />
             </View>

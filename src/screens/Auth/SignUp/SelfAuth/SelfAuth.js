@@ -27,6 +27,7 @@ const SelfAuth = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [verifiedCode, setVerifiedCode] = useState('');
   const [getCode, setGetCode] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   console.log('phonenumber', phoneNumber);
 
@@ -62,7 +63,11 @@ const SelfAuth = ({navigation}) => {
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <ModalFrame></ModalFrame>
+      <ModalFrame
+        infoText={'이미 등록된 회원입니다.'}
+        visible={modalVisible}
+        onPress={() => setModalVisible(false)}
+      />
       <HeaderCompnent
         rightView={false}
         onPressLeftBtn={() => navigation.goBack()}
