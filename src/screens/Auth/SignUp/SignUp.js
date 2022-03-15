@@ -46,8 +46,8 @@ const SignUp = ({navigation, route}) => {
         },
       };
 
-      const data = await api.post('register', JSON.stringify(body), config);
-      console.log(data);
+      const res = await api.post('register', JSON.stringify(body), config);
+      console.log(res);
       navigation.navigate('SignUpComplete');
     } catch (e) {
       console.log(e);

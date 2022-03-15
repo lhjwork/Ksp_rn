@@ -28,6 +28,7 @@ const SelfAuth = ({navigation}) => {
   const [verifiedCode, setVerifiedCode] = useState('');
   const [getCode, setGetCode] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  // const [getRegistered, setGetRegistered] = useState('');
 
   console.log('phonenumber', phoneNumber);
 
@@ -38,9 +39,25 @@ const SelfAuth = ({navigation}) => {
           'Content-Type': 'application/json',
         },
       };
-      body = {Phone: phoneNumber};
-      data = await api.post('smsverification', JSON.stringify(body), config);
-      console.log('sendPhoneNum data', data);
+      let body = {Phone: phoneNumber};
+      const res = await api.post(
+        'smsverification',
+        JSON.stringify(body),
+        config,
+      );
+      const {data} = res;
+      let tempboolean = data['Result'];
+      console.log('tempboolean', tempboolean);
+      // console로 데이터를 타서 getRegister에 담긴 값을 확인 하였는데 버튼을 두번 눌러야 값이 들어갔다. 이 부분 동균님께 알아보도록. 현재 주석 처리
+      if (tempboolean === true) {
+        setModalVisible(true);
+        // setGetRegistered(true);
+        // setGetRegistered(true);
+      } else if (tempboolean === false) {
+        setModalVisible(false);
+        // setGetRegistered(false);
+        // setGetRegistered(false);
+      }
     } catch (e) {
       console.log(e);
     }
