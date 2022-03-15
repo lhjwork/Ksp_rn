@@ -21,6 +21,7 @@ import {
   BottomButton,
 } from '../../../../components/Buttons/Buttons';
 import api from '../../../../api';
+import ModalFrame from '../../../../components/Modals/ModalFrame';
 
 const SelfAuth = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -61,6 +62,7 @@ const SelfAuth = ({navigation}) => {
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+      <ModalFrame></ModalFrame>
       <HeaderCompnent
         rightView={false}
         onPressLeftBtn={() => navigation.goBack()}

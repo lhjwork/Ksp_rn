@@ -94,3 +94,29 @@ export const BottomButtonWithIcon = ({
     </Touchable>
   );
 };
+
+export const ModalBottomButton = ({onPress, text, style}) => {
+  return (
+    <Touchable
+      onPress={onPress}
+      style={{
+        paddingVertical: 7.5,
+        borderRadius: 20,
+        backgroundColor: '#46A0BD',
+        width: width - 80,
+        ...style,
+        // position: 'absolute', width: width-48, bottom: 32,
+      }}>
+      <LabelNone
+        text={text}
+        style={{
+          fontSize: 14,
+          lineHeight: 20,
+          color: '#fff',
+          textAlign: 'center',
+          fontWeight: '700',
+        }}
+      />
+    </Touchable>
+  );
+};
