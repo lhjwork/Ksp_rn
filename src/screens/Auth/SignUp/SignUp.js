@@ -13,7 +13,7 @@ import {
 } from '../../../components/Labels';
 import PageNumbering from '../../../components/SignUp/PageNumbering';
 import {ContentInput, PasswordInput} from '../../../components/TxInput';
-import {BottomButton} from '../../../components/Buttons/Buttons';
+import {BottomButton, SmallButton} from '../../../components/Buttons/Buttons';
 import Touchable from '../../../components/Touchable';
 import {SCREEN_WIDTH} from '../../../constants';
 import api from '../../../api';
@@ -106,12 +106,16 @@ const SignUp = ({navigation, route}) => {
             text={'아이디'}
             style={{marginTop: 72, marginBottom: 9}}
           />
-          <ContentInput
-            placeholder={'아이디입력'}
-            textStyle={styles.textStlye}
-            onChangeText={text => setLoginId(text)}
-            value={loginId}
-          />
+          <RowView>
+            <ContentInput
+              placeholder={'아이디입력'}
+              textStyle={styles.textStlye}
+              onChangeText={text => setLoginId(text)}
+              value={loginId}
+            />
+            <SmallButton />
+          </RowView>
+
           <BoldLabel14
             text={'비밀번호'}
             style={{marginTop: 28, marginBottom: 9}}

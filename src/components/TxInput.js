@@ -29,7 +29,8 @@ export const ContentInput = ({
   return (
     <RowView
       style={{
-        width: '100%',
+        // width: '100%',
+        flex: 1,
         height: 52,
         backgroundColor: '#fff',
         borderRadius: 20,
@@ -44,7 +45,6 @@ export const ContentInput = ({
       )}
       <TextInput
         style={{
-          width: '100%',
           height: 50,
           color: '#000',
           ...textStyle,
