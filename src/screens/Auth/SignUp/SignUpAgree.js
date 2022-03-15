@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ContainerGradient from '../../../components/Containers/ContainerGradient';
 import HeaderCompnent from '../../../components/HeaderCompnent';
@@ -15,6 +15,7 @@ import Touchable from '../../../components/Touchable';
 import {BottomButton} from '../../../components/Buttons/Buttons';
 import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
 import PageNumbering from '../../../components/SignUp/PageNumbering';
+import Agreement from '../../../components/Agreement';
 
 const SUB_CONTENT_DATA = [
   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -27,49 +28,32 @@ const SignUpAgree = ({navigation}) => {
   const [serviceAgree, setServiceAgree] = useState(false);
   const [privateInfoAgree, setPrivateInfoAgree] = useState(false);
   const [marketingAgree, setMarketingAgree] = useState(false);
-  const [selectedServiceAgreeId, setSelectedServiceAgreeId] = useState('');
-  const [selectedPrivateInfoAgreeId, setSelectedPrivateInfoAgreeId] =
-    useState('');
-  const [selectedMarketingAgreeId, setSelectedMarketingAgreeId] = useState('');
+  // const [selectedServiceAgreeId, setSelectedServiceAgreeId] = useState('');
+  // const [selectedPrivateInfoAgreeId, setSelectedPrivateInfoAgreeId] =
+  //   useState('');
+  // const [selectedMarketingAgreeId, setSelectedMarketingAgreeId] = useState('');
 
   console.log('serviceAgree', serviceAgree);
   console.log('privateInfoAgree', privateInfoAgree);
   console.log('marketingAgree', marketingAgree);
   console.log('allAgree', allAgree);
-  const getEachAgree = (item, id) => {
-    item === 'serviceAgree' && serviceAgree === false
-      ? setServiceAgree(true)
-      : item === 'privateInfoAgree' && privateInfoAgree === false
-      ? setPrivateInfoAgree(true)
-      : item === 'marketingAgree' && marketingAgree === false
-      ? setMarketingAgree(true)
-      : null;
+  // const getEachAgree = (item, id) => {
+  //   item === 'serviceAgree' && serviceAgree === false
+  //     ? setServiceAgree(true)
+  //     : item === 'privateInfoAgree' && privateInfoAgree === false
+  //     ? setPrivateInfoAgree(true)
+  //     : item === 'marketingAgree' && marketingAgree === false
+  //     ? setMarketingAgree(true)
+  //     : null;
 
-    item === 'serviceAgree' && serviceAgree === true
-      ? setServiceAgree(false)
-      : item === 'privateInfoAgree' && privateInfoAgree === true
-      ? setPrivateInfoAgree(false)
-      : item === 'marketingAgree' && marketingAgree === true
-      ? setMarketingAgree(false)
-      : null;
-
-    // if (selectedServiceAgreeId === id) {
-    //   setSelectedServiceAgreeId(null);
-    // } else {
-    //   setSelectedServiceAgreeId(id);
-    // }
-
-    // if (selectedPrivateInfoAgreeId === id) {
-    //   setSelectedPrivateInfoAgreeId(null);
-    // } else {
-    //   setSelectedPrivateInfoAgreeId(id);
-    // }
-    // if (selectedMarketingAgreeId === id) {
-    //   setSelectedMarketingAgreeId(null);
-    // } else {
-    //   setSelectedMarketingAgreeId(id);
-    // }
-  };
+  //   item === 'serviceAgree' && serviceAgree === true
+  //     ? setServiceAgree(false)
+  //     : item === 'privateInfoAgree' && privateInfoAgree === true
+  //     ? setPrivateInfoAgree(false)
+  //     : item === 'marketingAgree' && marketingAgree === true
+  //     ? setMarketingAgree(false)
+  //     : null;
+  // };
 
   const getAllAgree = () => {
     if (allAgree === false) {
@@ -85,6 +69,14 @@ const SignUpAgree = ({navigation}) => {
     }
   };
 
+  const goNextPage = () => {
+    if (serviceAgree === false || privateInfoAgree === false) {
+      Alert.alert('필수 약관동의가 필요합니다.');
+      return;
+    }
+    navigation.navigate('SelfAuth');
+  };
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
@@ -96,13 +88,13 @@ const SignUpAgree = ({navigation}) => {
         <View style={{marginHorizontal: 24}}>
           <RowView style={{marginTop: 27.5, justifyContent: 'space-between'}}>
             <BoldLabelTitle text={'회원가입'} />
-            <RowView>
+            {/* <RowView>
               {SIGNUP_NUM_DATA.map((num, index) => (
                 <>
                   <PageNumbering numId={num?.id} key={index} pageNum={1} />
                 </>
               ))}
-            </RowView>
+            </RowView> */}
           </RowView>
 
           <BoldLabelSubTitle
@@ -147,16 +139,41 @@ const SignUpAgree = ({navigation}) => {
             />
           </RowView>
           <View style={styles.subAgreeBox}>
-            {SUB_CONTENT_DATA.map((menu, index) => (
-              <RowView
-                style={{
-                  justifyContent: 'space-between',
-                  marginRight: 13,
-                  marginLeft: 16.5,
-                  borderBottomColor: index === 2 ? '#fff' : '#E5E5E5',
-                  borderBottomWidth: 1,
-                }}>
-                <RowView>
+            {/* {SUB_CONTENT_DATA.map((menu, index) => ( */}
+            {/* <RowView
+              style={{
+                justifyContent: 'space-between',
+                marginRight: 13,
+                marginLeft: 16.5,
+                // borderBottomColor: index === 2 ? '#fff' : '#E5E5E5',
+                borderBottomColor: '#fff',
+                borderBottomWidth: 1,
+              }}> */}
+            <Agreement
+              text={'[필수]서비스 이용약관 동의'}
+              isActive={serviceAgree}
+              onPress={() => {
+                setServiceAgree(!serviceAgree);
+              }}
+              DetailOpenPress={() => null}
+            />
+            <Agreement
+              text={'[필수]개인정보 수집 및 이용 동의'}
+              isActive={privateInfoAgree}
+              onPress={() => {
+                setPrivateInfoAgree(!privateInfoAgree);
+              }}
+              DetailOpenPress={() => null}
+            />
+            <Agreement
+              text={'[선택]마케팅정보 알람 동의'}
+              isActive={marketingAgree}
+              onPress={() => {
+                setMarketingAgree(!marketingAgree);
+              }}
+              DetailOpenPress={() => null}
+            />
+            {/* <RowView>
                   <Touchable
                     onPress={() => {
                       // getEachAgree(menu?.path, menu?.id);
@@ -186,9 +203,9 @@ const SignUpAgree = ({navigation}) => {
                     text={'[상세보기]'}
                     style={{color: '#46A0BD', fontWeight: '700'}}
                   />
-                </Touchable>
-              </RowView>
-            ))}
+                </Touchable> */}
+            {/* </RowView> */}
+            {/* ))} */}
           </View>
         </View>
       </ContainerStyled>
@@ -204,10 +221,7 @@ const SignUpAgree = ({navigation}) => {
           </View>
         )}
 
-        <BottomButton
-          text={'다음'}
-          onPress={() => navigation.navigate('SelfAuth')}
-        />
+        <BottomButton text={'다음'} onPress={() => goNextPage()} />
       </View>
     </LinearGradient>
   );
