@@ -24,6 +24,7 @@ const SignUp = ({navigation, route}) => {
   const [genderMale, setGenderMale] = useState('');
   const [genderFeMale, setGenderFeMale] = useState('');
   const [loginIdVerify, setLoginIdVerify] = useState(true);
+  const [emailVerify, setEmailVerify] = useState(true);
 
   const [loginId, setLoginId] = useState('');
   const [password1, setPassword1] = useState('');
@@ -97,6 +98,11 @@ const SignUp = ({navigation, route}) => {
         config,
       );
       const {Result} = res?.data;
+      if (Result === 'alreadyEmail') {
+        setEmailVerify(false);
+      } else {
+        setEmailVerify(true);
+      }
       console.log(Result);
     } catch (e) {
       console.log(e);
@@ -314,6 +320,27 @@ const SignUp = ({navigation, route}) => {
             />
             <SmallButton text={'중복확인'} onPress={() => onEmailVerify()} />
           </RowView>
+          {emailVerify === false ? (
+            <LabelNone
+              text={'이미 사용중인 이메일 입니다.'}
+              style={{
+                color: '#FF0000',
+                fontSize: 12,
+                marginLeft: 19,
+                marginTop: 5,
+              }}
+            />
+          ) : (
+            <LabelNone
+              text={'사용가능한 이메일 입니다.'}
+              style={{
+                color: '#46A0BD',
+                fontSize: 12,
+                marginLeft: 19,
+                marginTop: 5,
+              }}
+            />
+          )}
 
           <BottomButton
             style={{marginBottom: 30, marginTop: 88}}
