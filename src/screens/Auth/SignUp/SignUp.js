@@ -23,7 +23,7 @@ const SignUp = ({navigation, route}) => {
   const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [genderMale, setGenderMale] = useState('');
   const [genderFeMale, setGenderFeMale] = useState('');
-  const [loginIdVerify, setLoginIdVerify] = useState(false);
+  const [loginIdVerify, setLoginIdVerify] = useState(true);
 
   const [loginId, setLoginId] = useState('');
   const [password1, setPassword1] = useState('');
@@ -56,7 +56,6 @@ const SignUp = ({navigation, route}) => {
   };
 
   const onLoginIdVerify = async () => {
-    console.log('59');
     try {
       let body = {LoginId: loginId};
       const config = {
@@ -70,12 +69,35 @@ const SignUp = ({navigation, route}) => {
         config,
       );
       const {Result} = res?.data;
-      console.log(Result);
+      // console.log(Result);
       if (Result === 'alreadyloginId') {
         setLoginIdVerify(false);
       } else {
         setLoginIdVerify(true);
       }
+    } catch (e) {
+      console.log(e);
+      console.log(e.response);
+    }
+  };
+
+  const onEmailVerify = async () => {
+    try {
+      let body = {
+        Email: email,
+      };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const res = await api.post(
+        'emailverification',
+        JSON.stringify(body),
+        config,
+      );
+      const {Result} = res?.data;
+      console.log(Result);
     } catch (e) {
       console.log(e);
       console.log(e.response);
@@ -290,7 +312,7 @@ const SignUp = ({navigation, route}) => {
               onChangeText={text => setEmail(text)}
               outStyle={{marginRight: 5}}
             />
-            <SmallButton text={'중복확인'} />
+            <SmallButton text={'중복확인'} onPress={() => onEmailVerify()} />
           </RowView>
 
           <BottomButton
