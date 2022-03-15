@@ -52,7 +52,7 @@ export const ContentInput = ({
         }}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChangeText={onChangeText}
         placeholderTextColor={'#c4c4c4'}
       />
     </RowView>

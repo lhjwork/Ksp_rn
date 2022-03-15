@@ -23,6 +23,7 @@ const SignUp = ({navigation, route}) => {
   const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [genderMale, setGenderMale] = useState('');
   const [genderFeMale, setGenderFeMale] = useState('');
+  const [loginIdVerify, setLoginIdVerify] = useState(false);
 
   const [loginId, setLoginId] = useState('');
   const [password1, setPassword1] = useState('');
@@ -33,7 +34,7 @@ const SignUp = ({navigation, route}) => {
 
   const onSignUp = async () => {
     try {
-      body = {
+      let body = {
         Login: loginId,
         Password: password1,
         Username: username,
@@ -51,6 +52,33 @@ const SignUp = ({navigation, route}) => {
       navigation.navigate('SignUpComplete');
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const onLoginIdVerify = async () => {
+    console.log('59');
+    try {
+      let body = {LoginId: loginId};
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const res = await api.post(
+        'loginidverification',
+        JSON.stringify(body),
+        config,
+      );
+      const {Result} = res?.data;
+      console.log(Result);
+      if (Result === 'alreadyloginId') {
+        setLoginIdVerify(false);
+      } else {
+        setLoginIdVerify(true);
+      }
+    } catch (e) {
+      console.log(e);
+      console.log(e.response);
     }
   };
 
@@ -114,8 +142,29 @@ const SignUp = ({navigation, route}) => {
               value={loginId}
               outStyle={{marginRight: 5}}
             />
-            <SmallButton text={'중복확인'} />
+            <SmallButton text={'중복확인'} onPress={() => onLoginIdVerify()} />
           </RowView>
+          {loginIdVerify === false ? (
+            <LabelNone
+              text={'이미 사용중인 아이디 입니다.'}
+              style={{
+                color: '#FF0000',
+                fontSize: 12,
+                marginLeft: 19,
+                marginTop: 5,
+              }}
+            />
+          ) : (
+            <LabelNone
+              text={'사용 가능한 아이디 입니다.'}
+              style={{
+                color: '#46A0BD',
+                fontSize: 12,
+                marginLeft: 19,
+                marginTop: 5,
+              }}
+            />
+          )}
 
           <BoldLabel14
             text={'비밀번호'}
