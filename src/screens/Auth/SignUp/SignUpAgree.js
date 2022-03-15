@@ -16,6 +16,7 @@ import {BottomButton} from '../../../components/Buttons/Buttons';
 import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
 import PageNumbering from '../../../components/SignUp/PageNumbering';
 import Agreement from '../../../components/Agreement';
+import ModalFrame from '../../../components/Modals/ModalFrame';
 
 const SUB_CONTENT_DATA = [
   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -28,32 +29,6 @@ const SignUpAgree = ({navigation}) => {
   const [serviceAgree, setServiceAgree] = useState(false);
   const [privateInfoAgree, setPrivateInfoAgree] = useState(false);
   const [marketingAgree, setMarketingAgree] = useState(false);
-  // const [selectedServiceAgreeId, setSelectedServiceAgreeId] = useState('');
-  // const [selectedPrivateInfoAgreeId, setSelectedPrivateInfoAgreeId] =
-  //   useState('');
-  // const [selectedMarketingAgreeId, setSelectedMarketingAgreeId] = useState('');
-
-  console.log('serviceAgree', serviceAgree);
-  console.log('privateInfoAgree', privateInfoAgree);
-  console.log('marketingAgree', marketingAgree);
-  console.log('allAgree', allAgree);
-  // const getEachAgree = (item, id) => {
-  //   item === 'serviceAgree' && serviceAgree === false
-  //     ? setServiceAgree(true)
-  //     : item === 'privateInfoAgree' && privateInfoAgree === false
-  //     ? setPrivateInfoAgree(true)
-  //     : item === 'marketingAgree' && marketingAgree === false
-  //     ? setMarketingAgree(true)
-  //     : null;
-
-  //   item === 'serviceAgree' && serviceAgree === true
-  //     ? setServiceAgree(false)
-  //     : item === 'privateInfoAgree' && privateInfoAgree === true
-  //     ? setPrivateInfoAgree(false)
-  //     : item === 'marketingAgree' && marketingAgree === true
-  //     ? setMarketingAgree(false)
-  //     : null;
-  // };
 
   const getAllAgree = () => {
     if (allAgree === false) {
@@ -71,7 +46,7 @@ const SignUpAgree = ({navigation}) => {
 
   const goNextPage = () => {
     if (serviceAgree === false || privateInfoAgree === false) {
-      Alert.alert('필수 약관동의가 필요합니다.');
+      <ModalFrame />;
       return;
     }
     navigation.navigate('SelfAuth');
@@ -88,13 +63,6 @@ const SignUpAgree = ({navigation}) => {
         <View style={{marginHorizontal: 24}}>
           <RowView style={{marginTop: 27.5, justifyContent: 'space-between'}}>
             <BoldLabelTitle text={'회원가입'} />
-            {/* <RowView>
-              {SIGNUP_NUM_DATA.map((num, index) => (
-                <>
-                  <PageNumbering numId={num?.id} key={index} pageNum={1} />
-                </>
-              ))}
-            </RowView> */}
           </RowView>
 
           <BoldLabelSubTitle
@@ -139,16 +107,6 @@ const SignUpAgree = ({navigation}) => {
             />
           </RowView>
           <View style={styles.subAgreeBox}>
-            {/* {SUB_CONTENT_DATA.map((menu, index) => ( */}
-            {/* <RowView
-              style={{
-                justifyContent: 'space-between',
-                marginRight: 13,
-                marginLeft: 16.5,
-                // borderBottomColor: index === 2 ? '#fff' : '#E5E5E5',
-                borderBottomColor: '#fff',
-                borderBottomWidth: 1,
-              }}> */}
             <Agreement
               text={'[필수]서비스 이용약관 동의'}
               isActive={serviceAgree}
@@ -173,39 +131,6 @@ const SignUpAgree = ({navigation}) => {
               }}
               DetailOpenPress={() => null}
             />
-            {/* <RowView>
-                  <Touchable
-                    onPress={() => {
-                      // getEachAgree(menu?.path, menu?.id);
-                    }}>
-                    {serviceAgree === false ? (
-                      <Ionicons
-                        name={'checkmark-circle-outline'}
-                        size={15}
-                        style={styles.offSmallIcon}
-                      />
-                    ) : (
-                      <Ionicons
-                        name={'checkmark-circle'}
-                        size={15}
-                        style={styles.onSmallIcon}
-                      />
-                    )}
-                  </Touchable>
-
-                  <BoldLabelSubTitle
-                    text={menu?.text}
-                    style={styles.subTitleText}
-                  />
-                </RowView>
-                <Touchable>
-                  <LabelNone
-                    text={'[상세보기]'}
-                    style={{color: '#46A0BD', fontWeight: '700'}}
-                  />
-                </Touchable> */}
-            {/* </RowView> */}
-            {/* ))} */}
           </View>
         </View>
       </ContainerStyled>
