@@ -29,6 +29,7 @@ const SignUpAgree = ({navigation}) => {
   const [serviceAgree, setServiceAgree] = useState(false);
   const [privateInfoAgree, setPrivateInfoAgree] = useState(false);
   const [marketingAgree, setMarketingAgree] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const getAllAgree = () => {
     if (allAgree === false) {
@@ -46,7 +47,7 @@ const SignUpAgree = ({navigation}) => {
 
   const goNextPage = () => {
     if (serviceAgree === false || privateInfoAgree === false) {
-      <ModalFrame />;
+      setModalVisible(true);
       return;
     }
     navigation.navigate('SelfAuth');
@@ -54,11 +55,15 @@ const SignUpAgree = ({navigation}) => {
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+      <ModalFrame
+        infoText={'필수 동의하기를 모두 선택해 주세요.'}
+        visible={modalVisible}
+        onPress={() => setModalVisible(false)}
+      />
       <HeaderCompnent
         rightView={false}
         onPressLeftBtn={() => navigation.goBack()}
       />
-
       <ContainerStyled>
         <View style={{marginHorizontal: 24}}>
           <RowView style={{marginTop: 27.5, justifyContent: 'space-between'}}>
