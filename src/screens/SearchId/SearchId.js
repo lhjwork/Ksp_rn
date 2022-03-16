@@ -27,10 +27,12 @@ const SearchId = ({navigation}) => {
           style={styles.contentText}
         />
         <LabelNone text={'이름'} style={styles.subTitle} />
-        <ContentInput
-          placeholder={'이름을 입력해주세요.'}
-          textStyle={styles.textStlye}
-        />
+        <View style={{height: 52}}>
+          <ContentInput
+            placeholder={'이름을 입력해주세요.'}
+            textStyle={styles.textStlye}
+          />
+        </View>
         <LabelNone text={'휴대폰 번호'} style={styles.subTitle2} />
         <RowView>
           <AmountInput
