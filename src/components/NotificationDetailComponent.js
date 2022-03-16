@@ -4,7 +4,7 @@ import {BoldLabel14, LabelNone} from './Labels';
 import Touchable from './Touchable';
 import RowView from './Views/RowView';
 
-const NotificationDetailComponent = ({outStyle, text, date}) => {
+const NotificationDetailComponent = ({outStyle, text, date, onPress}) => {
   return (
     <View
       style={{
@@ -14,7 +14,7 @@ const NotificationDetailComponent = ({outStyle, text, date}) => {
         borderBottomColor: '#E5E5E5',
         ...outStyle,
       }}>
-      <Touchable>
+      <Touchable onPress={onPress}>
         <RowView style={{paddingTop: 20}}>
           <View style={styles.bar} />
           <BoldLabel14 text={text} style={{color: '#555'}} />

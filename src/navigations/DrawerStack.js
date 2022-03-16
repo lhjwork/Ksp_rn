@@ -21,6 +21,7 @@ import {SCREEN_WIDTH} from '../constants';
 import ScannHistory from '../screens/ScannHistory/ScannHistory';
 import PasswordChange from '../screens/PasswordChange/PasswordChange';
 import SearchId from '../screens/SearchId/SearchId';
+import NotificationDetail from '../screens/Notification/NotificationDetail';
 
 const Drawer = createDrawerNavigator();
 // test
@@ -56,6 +57,11 @@ export const DrawerStack = ({props}) => {
       <Drawer.Screen
         name="Notification"
         component={Notification}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="NotificationDetail"
+        component={NotificationDetail}
         options={{headerShown: false}}
       />
       <Drawer.Screen
