@@ -5,7 +5,8 @@ import HeaderCompnent from '../../components/HeaderCompnent';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
 import {BoldLabelTitle} from '../../components/Labels';
 import NotificationDetailComponent from '../../components/NotificationDetailComponent';
-const Notification = () => {
+
+const Notification = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
@@ -18,7 +19,9 @@ const Notification = () => {
           style={{marginTop: 27.5, marginHorizontal: 30, marginBottom: 55}}
         />
         <ContainerStyled style={{backgroundColor: '#fff', elevation: 3}}>
-          <NotificationDetailComponent />
+          <NotificationDetailComponent
+            onPress={() => navigation.navigate('NotificationDetail')}
+          />
         </ContainerStyled>
       </ContainerStyled>
     </LinearGradient>
