@@ -28,7 +28,7 @@ const SelfAuth = ({navigation}) => {
   const [verifiedCode, setVerifiedCode] = useState('');
   const [getCode, setGetCode] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  // const [getRegistered, setGetRegistered] = useState('');
+  const [modalText, setModalText] = useState('');
 
   console.log('phonenumber', phoneNumber);
 
@@ -48,13 +48,13 @@ const SelfAuth = ({navigation}) => {
       const {data} = res;
       let tempboolean = data['Result'];
       console.log('tempboolean', tempboolean);
-      // console로 데이터를 타서 getRegister에 담긴 값을 확인 하였는데 버튼을 두번 눌러야 값이 들어갔다. 이 부분 동균님께 알아보도록. 현재 주석 처리
+
       if (tempboolean === true) {
+        setModalText('이미 등록된 회원입니다.');
         setModalVisible(true);
-        // setGetRegistered(true);
-      } else if (tempboolean === false) {
-        setModalVisible(false);
-        // setGetRegistered(false);
+      } else if (tempboolean === false || tempboolean === 'success') {
+        setModalText('사용 가능한 번호입니다.');
+        setModalVisible(true);
       }
     } catch (e) {
       console.log(e);
@@ -80,7 +80,7 @@ const SelfAuth = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ModalFrame
-        infoText={'이미 등록된 회원입니다.'}
+        infoText={modalText}
         visible={modalVisible}
         onPress={() => setModalVisible(false)}
       />

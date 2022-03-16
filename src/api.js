@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://192.168.0.8:5055/';
+axios.defaults.baseURL = 'http://10.89.3.225:5055/';
 // process.env.NODE_DEV === 'development' // 개발
 if (process.env.NODE_DEV === 'production') {
   // 배포
