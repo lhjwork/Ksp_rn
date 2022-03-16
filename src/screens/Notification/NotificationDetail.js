@@ -6,7 +6,7 @@ import {ContainerStyled} from '../../components/StyledComponents/StyledComponent
 import RowView from '../../components/Views/RowView';
 import {BoldLabel14, LabelNone} from '../../components/Labels';
 
-const NotificationDetail = () => {
+const NotificationDetail = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent

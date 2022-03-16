@@ -55,15 +55,16 @@ export const DrawerStack = ({props}) => {
         options={{headerShown: false}}
       />
       <Drawer.Screen
-        name="Notification"
-        component={Notification}
-        options={{headerShown: false}}
-      />
-      <Drawer.Screen
         name="NotificationDetail"
         component={NotificationDetail}
         options={{headerShown: false}}
       />
+      <Drawer.Screen
+        name="Notification"
+        component={Notification}
+        options={{headerShown: false}}
+      />
+
       <Drawer.Screen
         name="Terms"
         component={Terms}
