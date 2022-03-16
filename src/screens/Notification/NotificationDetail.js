@@ -6,7 +6,9 @@ import {ContainerStyled} from '../../components/StyledComponents/StyledComponent
 import RowView from '../../components/Views/RowView';
 import {BoldLabel14, LabelNone} from '../../components/Labels';
 
-const NotificationDetail = ({navigation}) => {
+const NotificationDetail = ({navigation, route}) => {
+  const {Date, Subject, Title} = route?.params?.item;
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
@@ -15,26 +17,26 @@ const NotificationDetail = ({navigation}) => {
       />
       <ContainerStyled style={styles.whiteContainer}>
         <View style={styles.titleBox}>
-          <RowView
+          {/* <RowView
             style={{
               flex: 1,
-
               alignItems: null,
               paddingTop: 15,
-            }}>
-            <LabelNone
-              text={'코나 쇼핑몰 신규 제휴 브랜드 안내를 '}
-              style={{
-                color: '#555',
-                fontSize: 18,
-                lineHeight: 25,
-                fontWeight: '500',
-              }}
-            />
-          </RowView>
-          <LabelNone text={'2022.01.01'} style={styles.date} />
+            }}> */}
+          <LabelNone
+            text={Title}
+            style={{
+              color: '#555',
+              fontSize: 18,
+              lineHeight: 25,
+              fontWeight: '500',
+              paddingTop: 15,
+            }}
+          />
+          {/* </RowView> */}
+          <LabelNone text={Date} style={styles.date} />
         </View>
-        <LabelNone text={'안녕하십니까.'} style={styles.content} />
+        <LabelNone text={Subject} style={styles.content} />
       </ContainerStyled>
     </LinearGradient>
   );
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   titleBox: {
-    height: 99,
     marginHorizontal: 24,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',

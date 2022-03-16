@@ -51,7 +51,7 @@ const Notification = ({navigation}) => {
               text={item?.Title}
               date={item?.Date}
               index={index}
-              onPress={() => navigation.navigate('NotificationDetail')}
+              onPress={() => navigation.navigate('NotificationDetail', {item})}
             />
           ))}
         </ContainerStyled>
