@@ -89,9 +89,7 @@ export const signIn = userData => async dispatch => {
     let msg = '서버와 통신에 실패하였습니다.';
 
     const {data} = err.response;
-    if (!data.ok && data.msg) {
-      msg = data.msg;
-    }
+    dispatch(saveUserInfo(data));
   }
 };
 export const signOut = () => async dispatch => {

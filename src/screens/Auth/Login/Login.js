@@ -23,6 +23,7 @@ import {ContentInput, PasswordInput} from '../../../components/TxInput';
 import {BottomButton} from '../../../components/Buttons/Buttons';
 import {useDispatch, useSelector} from 'react-redux';
 import {signIn} from '../../../redux/authSlice';
+import ModalFrame from '../../../components/Modals/ModalFrame';
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
@@ -31,8 +32,9 @@ const Login = ({navigation}) => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+  const [loginIdModalVisible, setLoginModalVisible] = useState(false);
+  const [pwdModalVisible, setPwdModalVisible] = useState(false);
 
-  console.log(user?.sessionToken);
   useEffect(() => {
     // dispatch(signOut());
     if (user?.sessionToken) {
@@ -56,11 +58,26 @@ const Login = ({navigation}) => {
     console.log('body', body);
 
     dispatch(signIn(body));
+    if (user?.Result === 'failed') {
+      setLoginModalVisible(true);
+    } else if (user?.Result === '비밀번호가 틀렸습니다.') {
+      setPwdModalVisible(true);
+    }
   };
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
+        <ModalFrame
+          infoText={'존재하지 않는 아이디입니다.'}
+          visible={loginIdModalVisible}
+          onPress={() => setLoginModalVisible(false)}
+        />
+        <ModalFrame
+          infoText={'틀린 비밀번호입니다.'}
+          visible={pwdModalVisible}
+          onPress={() => setPwdModalVisible(false)}
+        />
         <ContainerStyled>
           <View style={{marginHorizontal: 30}}>
             <Image
