@@ -53,7 +53,7 @@ const SelfAuth = ({navigation}) => {
         setModalText('이미 등록된 회원입니다.');
         setModalVisible(true);
       } else if (tempboolean === false || tempboolean === 'success') {
-        setModalText('사용 가능한 번호입니다.');
+        setModalText('인증 번호가 전송되었습니다.');
         setModalVisible(true);
       }
     } catch (e) {

@@ -34,6 +34,10 @@ const Login = ({navigation}) => {
     }
   };
 
+  const onLogin = () => {
+    navigation.navigate('DrawerStack');
+  };
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
@@ -89,7 +93,7 @@ const Login = ({navigation}) => {
             <BottomButton
               style={styles.bottomBtn}
               text={'로그인'}
-              onPress={() => navigation.navigate('DrawerStack')}
+              onPress={() => onLogin()}
             />
           </View>
         </ContainerStyled>
