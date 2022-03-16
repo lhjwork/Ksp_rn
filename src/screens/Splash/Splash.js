@@ -4,14 +4,38 @@ import LinearGradient from 'react-native-linear-gradient';
 import {BoldLabelSubTitle} from '../../components/Labels';
 import {SCREEN_HEIGHT} from '../../constants';
 import Touchable from '../../components/Touchable';
+import {useSelector} from 'react-redux';
+import api from '../../api';
 
 const Splash = ({navigation}) => {
+  const auth = useSelector(state => state.auth);
+  const {user} = auth;
+
   console.log('dd');
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('AuthStack');
     }, 1500);
   }, []);
+
+  // useEffect(() => {
+  //   getUserInfoList();
+  // }, []);
+
+  // const {sessionToken} = user;
+
+  // const getUserInfoList = async () => {
+  //   try {
+  //     const config = {headers: {'Content-Type': 'application/json'}};
+  //     const body = {sessionToken: sessionToken};
+  //     const res = api.post('userinfosend', JSON.stringify(body), config);
+  //     console.log('res', res);
+
+  //     //  setUserInfoList(res?.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //     console.log(e.response);
+  //   }
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>

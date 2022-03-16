@@ -24,6 +24,7 @@ import {BottomButton} from '../../../components/Buttons/Buttons';
 import {useDispatch, useSelector} from 'react-redux';
 import {signIn} from '../../../redux/authSlice';
 import ModalFrame from '../../../components/Modals/ModalFrame';
+import api from '../../../api';
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);

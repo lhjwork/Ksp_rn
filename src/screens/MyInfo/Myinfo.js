@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -11,6 +11,8 @@ import {MyInfoInput} from '../../components/TxInput';
 import RowView from '../../components/Views/RowView';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Touchable from '../../components/Touchable';
+import {useSelector} from 'react-redux';
+import api from '../../api';
 
 const Data = [
   {id: 1, title: '이름', info: '김가명'},
@@ -21,6 +23,29 @@ const Data = [
 ];
 
 const Myinfo = ({navigation}) => {
+  const [userInfoList, setUserInfoList] = useState([]);
+  const auth = useSelector(state => state.auth);
+
+  useEffect(() => {
+    getUserInfoList();
+  }, []);
+
+  const {sessionToken} = auth?.user;
+
+  const getUserInfoList = async () => {
+    try {
+      const config = {headers: {'Content-Type': 'application/json'}};
+      const body = {sessionToken: sessionToken};
+      const res = await api.post('userinfosend', JSON.stringify(body), config);
+      console.log('===========res===========', res?.data);
+
+      setUserInfoList(res?.data);
+    } catch (e) {
+      console.log(e);
+      console.log(e.response);
+    }
+  };
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
@@ -29,7 +54,7 @@ const Myinfo = ({navigation}) => {
       />
       <View style={{marginHorizontal: 24.5}}>
         <BoldLabelTitle text={'내정보'} style={{marginTop: 27.5}} />
-        {Data.map((menu, index) => (
+        {userInfoList.map((menu, index) => (
           <View key={index}>
             <BoldLabel14
               text={menu?.title}

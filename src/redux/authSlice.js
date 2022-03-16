@@ -24,7 +24,6 @@ const userSlice = createSlice({
     user: null,
     sessionToken: null,
     isVerified: false,
-
     logoutSuccess: false,
     editProfileSuccess: false,
     errorMsg: null,
