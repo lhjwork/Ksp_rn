@@ -22,6 +22,8 @@ const userSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
+    phone: null,
+    email: null,
     sessionToken: null,
     isVerified: false,
     logoutSuccess: false,

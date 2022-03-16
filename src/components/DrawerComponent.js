@@ -6,6 +6,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RowView from './Views/RowView';
 import Touchable from './Touchable';
+import {useSelector} from 'react-redux';
 
 const DRAWER_LIST_DATA = [
   {
@@ -35,6 +36,9 @@ const DRAWER_LIST_DATA = [
 ];
 
 const DrawerComponent = ({navigation}) => {
+  const auth = useSelector(state => state.auth);
+  const {email, username} = auth?.user;
+
   return (
     <ContainerStyled>
       <View style={{flex: 1}}>
@@ -50,13 +54,13 @@ const DrawerComponent = ({navigation}) => {
               style={{width: 30, height: 30, marginBottom: 7}}
             />
             <BoldLabelTitle
-              text={'김코나'}
+              text={username}
               style={{color: '#46A0BD', marginLeft: 9}}
             />
             <BoldLabel14 text={' 님,안녕하세요.'} style={{color: '#000'}} />
           </RowView>
           <LabelNone
-            text={'kona123@gmail.com'}
+            text={email}
             style={{
               color: '#000',
               fontWeight: '400',
