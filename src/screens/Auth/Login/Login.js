@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -21,10 +21,24 @@ import {ScrollView} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ContentInput, PasswordInput} from '../../../components/TxInput';
 import {BottomButton} from '../../../components/Buttons/Buttons';
+import {useDispatch, useSelector} from 'react-redux';
+import {signIn} from '../../../redux/authSlice';
 const Login = ({navigation}) => {
-  const [id, setId] = useState();
-  const [password, setPassword] = useState();
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
+  const {user} = auth;
+
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(true);
+
+  console.log(user?.sessionToken);
+  useEffect(() => {
+    // dispatch(signOut());
+    if (user?.sessionToken) {
+      navigation.navigate('DrawerStack');
+    }
+  }, [dispatch, user]);
 
   const visiblePassword = () => {
     if (passwordVisible === true) {
@@ -34,8 +48,14 @@ const Login = ({navigation}) => {
     }
   };
 
-  const onLogin = () => {
-    navigation.navigate('DrawerStack');
+  const onLogin = (loginId, password) => {
+    let body = {
+      LoginId: loginId,
+      Password: password,
+    };
+    console.log('body', body);
+
+    dispatch(signIn(body));
   };
 
   return (
@@ -52,6 +72,8 @@ const Login = ({navigation}) => {
               placeholder={'아이디'}
               source={require('../../../asssets/icons/Login/login_id_icon.png')}
               imageNone={true}
+              onChangeText={text => setLoginId(text)}
+              value={loginId}
             />
             <PasswordInput
               styleBox={{marginTop: 15}}
@@ -93,7 +115,7 @@ const Login = ({navigation}) => {
             <BottomButton
               style={styles.bottomBtn}
               text={'로그인'}
-              onPress={() => onLogin()}
+              onPress={() => onLogin(loginId, password)}
             />
           </View>
         </ContainerStyled>

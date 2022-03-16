@@ -77,4 +77,33 @@ export const {
   errorMsgReset,
 } = userSlice.actions;
 
+export const signIn = userData => async dispatch => {
+  try {
+    let {data} = await api.post(`applogin`, userData, config);
+    console.log('userRes data', data);
+
+    dispatch(loginSuccess());
+    dispatch(saveUserInfo(data));
+  } catch (err) {
+    console.log('err', err.response);
+    let msg = '서버와 통신에 실패하였습니다.';
+
+    const {data} = err.response;
+    if (!data.ok && data.msg) {
+      msg = data.msg;
+    }
+  }
+};
+export const signOut = () => async dispatch => {
+  try {
+    await api.post('sign-out');
+
+    dispatch(logoutSuccess());
+    dispatch(resetAuth());
+  } catch (err) {
+    console.log(err);
+    console.log(err.response);
+  }
+};
+
 export default userSlice.reducer;
