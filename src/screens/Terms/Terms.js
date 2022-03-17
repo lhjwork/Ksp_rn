@@ -12,6 +12,7 @@ import Touchable from '../../components/Touchable';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RowView from '../../components/Views/RowView';
 import Agreement from '../../components/Agreement';
+import {TERMS_DATA} from '../../asssets/Data/TERMS_DATA';
 
 // const SUB_CONTENT_DATA = [
 //   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -20,9 +21,9 @@ import Agreement from '../../components/Agreement';
 // ];
 
 const Terms = ({navigation}) => {
-  const [serviceAgree, setServiceAgree] = useState(false);
-  const [privateInfoAgree, setPrivateInfoAgress] = useState(false);
-  const [marketingAgree, setMarketingAgree] = useState(false);
+  const [serviceAgree, setServiceAgree] = useState(true);
+  const [privateInfoAgree, setPrivateInfoAgress] = useState(true);
+  const [marketingAgree, setMarketingAgree] = useState(true);
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
@@ -47,7 +48,9 @@ const Terms = ({navigation}) => {
             onPress={() => {
               setServiceAgree(!serviceAgree);
             }}
-            DetailOpenPress={() => null}
+            DetailOpenPress={() =>
+              navigation.navigate('TermsDetail', TERMS_DATA[0])
+            }
           />
           <Agreement
             text={'[필수]개인정보 수집 및 이용 동의'}
@@ -55,7 +58,9 @@ const Terms = ({navigation}) => {
             onPress={() => {
               setPrivateInfoAgress(!privateInfoAgree);
             }}
-            DetailOpenPress={() => null}
+            DetailOpenPress={() =>
+              navigation.navigate('TermsDetail', TERMS_DATA[1])
+            }
           />
           <Agreement
             text={'[선택]마케팅정보 알림 동의'}
@@ -63,7 +68,9 @@ const Terms = ({navigation}) => {
             onPress={() => {
               setMarketingAgree(!marketingAgree);
             }}
-            DetailOpenPress={() => null}
+            DetailOpenPress={() =>
+              navigation.navigate('TermsDetail', TERMS_DATA[2])
+            }
           />
           {/* {SUB_CONTENT_DATA.map((menu, index) => (
            

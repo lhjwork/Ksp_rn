@@ -7,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import RowView from './Views/RowView';
 import Touchable from './Touchable';
 import {useSelector} from 'react-redux';
+import api from '../api';
 
 const DRAWER_LIST_DATA = [
   {
@@ -39,6 +40,18 @@ const DrawerComponent = ({navigation}) => {
   const auth = useSelector(state => state.auth);
   const {email, username} = auth?.user;
 
+  const onLogout = async () => {
+    const config = {
+      headers: {'Content-Type': 'application/json'},
+    };
+    try {
+      const res = await api.post('applogout', {Logout: true}, config);
+      console.log('res', res?.data);
+    } catch (e) {
+      console.log(e);
+      console.log(e.response);
+    }
+  };
   return (
     <ContainerStyled>
       <View style={{flex: 1}}>
@@ -98,7 +111,7 @@ const DrawerComponent = ({navigation}) => {
       </View>
 
       {/* 로그아웃 */}
-      <Touchable onPress={null}>
+      <Touchable onPress={() => onLogout()}>
         <RowView style={styles.imgAndtextRow2}>
           <AntDesign
             name="logout"
