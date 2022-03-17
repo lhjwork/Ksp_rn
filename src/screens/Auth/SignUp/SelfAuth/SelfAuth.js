@@ -93,18 +93,27 @@ const SelfAuth = ({navigation}) => {
   };
 
   const onNextPage = () => {
-    if (phoneNumber === 0) {
-      return;
-    }
-    if (codeVerify.length === 0) {
-      return;
-    }
-    if (codeSame !== 'success') {
+    if (phoneNumber < 11) {
+      setModalText('휴대폰 번호는 11자리 입니다.');
+      setModalVisible(true);
       return;
     }
     if (phoneUnlock === false) {
+      setModalText('휴대번호를 전송바랍니다.');
+      setModalVisible(true);
       return;
     }
+    if (codeVerify.length < 4) {
+      setModalText('인증번호는 4자리 입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (codeSame !== 'success') {
+      setModalText('인증번호가 일치하지 않습니다.');
+      setModalVisible(true);
+      return;
+    }
+    navigation.navigate('SignUp', {phoneNumber});
   };
 
   return (
@@ -166,7 +175,7 @@ const SelfAuth = ({navigation}) => {
               // rightText={'KSP'}
               placeholder="인증번호를 입력해주세요."
               textStyle={{marginLeft: 23}}
-              maxLength1233={4}
+              maxLength={4}
             />
             <SmallButton
               style={styles.button}
@@ -198,10 +207,7 @@ const SelfAuth = ({navigation}) => {
         </View>
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        <BottomButton
-          text={'다음'}
-          onPress={() => navigation.navigate('SignUp', {phoneNumber})}
-        />
+        <BottomButton text={'다음'} onPress={() => onNextPage()} />
       </View>
     </LinearGradient>
   );
