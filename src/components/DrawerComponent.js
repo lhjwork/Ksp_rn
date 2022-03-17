@@ -6,8 +6,9 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RowView from './Views/RowView';
 import Touchable from './Touchable';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import api from '../api';
+import {saveUserInfo} from '../redux/authSlice';
 
 const DRAWER_LIST_DATA = [
   {
@@ -38,6 +39,7 @@ const DRAWER_LIST_DATA = [
 
 const DrawerComponent = ({navigation}) => {
   const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
   const {email, username} = auth?.user;
 
   const onLogout = async () => {
@@ -47,6 +49,8 @@ const DrawerComponent = ({navigation}) => {
     try {
       const res = await api.post('applogout', {Logout: true}, config);
       console.log('res', res?.data);
+      dispatch(saveUserInfo(res?.data));
+      navigation.navigate('Login');
     } catch (e) {
       console.log(e);
       console.log(e.response);
