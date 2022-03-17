@@ -9,6 +9,7 @@ const HeaderCompnent = ({
   onPerssDrawer,
   rightView,
   onPressLeftBtn,
+  antStyle,
 }) => {
   return (
     <RowView style={styles.headerRow}>
@@ -16,7 +17,7 @@ const HeaderCompnent = ({
         <AntDesign
           name={'left'}
           size={20}
-          style={{marginLeft: 27.5, color: '#fff'}}
+          style={{marginLeft: 27.5, color: '#fff', ...antStyle}}
         />
       </Touchable>
       {rightView === false ? (

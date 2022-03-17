@@ -34,7 +34,7 @@ const Agreement = ({text, index, isActive, onPress, DetailOpenPress}) => {
 
         <BoldLabelSubTitle text={text} style={styles.subTitleText} />
       </RowView>
-      <Touchable DetailOpenPress={DetailOpenPress}>
+      <Touchable onPress={DetailOpenPress}>
         <LabelNone
           text={'[상세보기]'}
           style={{color: '#46A0BD', fontWeight: '700'}}

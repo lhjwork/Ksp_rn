@@ -17,6 +17,7 @@ import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
 import PageNumbering from '../../../components/SignUp/PageNumbering';
 import Agreement from '../../../components/Agreement';
 import ModalFrame from '../../../components/Modals/ModalFrame';
+import {TERMS_DATA} from '../../../asssets/Data/TERMS_DATA';
 
 const SUB_CONTENT_DATA = [
   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -118,7 +119,9 @@ const SignUpAgree = ({navigation}) => {
               onPress={() => {
                 setServiceAgree(!serviceAgree);
               }}
-              DetailOpenPress={() => null}
+              DetailOpenPress={() =>
+                navigation.navigate('TermsDetail', TERMS_DATA[0])
+              }
             />
             <Agreement
               text={'[필수]개인정보 수집 및 이용 동의'}
@@ -126,7 +129,9 @@ const SignUpAgree = ({navigation}) => {
               onPress={() => {
                 setPrivateInfoAgree(!privateInfoAgree);
               }}
-              DetailOpenPress={() => null}
+              DetailOpenPress={() =>
+                navigation.navigate('TermsDetail', TERMS_DATA[1])
+              }
             />
             <Agreement
               text={'[선택]마케팅정보 알람 동의'}
@@ -134,7 +139,9 @@ const SignUpAgree = ({navigation}) => {
               onPress={() => {
                 setMarketingAgree(!marketingAgree);
               }}
-              DetailOpenPress={() => null}
+              DetailOpenPress={() =>
+                navigation.navigate('TermsDetail', TERMS_DATA[2])
+              }
             />
           </View>
         </View>

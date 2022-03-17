@@ -9,6 +9,7 @@ import Splash from '../screens/Splash/Splash';
 import SignUp from '../screens/Auth/SignUp/SignUp';
 import SignUpAgree from '../screens/Auth/SignUp/SignUpAgree';
 import {AuthStack} from './AuthStack';
+import TermsDetail from '../screens/Terms/TermsDetail';
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
@@ -44,6 +45,11 @@ const RootStack = () => {
       <Stack.Screen
         name="DrawerStack"
         component={DrawerStack}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="TermsDetail"
+        component={TermsDetail}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

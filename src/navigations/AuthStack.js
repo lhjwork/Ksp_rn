@@ -8,6 +8,7 @@ import SelfAuth from '../screens/Auth/SignUp/SelfAuth/SelfAuth';
 import SignUpComplete from '../screens/Auth/SignUp/SignUpComplete';
 import SearchId from '../screens/SearchId/SearchId';
 import RePassword from '../screens/RePassword/RePassword';
+import TermsDetail from '../screens/Terms/TermsDetail';
 
 const Auth = createNativeStackNavigator();
 
@@ -50,6 +51,11 @@ export const AuthStack = () => {
         component={SignUpComplete}
         options={{headerShown: false}}
       />
+      {/* <Auth.Screen
+        name="TermsDetail"
+        component={TermsDetail}
+        options={{headerShown: false}}
+      /> */}
     </Auth.Navigator>
   );
 };
