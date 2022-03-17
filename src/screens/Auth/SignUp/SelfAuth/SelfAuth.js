@@ -26,11 +26,11 @@ import ModalFrame from '../../../../components/Modals/ModalFrame';
 const SelfAuth = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [verifiedCode, setVerifiedCode] = useState('');
-  const [getCode, setGetCode] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState('');
-
-  console.log('phonenumber', phoneNumber);
+  const [codeVerify, setCodeVerify] = useState('');
+  const [codeSame, setCodeSame] = useState(false);
+  const [phoneUnlock, setPhoneUnlock] = useState(false);
 
   const sendPhoneNum = async () => {
     try {
@@ -45,10 +45,16 @@ const SelfAuth = ({navigation}) => {
         JSON.stringify(body),
         config,
       );
+
       const {data} = res;
       let tempboolean = data['Result'];
       console.log('tempboolean', tempboolean);
-
+      if (tempboolean !== 'success') {
+        setPhoneUnlock(false);
+        return;
+      } else if (tempboolean == 'success') {
+        setPhoneUnlock(true);
+      }
       if (tempboolean === true) {
         setModalText('이미 등록된 회원입니다.');
         setModalVisible(true);
@@ -70,10 +76,34 @@ const SelfAuth = ({navigation}) => {
         },
       };
       body = {Phone: phoneNumber, Verification: verifiedCode};
-      data = await api.post('smsverification', JSON.stringify(body), config);
-      console.log('Codeverify data', data);
+      const res = await api.post('smsverify', JSON.stringify(body), config);
+      console.log('Codeverify res', res?.data['Result']);
+      setCodeVerify(res?.data['Result']);
+
+      if (codeVerify === 'failed') {
+        setCodeSame(false);
+        return;
+      } else if (codeVerify === 'success') {
+        setCodeSame(true);
+        return;
+      }
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const onNextPage = () => {
+    if (phoneNumber === 0) {
+      return;
+    }
+    if (codeVerify.length === 0) {
+      return;
+    }
+    if (codeSame !== 'success') {
+      return;
+    }
+    if (phoneUnlock === false) {
+      return;
     }
   };
 
@@ -121,11 +151,7 @@ const SelfAuth = ({navigation}) => {
               textStyle={{marginLeft: 23}}
               maxLength={11}
             />
-            {/* <NoneInput
-              placeholder={'숫자만 입력해주세요.'}
-              imageNone={false}
-              textStyle={{marginLeft: 23}}
-            /> */}
+
             <SmallButton
               style={styles.button}
               text={'전송'}
@@ -133,11 +159,6 @@ const SelfAuth = ({navigation}) => {
             />
           </RowView>
           <RowView style={{marginTop: 5}}>
-            {/* <NoneInput
-              placeholder={'인증번호를 입력해주세요.'}
-              imageNone={false}
-              textStyle={{marginLeft: 23}}
-            /> */}
             <AmountInput
               outStyle={{flex: 1}}
               onChangeText={text => setVerifiedCode(text)}
@@ -153,7 +174,7 @@ const SelfAuth = ({navigation}) => {
               onPress={() => Codeverify()}
             />
           </RowView>
-          {getCode !== verifiedCode ? (
+          {codeSame === false ? (
             <LabelNone
               text={'인증번호가 일치하지 않습니다.'}
               style={{
