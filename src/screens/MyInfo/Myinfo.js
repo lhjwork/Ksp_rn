@@ -14,21 +14,13 @@ import Touchable from '../../components/Touchable';
 import {useSelector} from 'react-redux';
 import api from '../../api';
 
-const Data = [
-  {id: 1, title: '이름', info: '김가명'},
-  {id: 2, title: '휴대폰 번호', info: '01012341234'},
-  {id: 3, title: '성별', info: '남'},
-  {id: 4, title: '이메일', info: 'ksp123@gmail.com'},
-  {id: 4, title: '아이디', info: 'ksp123'},
-];
-
 const Myinfo = ({navigation}) => {
-  const [userInfoList, setUserInfoList] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const auth = useSelector(state => state.auth);
 
   useEffect(() => {
     getUserInfoList();
-  }, []);
+  }, [userInfo]);
 
   const {sessionToken} = auth?.user;
 
@@ -39,12 +31,20 @@ const Myinfo = ({navigation}) => {
       const res = await api.post('userinfosend', JSON.stringify(body), config);
       console.log('===========res===========', res?.data);
 
-      setUserInfoList(res?.data);
+      setUserInfo(res?.data);
     } catch (e) {
       console.log(e);
       console.log(e.response);
     }
   };
+
+  const Data = [
+    {id: 1, title: '이름', info: userInfo['username']},
+    {id: 2, title: '휴대폰 번호', info: userInfo['phone']},
+    {id: 3, title: '성별', info: userInfo['gender']},
+    {id: 4, title: '이메일', info: userInfo['email']},
+    {id: 4, title: '아이디', info: userInfo['loginId']},
+  ];
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
@@ -54,7 +54,7 @@ const Myinfo = ({navigation}) => {
       />
       <View style={{marginHorizontal: 24.5}}>
         <BoldLabelTitle text={'내정보'} style={{marginTop: 27.5}} />
-        {userInfoList.map((menu, index) => (
+        {Data.map((menu, index) => (
           <View key={index}>
             <BoldLabel14
               text={menu?.title}
