@@ -27,6 +27,9 @@ const Notification = ({navigation}) => {
         config,
       );
       console.log('res', res?.data);
+      if (res?.data['Result'] === 'no notices') {
+        return;
+      }
       setNotices(res?.data?.Result);
     } catch (e) {
       console.log(e);

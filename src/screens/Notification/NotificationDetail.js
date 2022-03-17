@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     fontWeight: '400',
+    color: '#555',
   },
   titleBox: {
     marginHorizontal: 24,

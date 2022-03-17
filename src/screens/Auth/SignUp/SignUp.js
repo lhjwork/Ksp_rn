@@ -38,7 +38,38 @@ const SignUp = ({navigation, route}) => {
   const [email, setEmail] = useState('');
 
   const onSignUp = async () => {
-    onBlockSignUp();
+    // onBlockSignUp();
+
+    if (loginIdVerify === false || loginIdVerify === '') {
+      setModalContent('아이디 중복확인 후 회원가입이 가능합니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (emailVerify === false || emailVerify === '') {
+      setModalContent('이메일 중복확인 후 회원가입이 가능합니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (loginId.length === 0) {
+      setModalContent('아이디 입력은 필수입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (password1.length === 0) {
+      setModalContent('비밀번호 입력은 필수입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (username.length === 0) {
+      setModalContent('이름 입력은 필수입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (gender.length === 0) {
+      setModalContent('성별을 선택해주세요.');
+      setModalVisible(true);
+      return;
+    }
 
     try {
       let body = {

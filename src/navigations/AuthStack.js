@@ -51,11 +51,6 @@ export const AuthStack = () => {
         component={SignUpComplete}
         options={{headerShown: false}}
       />
-      {/* <Auth.Screen
-        name="TermsDetail"
-        component={TermsDetail}
-        options={{headerShown: false}}
-      /> */}
     </Auth.Navigator>
   );
 };

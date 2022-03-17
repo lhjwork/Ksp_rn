@@ -28,7 +28,8 @@ const Terms = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
-        onPerssDrawer={() => navigation.onPerssDrawer()}
+        g
+        onPerssDrawer={() => navigation.openDrawer()}
         onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled>

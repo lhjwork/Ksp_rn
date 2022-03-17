@@ -22,6 +22,7 @@ import ScannHistory from '../screens/ScannHistory/ScannHistory';
 import PasswordChange from '../screens/PasswordChange/PasswordChange';
 import SearchId from '../screens/SearchId/SearchId';
 import NotificationDetail from '../screens/Notification/NotificationDetail';
+import TermsDetail from '../screens/Terms/TermsDetail';
 
 const Drawer = createDrawerNavigator();
 // test
@@ -95,17 +96,11 @@ export const DrawerStack = ({props}) => {
         component={PasswordChange}
         options={{headerShown: false}}
       />
-
-      {/* <Drawer.Screen
-        name="WalletKsp"
-        component={WalletKsp}
+      <Drawer.Screen
+        name="TermsDetail"
+        component={TermsDetail}
         options={{headerShown: false}}
-      /> */}
-      {/* <Stack.Screen
-        name="BottomTabs"
-        component={BottomTabs}
-        options={{headerShown: false}}
-      /> */}
+      />
     </Drawer.Navigator>
   );
 };

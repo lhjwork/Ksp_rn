@@ -22,7 +22,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {ContentInput, PasswordInput} from '../../../components/TxInput';
 import {BottomButton} from '../../../components/Buttons/Buttons';
 import {useDispatch, useSelector} from 'react-redux';
-import {signIn} from '../../../redux/authSlice';
+import {signIn, saveUserInfo} from '../../../redux/authSlice';
 import ModalFrame from '../../../components/Modals/ModalFrame';
 import api from '../../../api';
 const Login = ({navigation}) => {
@@ -35,6 +35,7 @@ const Login = ({navigation}) => {
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [loginIdModalVisible, setLoginModalVisible] = useState(false);
   const [pwdModalVisible, setPwdModalVisible] = useState(false);
+  const [modalControl, setModalControl] = useState('');
 
   useEffect(() => {
     // dispatch(signOut());
@@ -42,6 +43,8 @@ const Login = ({navigation}) => {
       navigation.navigate('DrawerStack');
     }
   }, [dispatch, user]);
+
+  console.log('sdfdaln', user);
 
   const visiblePassword = () => {
     if (passwordVisible === true) {
@@ -72,7 +75,10 @@ const Login = ({navigation}) => {
         <ModalFrame
           infoText={'존재하지 않는 아이디입니다.'}
           visible={loginIdModalVisible}
-          onPress={() => setLoginModalVisible(false)}
+          onPress={() => {
+            setLoginModalVisible(false);
+            dispatch(saveUserInfo(null));
+          }}
         />
         <ModalFrame
           infoText={'틀린 비밀번호입니다.'}

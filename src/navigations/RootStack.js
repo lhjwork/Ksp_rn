@@ -47,11 +47,11 @@ const RootStack = () => {
         component={DrawerStack}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="TermsDetail"
         component={TermsDetail}
         options={{headerShown: false}}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };
