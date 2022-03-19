@@ -26,10 +26,11 @@ import styled from 'styled-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const WalletKsp = ({navigation}) => {
-  const [isKspc, setIsKspc] = useState(1000);
+  const [isKspc, setIsKspc] = useState('ㅡ');
   const [walletAddress, setWalletAddress] = useState(
     '0xQ231h2345yfE2001d8a9g9im8730h8a0s',
   );
+  const [createWalletAddress, setCreateWalletAddress] = useState(false);
 
   const DATAES_COIN_SEND = [
     {
@@ -72,15 +73,28 @@ const WalletKsp = ({navigation}) => {
                 resizeMode="cover"
                 style={styles.cardBackground}>
                 <RowView style={styles.walletPoint}>
-                  <BoldLabel20
-                    text={isKspc
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    style={{color: '#46A0BD'}}
-                  />
+                  {createWalletAddress === false ? (
+                    <BoldLabel20 text={isKspc} />
+                  ) : (
+                    <BoldLabel20
+                      text={isKspc
+                        ?.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      style={{color: '#46A0BD'}}
+                    />
+                  )}
+
                   <LabelNone text={'KSPC'} style={styles.kspcUnit} />
                 </RowView>
-                <LabelNone text={walletAddress} style={styles.walletAddress} />
+                {createWalletAddress === false ? (
+                  <LabelNone text={''} style={styles.walletAddress} Path />
+                ) : (
+                  <LabelNone
+                    text={walletAddress}
+                    style={styles.walletAddress}
+                    Path
+                  />
+                )}
               </ImageBackground>
 
               {/* 지갑 주소 복사 버튼 start*/}
@@ -102,31 +116,27 @@ const WalletKsp = ({navigation}) => {
               {/* 지갑 주소 복사 버튼 end*/}
 
               {DATAES_COIN_SEND.map((item, index) => (
-                <Touchable
+                <WalletButtons
                   key={index}
-                  style={{marginTop: 15}}
-                  onPress={() => navigation.navigate(item?.path)}>
-                  <RowView style={styles.sendBox}>
-                    <RowView style={{marginLeft: 23}}>
-                      <Image
-                        source={item.img}
-                        resizeMode="contain"
-                        style={styles.bottomIcons}
-                      />
-                      <BoldLabel16
-                        text={item.titie}
-                        style={styles.boldLabel16}
-                      />
-                    </RowView>
-
-                    <AntDesign
-                      name={'right'}
-                      size={8}
-                      style={{marginRight: 25, color: '#46A0BD'}}
-                    />
-                  </RowView>
-                </Touchable>
+                  Title={item?.titie}
+                  onPress={() => navigation.navigate(item?.path)}
+                  Img={item?.img}
+                />
               ))}
+              {createWalletAddress === true ? (
+                <></>
+              ) : (
+                <WalletButtons
+                  style={{marginBottom: 15}}
+                  Title={'지갑생성'}
+                  onPressBoolean={true}
+                  Img={require('../../asssets/icons/Wallet_alt_blue.png')}
+                  onPress={() => {
+                    setIsKspc('1000');
+                    setCreateWalletAddress(true);
+                  }}
+                />
+              )}
             </View>
           </ContainerStyled>
         </ScrollView>
@@ -205,3 +215,22 @@ const styles = StyleSheet.create({
     color: '#94D2E9',
   },
 });
+
+const WalletButtons = ({Img, Title, onPress, style}) => {
+  return (
+    <Touchable style={{marginTop: 15, ...style}} onPress={onPress}>
+      <RowView style={styles.sendBox}>
+        <RowView style={{marginLeft: 23}}>
+          <Image source={Img} resizeMode="contain" style={styles.bottomIcons} />
+          <BoldLabel16 text={Title} style={styles.boldLabel16} />
+        </RowView>
+
+        <AntDesign
+          name={'right'}
+          size={8}
+          style={{marginRight: 25, color: '#46A0BD'}}
+        />
+      </RowView>
+    </Touchable>
+  );
+};
