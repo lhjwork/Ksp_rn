@@ -32,7 +32,7 @@ const ScannHistory = ({navigation}) => {
           <RowView style={styles.tableTitleBox}>
             <BoldLabel14 text={'날짜'} style={styles.tableTitleText1} />
             <BoldLabel14 text={'금액'} style={styles.tableTitleText1} />
-            <BoldLabel14 text={'브랜스'} style={styles.tableTitleText1} />
+            <BoldLabel14 text={'브랜드'} style={styles.tableTitleText1} />
           </RowView>
           <View
             style={{
