@@ -40,11 +40,16 @@ const Login = ({navigation}) => {
   useEffect(() => {
     // dispatch(signOut());
     if (user?.sessionToken) {
+      // navigation.reset({
+      //   routes: [
+      //     {
+      //       name: 'DrawerStack',
+      //     },
+      //   ],
+      // });
       navigation.navigate('DrawerStack');
     }
   }, [dispatch, user]);
-
-  console.log('sdfdaln', user);
 
   const visiblePassword = () => {
     if (passwordVisible === true) {

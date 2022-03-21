@@ -14,8 +14,14 @@ const Splash = ({navigation}) => {
   console.log('dd');
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('AuthStack');
-    }, 1500);
+      navigation.reset({
+        routes: [
+          {
+            name: 'AuthStack',
+          },
+        ],
+      });
+    }, 1000);
   }, []);
 
   // useEffect(() => {
