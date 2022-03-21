@@ -18,6 +18,7 @@ import Touchable from '../../../components/Touchable';
 import {SCREEN_WIDTH} from '../../../constants';
 import api from '../../../api';
 import ModalFrame from '../../../components/Modals/ModalFrame';
+import TrueModalFrame from '../../../components/Modals/TrueModalFrame';
 
 const SignUp = ({navigation, route}) => {
   const [passwordVisible1, setPasswordVisible1] = useState(true);

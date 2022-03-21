@@ -22,14 +22,17 @@ import {
 } from '../../../../components/Buttons/Buttons';
 import api from '../../../../api';
 import ModalFrame from '../../../../components/Modals/ModalFrame';
+import TrueModalFrame from '../../../../components/Modals/TrueModalFrame';
 
 const SelfAuth = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [verifiedCode, setVerifiedCode] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState('');
+  const [trueModalVisible, setTrueModalVisible] = useState(false);
+  const [trueModalText, setTrueModalText] = useState('');
   const [codeVerify, setCodeVerify] = useState('');
-  const [codeSame, setCodeSame] = useState(false);
+  const [codeSame, setCodeSame] = useState('');
   const [phoneUnlock, setPhoneUnlock] = useState(false);
 
   const sendPhoneNum = async () => {
@@ -49,18 +52,19 @@ const SelfAuth = ({navigation}) => {
       const {data} = res;
       let tempboolean = data['Result'];
       console.log('tempboolean', tempboolean);
-      if (tempboolean !== 'success') {
-        setPhoneUnlock(false);
-        return;
-      } else if (tempboolean == 'success') {
-        setPhoneUnlock(true);
-      }
+      // if (tempboolean !== 'success') {
+      //   setPhoneUnlock(false);
+      //   return;
+      // } else if (tempboolean == 'success') {
+      //   setPhoneUnlock(true);
+      // }
+      setPhoneUnlock(true);
       if (tempboolean === true) {
         setModalText('이미 등록된 회원입니다.');
         setModalVisible(true);
       } else if (tempboolean === false || tempboolean === 'success') {
-        setModalText('인증 번호가 전송되었습니다.');
-        setModalVisible(true);
+        setTrueModalText('인증 번호가 전송되었습니다.');
+        setTrueModalVisible(true);
       }
     } catch (e) {
       console.log(e);
@@ -85,7 +89,7 @@ const SelfAuth = ({navigation}) => {
         return;
       } else if (codeVerify === 'success') {
         setCodeSame(true);
-        return;
+        // return;
       }
     } catch (e) {
       console.log(e);
@@ -108,7 +112,7 @@ const SelfAuth = ({navigation}) => {
       setModalVisible(true);
       return;
     }
-    if (codeSame !== 'success') {
+    if (codeSame !== true) {
       setModalText('인증번호가 일치하지 않습니다.');
       setModalVisible(true);
       return;
@@ -122,6 +126,11 @@ const SelfAuth = ({navigation}) => {
         infoText={modalText}
         visible={modalVisible}
         onPress={() => setModalVisible(false)}
+      />
+      <TrueModalFrame
+        infoText={trueModalText}
+        visible={trueModalVisible}
+        onPress={() => setTrueModalVisible(false)}
       />
       <HeaderCompnent
         rightView={false}
