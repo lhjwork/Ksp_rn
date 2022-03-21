@@ -11,6 +11,7 @@ import {
   BottomButtonWithIcon,
 } from '../../components/Buttons/Buttons';
 import CalendarTc from '../../components/CalendarTc';
+import Calendars from '../../components/Calendars';
 
 const Calendar = ({navigation}) => {
   const [month, setMonth] = useState(5);
@@ -39,7 +40,8 @@ const Calendar = ({navigation}) => {
             style={{marginTop: 24}}
           />
         </View>
-        <CalendarTc dates={dates} />
+        <Calendars />
+        {/*<CalendarTc dates={dates} />*/}
       </ScrollView>
     </LinearGradient>
   );
