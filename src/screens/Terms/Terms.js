@@ -43,7 +43,7 @@ const Terms = ({navigation}) => {
             elevation: 4,
           }}>
           <Agreement
-            text={'[필수]서비스 이용약관 동의'}
+            text={'서비스 이용약관 동의'}
             isActive={serviceAgree}
             onPress={() => {
               setServiceAgree(!serviceAgree);
@@ -51,9 +51,10 @@ const Terms = ({navigation}) => {
             DetailOpenPress={() =>
               navigation.navigate('TermsDetail', TERMS_DATA[0])
             }
+            isRequire={true}
           />
           <Agreement
-            text={'[필수]개인정보 수집 및 이용 동의'}
+            text={'개인정보 수집 및 이용 동의'}
             isActive={privateInfoAgree}
             onPress={() => {
               setPrivateInfoAgress(!privateInfoAgree);
@@ -61,9 +62,10 @@ const Terms = ({navigation}) => {
             DetailOpenPress={() =>
               navigation.navigate('TermsDetail', TERMS_DATA[1])
             }
+            isRequire={true}
           />
           <Agreement
-            text={'[선택]마케팅정보 알림 동의'}
+            text={'마케팅정보 알림 동의'}
             isActive={marketingAgree}
             onPress={() => {
               setMarketingAgree(!marketingAgree);
@@ -73,7 +75,7 @@ const Terms = ({navigation}) => {
             }
           />
           {/* {SUB_CONTENT_DATA.map((menu, index) => (
-           
+
             <RowView
               style={{
                 justifyContent: 'space-between',

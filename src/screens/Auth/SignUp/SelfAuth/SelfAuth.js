@@ -34,6 +34,8 @@ const SelfAuth = ({navigation}) => {
   const [codeVerify, setCodeVerify] = useState('');
   const [codeSame, setCodeSame] = useState('');
   const [phoneUnlock, setPhoneUnlock] = useState(false);
+  //
+  const [checkPhone, setCheckPhone] = useState('');
 
   const sendPhoneNum = async () => {
     try {
@@ -42,6 +44,7 @@ const SelfAuth = ({navigation}) => {
           'Content-Type': 'application/json',
         },
       };
+      setCodeSame(false);
       let body = {Phone: phoneNumber};
       const res = await api.post(
         'smsverification',
@@ -63,6 +66,7 @@ const SelfAuth = ({navigation}) => {
         setModalText('이미 등록된 회원입니다.');
         setModalVisible(true);
       } else if (tempboolean === false || tempboolean === 'success') {
+        setCheckPhone(phoneNumber);
         setTrueModalText('인증 번호가 전송되었습니다.');
         setTrueModalVisible(true);
       }
@@ -109,6 +113,11 @@ const SelfAuth = ({navigation}) => {
     }
     if (codeVerify.length < 4) {
       setModalText('인증번호는 4자리 입니다.');
+      setModalVisible(true);
+      return;
+    }
+    if (checkPhone !== phoneNumber) {
+      setModalText('인증요청 번호와 현재 번호가 다릅니다');
       setModalVisible(true);
       return;
     }
@@ -187,32 +196,59 @@ const SelfAuth = ({navigation}) => {
               maxLength={4}
             />
             <SmallButton
-              style={styles.button}
+              isDisabled={codeSame}
+              // setCodeSame
+              style={{
+                backgroundColor: codeSame
+                  ? '#C4C4C4'
+                  : verifiedCode.length === 4
+                  ? '#46A0BD'
+                  : '#FFFFFF',
+                ...styles.button,
+              }}
+              textStyle={{
+                color: verifiedCode.length === 4 ? '#fff' : '#46A0BD',
+              }}
               text={'확인'}
               onPress={() => Codeverify()}
             />
           </RowView>
-          {codeSame === false ? (
+          {codeSame.length !== 0 && (
             <LabelNone
-              text={'인증번호가 일치하지 않습니다.'}
+              text={
+                !codeSame
+                  ? '인증번호가 일치하지 않습니다.'
+                  : '인증번호가 일치합니다.'
+              }
               style={{
-                color: '#FF0000',
-                fontSize: 12,
-                marginLeft: 19,
-                marginTop: 5,
-              }}
-            />
-          ) : (
-            <LabelNone
-              text={'인증번호가 일치합니다.'}
-              style={{
-                color: '#46A0BD',
+                color: !codeSame ? '#FF0000' : '#46A0BD',
                 fontSize: 12,
                 marginLeft: 19,
                 marginTop: 5,
               }}
             />
           )}
+          {/*{codeSame === false ? (*/}
+          {/*  <LabelNone*/}
+          {/*    text={'인증번호가 일치하지 않습니다.'}*/}
+          {/*    style={{*/}
+          {/*      color: '#FF0000',*/}
+          {/*      fontSize: 12,*/}
+          {/*      marginLeft: 19,*/}
+          {/*      marginTop: 5,*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*) : (*/}
+          {/*  <LabelNone*/}
+          {/*    text={'인증번호가 일치합니다.'}*/}
+          {/*    style={{*/}
+          {/*      color: '#46A0BD',*/}
+          {/*      fontSize: 12,*/}
+          {/*      marginLeft: 19,*/}
+          {/*      marginTop: 5,*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*)}*/}
         </View>
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>

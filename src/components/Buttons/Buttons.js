@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, TouchableOpacity} from 'react-native';
 
 import Touchable from '../Touchable';
 import {LabelNone} from '../Labels';
@@ -10,7 +10,7 @@ const {width} = Dimensions.get('window');
 
 export const BottomButton = ({onPress, text, style}) => {
   return (
-    <Touchable
+    <TouchableOpacity
       onPress={onPress}
       style={{
         paddingVertical: 13,
@@ -30,18 +30,28 @@ export const BottomButton = ({onPress, text, style}) => {
           fontWeight: '700',
         }}
       />
-    </Touchable>
+    </TouchableOpacity>
   );
 };
 
-export const SmallButton = ({onPress, text, style, eventStyle}) => {
+export const SmallButton = ({
+  onPress,
+  text,
+  style,
+  eventStyle,
+  isDisabled,
+  textStyle,
+}) => {
   return (
     <Touchable
+      disabled={isDisabled}
       onPress={onPress}
       style={{
         paddingVertical: 13,
         borderRadius: 20,
-        backgroundColor: '#46A0BD',
+        backgroundColor: isDisabled ? '#C4C4C4' : '#FFFFFF',
+        borderWidth: 1,
+        borderColor: isDisabled ? 'transparent' : '#46A0BD',
         width: 86,
         ...style,
         // position: 'absolute', width: width-48, bottom: 32,
@@ -51,9 +61,10 @@ export const SmallButton = ({onPress, text, style, eventStyle}) => {
         style={{
           fontSize: 14,
           lineHeight: 18,
-          color: '#fff',
+          color: isDisabled ? '#fff' : '#46A0BD',
           textAlign: 'center',
           fontWeight: '700',
+          ...textStyle,
         }}
       />
     </Touchable>

@@ -29,7 +29,9 @@ const SignUpComplete = ({navigation}) => {
         <BottomButton
           style={styles.bottomBtn}
           text={'로그인하러 가기'}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => {
+            navigation.navigate('Login');
+          }}
         />
       </View>
     </LinearGradient>
