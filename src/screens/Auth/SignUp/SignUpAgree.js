@@ -106,8 +106,8 @@ const SignUpAgree = ({navigation}) => {
               style={{
                 fontSize: 18,
                 fontWeight: '700',
-                lineheight: 26.06,
-                marginLeft: 13.25,
+                lineHeight: 26,
+                marginLeft: 13,
                 color: allAgree === false ? '#555555' : '#fff',
               }}
             />
