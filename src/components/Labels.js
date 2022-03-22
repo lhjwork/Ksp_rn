@@ -45,7 +45,7 @@ export const BoldLabelSubTitle = ({
   ellipsizeMode,
 }) => (
   <Text
-    style={{...styles.subtitleLabel, ...style, letterSpacing: 1.6}}
+    style={{...styles.subTitleLabel, ...style}}
     numberOfLines={numberOfLines}
     ellipsizeMode={ellipsizeMode}>
     {text}
@@ -103,9 +103,9 @@ const styles = StyleSheet.create({
   },
   subTitleLabel: {
     fontSize: 14,
-    fontWeight: 400,
     lineHeight: 18,
     color: '#555555',
+    fontWeight: '400',
   },
   boldLabel20: {fontSize: 20, fontWeight: '700'},
   boldLabel16: {fontSize: 16, fontWeight: '700'},

@@ -114,7 +114,7 @@ const SignUpAgree = ({navigation}) => {
           </RowView>
           <View style={styles.subAgreeBox}>
             <Agreement
-              text={'[필수]서비스 이용약관 동의'}
+              text={'서비스 이용약관 동의'}
               isActive={serviceAgree}
               onPress={() => {
                 setServiceAgree(!serviceAgree);
@@ -122,9 +122,10 @@ const SignUpAgree = ({navigation}) => {
               DetailOpenPress={() =>
                 navigation.navigate('TermsDetail', TERMS_DATA[0])
               }
+              isRequire={true}
             />
             <Agreement
-              text={'[필수]개인정보 수집 및 이용 동의'}
+              text={'개인정보 수집 및 이용 동의'}
               isActive={privateInfoAgree}
               onPress={() => {
                 setPrivateInfoAgree(!privateInfoAgree);
@@ -132,9 +133,10 @@ const SignUpAgree = ({navigation}) => {
               DetailOpenPress={() =>
                 navigation.navigate('TermsDetail', TERMS_DATA[1])
               }
+              isRequire={true}
             />
             <Agreement
-              text={'[선택]마케팅정보 알람 동의'}
+              text={'마케팅정보 알람 동의'}
               isActive={marketingAgree}
               onPress={() => {
                 setMarketingAgree(!marketingAgree);

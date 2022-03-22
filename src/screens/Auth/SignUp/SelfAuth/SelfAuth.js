@@ -79,7 +79,7 @@ const SelfAuth = ({navigation}) => {
           'Content-Type': 'application/json',
         },
       };
-      body = {Phone: phoneNumber, Verification: verifiedCode};
+      let body = {Phone: phoneNumber, Verification: verifiedCode};
       const res = await api.post('smsverify', JSON.stringify(body), config);
       console.log('Codeverify res', res?.data['Result']);
       setCodeVerify(res?.data['Result']);

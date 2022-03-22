@@ -1,11 +1,18 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import Touchable from './Touchable';
 import RowView from './Views/RowView';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BoldLabelSubTitle, LabelNone} from './Labels';
 
-const Agreement = ({text, index, isActive, onPress, DetailOpenPress}) => {
+const Agreement = ({
+  text,
+  index,
+  isActive,
+  onPress,
+  DetailOpenPress,
+  isRequire,
+}) => {
   return (
     <RowView
       style={{
@@ -31,7 +38,9 @@ const Agreement = ({text, index, isActive, onPress, DetailOpenPress}) => {
             />
           )}
         </Touchable>
-
+        <Text style={styles.isRequireLabel}>
+          {isRequire ? '[필수]' : '[선택]'}
+        </Text>
         <BoldLabelSubTitle text={text} style={styles.subTitleText} />
       </RowView>
       <Touchable onPress={DetailOpenPress}>
@@ -47,6 +56,13 @@ const Agreement = ({text, index, isActive, onPress, DetailOpenPress}) => {
 export default Agreement;
 
 const styles = StyleSheet.create({
+  isRequireLabel: {
+    fontSize: 14,
+    lineHeight: 18,
+    color: '#555555',
+    marginRight: 3,
+    fontWeight: '700',
+  },
   onSmallIcon: {
     color: '#46A0BD',
     paddingRight: 11.5,
