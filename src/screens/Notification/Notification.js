@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import {ScrollView, View, Text, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
@@ -48,7 +48,13 @@ const Notification = ({navigation}) => {
           text={'공지사항'}
           style={{marginTop: 27.5, marginHorizontal: 30, marginBottom: 55}}
         />
-        <ContainerStyled style={{backgroundColor: '#fff', elevation: 3}}>
+        <ScrollView
+          contentContainerStyle={{paddingBottom: 30}}
+          style={{
+            backgroundColor: '#fff',
+            elevation: 3,
+            flex: 1,
+          }}>
           {notices.map((item, index) => (
             <NotificationDetailComponent
               text={item?.Title}
@@ -57,7 +63,7 @@ const Notification = ({navigation}) => {
               onPress={() => navigation.navigate('NotificationDetail', {item})}
             />
           ))}
-        </ContainerStyled>
+        </ScrollView>
       </ContainerStyled>
     </LinearGradient>
   );

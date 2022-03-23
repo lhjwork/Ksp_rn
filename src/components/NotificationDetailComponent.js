@@ -8,14 +8,14 @@ const NotificationDetailComponent = ({outStyle, text, date, onPress}) => {
   return (
     <View
       style={{
-        height: 76,
+        paddingVertical: 11,
         marginHorizontal: 24,
         borderBottomWidth: 1,
         borderBottomColor: '#E5E5E5',
         ...outStyle,
       }}>
       <Touchable onPress={onPress}>
-        <RowView style={{paddingTop: 20}}>
+        <RowView>
           <View style={styles.bar} />
           <BoldLabel14 text={text} style={{color: '#555'}} />
         </RowView>
@@ -28,7 +28,7 @@ const NotificationDetailComponent = ({outStyle, text, date, onPress}) => {
 export default NotificationDetailComponent;
 
 const styles = StyleSheet.create({
-  date: {textAlign: 'right', marginTop: 9, color: '#46A0BD'},
+  date: {textAlign: 'right', color: '#46A0BD'},
   bar: {
     backgroundColor: '#46A0BD',
     width: 5,
