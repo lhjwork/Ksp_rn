@@ -36,6 +36,7 @@ const userSlice = createSlice({
       state.logoutSuccess = false;
     },
     saveUserInfo(state, action) {
+      console.log('testestsetestes', action.payload);
       state.user = action.payload;
     },
     loginSuccess(state) {

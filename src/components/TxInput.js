@@ -35,7 +35,7 @@ export const ContentInput = ({
         backgroundColor: '#fff',
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: value.length > 0 ? '#46A0BD' : '#c4c4c4',
+        borderColor: value?.length > 0 ? '#46A0BD' : '#c4c4c4',
         ...outStyle,
       }}>
       {imageNone === true ? (

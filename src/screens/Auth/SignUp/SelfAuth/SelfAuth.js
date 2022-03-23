@@ -187,7 +187,10 @@ const SelfAuth = ({navigation}) => {
           </RowView>
           <RowView style={{marginTop: 5}}>
             <AmountInput
-              outStyle={{flex: 1}}
+              outStyle={{
+                flex: 1,
+                borderColor: !codeSame ? '#FF0000' : '#c4c4c4',
+              }}
               onChangeText={text => setVerifiedCode(text)}
               value={verifiedCode}
               // rightText={'KSP'}

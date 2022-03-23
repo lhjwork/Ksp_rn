@@ -64,6 +64,7 @@ const Terms = ({navigation}) => {
             }
             isRequire={true}
           />
+
           <Agreement
             text={'마케팅정보 알림 동의'}
             isActive={marketingAgree}
