@@ -61,7 +61,11 @@ const ShoppingMall = ({navigation}) => {
               {ShoppingMallData.map((item, index) => (
                 <Touchable
                   key={index}
-                  onPress={() => Alert.alert('준비중입니다.')}
+                  onPress={() => {
+                    if (item?.url) {
+                      navigation.navigate('ShoppingWebView', {item});
+                    }
+                  }}
                   style={{marginLeft: index % 3 === 0 ? 0 : 37}}>
                   <ColumnView style={{flexWrap: 'wrap'}}>
                     <Image

@@ -20,7 +20,7 @@ const Myinfo = ({navigation}) => {
 
   useEffect(() => {
     getUserInfoList();
-  }, [userInfo]);
+  }, []);
 
   const {sessionToken} = auth?.user;
 
@@ -30,7 +30,6 @@ const Myinfo = ({navigation}) => {
       const body = {sessionToken: sessionToken};
       const res = await api.post('userinfosend', JSON.stringify(body), config);
       console.log('===========res===========', res?.data);
-
       setUserInfo(res?.data);
     } catch (e) {
       console.log(e);
