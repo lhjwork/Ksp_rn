@@ -5,8 +5,8 @@ export const ShoppingMallData = [
     id: 1,
     title: '의류',
     path: require('../images/ShoppingMall/clothesImg.png'),
-    // url: 'http://kona.sunnysideq.com/category/1',
-    url: 'http://10.89.62.6:3000/Notice',
+    url: 'http://kona.sunnysideq.com/category/1',
+    // url: 'http://10.89.62.6:3000/category/1',
     // url: 'http://192.168.35.105:3000/Notice',
   },
   {
