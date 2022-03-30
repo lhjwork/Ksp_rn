@@ -51,6 +51,10 @@ const ShoppingWebView = ({route}) => {
       console.log(nativeEvent.data);
     }
   };
+  const runFirst = `
+      window.isNativeApp = true;
+      true; // note: this is required, or you'll sometimes get silent failures
+    `;
   return (
     <WebView
       source={{uri: route?.params?.item?.url}}
@@ -60,6 +64,7 @@ const ShoppingWebView = ({route}) => {
         setCanGoBack(navState.canGoBack);
       }}
       onMessage={handleOnMessage}
+      injectedJavaScriptBeforeContentLoaded={runFirst}
     />
   );
 };
