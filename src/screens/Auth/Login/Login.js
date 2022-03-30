@@ -48,11 +48,12 @@ const Login = ({navigation}) => {
       //   ],
       // });
       navigation.navigate('DrawerStack');
-    } else if (user?.Result === 'failed') {
-      setLoginModalVisible(true);
-    } else if (user?.Result === '비밀번호가 틀렸습니다.') {
-      setPwdModalVisible(true);
     }
+    // else if (user?.Result === 'failed') {
+    //   setLoginModalVisible(true);
+    // } else if (user?.Result === '비밀번호가 틀렸습니다.') {
+    //   setPwdModalVisible(true);
+    // }
   }, [dispatch, user, user?.sessionToken, user?.Result]);
 
   const visiblePassword = () => {
@@ -70,7 +71,7 @@ const Login = ({navigation}) => {
     };
     console.log('body', body);
 
-    dispatch(signIn(body));
+    dispatch(signIn(body, setLoginModalVisible, setPwdModalVisible));
     // if (user?.Result === 'failed') {
     //   setLoginModalVisible(true);
     // } else if (user?.Result === '비밀번호가 틀렸습니다.') {

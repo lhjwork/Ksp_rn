@@ -66,7 +66,7 @@ const Myinfo = ({navigation}) => {
           <RowView style={styles.passwordText}>
             <BoldLabel14
               text={'비밀번호 변경하기'}
-              style={{color: '#46A0BD', fonttWeight: '700'}}
+              style={{color: '#46A0BD', fontWeight: '700'}}
             />
             <AntDesign
               name={'right'}

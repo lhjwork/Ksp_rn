@@ -36,7 +36,6 @@ const userSlice = createSlice({
       state.logoutSuccess = false;
     },
     saveUserInfo(state, action) {
-      console.log('testestsetestes', action.payload);
       state.user = action.payload;
     },
     loginSuccess(state) {
@@ -79,21 +78,28 @@ export const {
   errorMsgReset,
 } = userSlice.actions;
 
-export const signIn = userData => async dispatch => {
-  try {
-    let {data} = await api.post(`applogin`, userData, config);
-    console.log('userRes data', data);
-
-    dispatch(loginSuccess());
-    dispatch(saveUserInfo(data));
-  } catch (err) {
-    console.log('err', err.response);
-    let msg = '서버와 통신에 실패하였습니다.';
-
-    const {data} = err.response;
-    dispatch(saveUserInfo(data));
-  }
-};
+export const signIn =
+  (userData, setLoginModalVisible, setPwdModalVisible) => async dispatch => {
+    try {
+      let {data} = await api.post(`applogin`, userData, config);
+      console.log(data);
+      if (data.Result === 'failed') {
+        setLoginModalVisible(true);
+      } else if (data.Result === '비밀번호가 틀렸습니다.') {
+        setPwdModalVisible(true);
+      } else {
+        dispatch(loginSuccess());
+        dispatch(saveUserInfo(data));
+      }
+    } catch (err) {
+      const {data} = err.response;
+      console.log('data', data);
+      if (data === 'failed') {
+        setLoginModalVisible(true);
+      }
+      //  const {data} = err.response;
+    }
+  };
 export const signOut = () => async dispatch => {
   try {
     await api.post('sign-out');
