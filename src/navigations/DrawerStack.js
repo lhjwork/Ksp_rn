@@ -23,6 +23,7 @@ import PasswordChange from '../screens/PasswordChange/PasswordChange';
 import SearchId from '../screens/SearchId/SearchId';
 import NotificationDetail from '../screens/Notification/NotificationDetail';
 import TermsDetail from '../screens/Terms/TermsDetail';
+import DeliveryTracking from '../screens/deliveryTracking';
 
 const Drawer = createDrawerNavigator();
 // test
@@ -99,6 +100,11 @@ export const DrawerStack = ({props}) => {
       <Drawer.Screen
         name="TermsDetail"
         component={TermsDetail}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="DeliveryTracking"
+        component={DeliveryTracking}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

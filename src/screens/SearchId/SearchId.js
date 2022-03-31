@@ -14,22 +14,36 @@ import {BottomButton, SmallButton} from '../../components/Buttons/Buttons';
 import api from '../../api';
 import {logoutSuccess, resetAuth} from '../../redux/authSlice';
 import {config} from '../../constant';
+import TrueModalFrame from '../../components/Modals/TrueModalFrame';
+import IDModal from '../../components/Modals/IDModal';
 const SearchId = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [certification, setCertification] = useState('');
+  const [infoText, setInfoText] = useState('');
+  const [isShow, setIsShow] = useState(false);
+
+  const [isShowIDModal, setIsShowIDModal] = useState(false);
+
+  const [myId, setMyId] = useState(null);
+  const [isCheckValid, setIsCheckValid] = useState(null);
+  const [sendPhone, setSendPhone] = useState('');
+
   const sendPhoneMsg = async () => {
     let body = {
       username: userName,
       phone: phoneNumber,
     };
     try {
+      setIsCheckValid(true);
       const {data} = await api.post(
         'smssendforloginid',
         JSON.stringify(body),
         config,
       );
-      console.log('data', data);
+      setSendPhone(phoneNumber);
+      await setInfoText('인증번호를 전송하였습니다');
+      setIsShow(true);
     } catch (err) {
       console.log('err', err);
       console.log('err', err.response);
@@ -47,14 +61,42 @@ const SearchId = ({navigation}) => {
         JSON.stringify(body),
         config,
       );
+      setIsCheckValid(false);
+      setMyId(data?.loginId);
       console.log('data', data);
     } catch (err) {
       console.log('err', err);
       console.log('err response', err.response);
     }
   };
+  const showIdModal = async () => {
+    if (sendPhone !== phoneNumber) {
+      await setInfoText(
+        '현재 휴대폰 번호와 인증번호 전송 휴대폰 번호가 일치하지 않습니다',
+      );
+      setIsShow(true);
+      return;
+    }
+    await setInfoText(`해당 아이디는 \n "${myId} "    입니다`);
+    setIsShowIDModal(true);
+  };
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+      <TrueModalFrame
+        visible={isShow}
+        infoText={infoText}
+        onPress={() => {
+          setIsShow(false);
+        }}
+      />
+      <IDModal
+        visible={isShowIDModal}
+        infoText={myId}
+        onPress={() => {
+          navigation.navigate('Login');
+        }}
+        userName={userName}
+      />
       <HeaderCompnent
         rightView={false}
         onPressLeftBtn={() => navigation.goBack()}
@@ -100,16 +142,57 @@ const SearchId = ({navigation}) => {
             textStyle={{marginLeft: 23}}
             onChangeText={text => setCertification(text)}
             value={certification}
+            editable={isCheckValid}
+            maxLength={4}
           />
           <SmallButton
-            style={styles.button}
+            style={{
+              backgroundColor:
+                !isCheckValid && isCheckValid !== null
+                  ? '#C4C4C4'
+                  : certification.length === 4
+                  ? '#46A0BD'
+                  : '#FFFFFF',
+              ...styles.button,
+            }}
+            textStyle={{
+              color: certification.length === 4 ? '#fff' : '#46A0BD',
+            }}
             text={'확인'}
-            onPress={confirmationPhoneNumber}
+            onPress={() => {
+              if (isCheckValid !== false) {
+                confirmationPhoneNumber();
+              }
+            }}
           />
         </RowView>
+
+        {isCheckValid !== null && (
+          <LabelNone
+            text={
+              isCheckValid
+                ? '인증번호가 일치하지 않습니다.'
+                : '인증번호가 일치합니다.'
+            }
+            style={{
+              color: isCheckValid ? '#FF0000' : '#46A0BD',
+              fontSize: 12,
+              marginLeft: 19,
+              marginTop: 5,
+            }}
+          />
+        )}
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        <BottomButton text={'아이디찾기'} />
+        <BottomButton
+          text={'아이디찾기'}
+          disabled={isCheckValid !== false}
+          onPress={() => {
+            if (isCheckValid === false) {
+              showIdModal();
+            }
+          }}
+        />
       </View>
     </LinearGradient>
   );
