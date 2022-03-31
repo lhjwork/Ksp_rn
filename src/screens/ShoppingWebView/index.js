@@ -1,8 +1,9 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, createRef} from 'react';
 
-import {BackHandler} from 'react-native';
+import {BackHandler, Button, Text, TouchableOpacity, View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {useFocusEffect} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const INJECTED_CODE = `
 (function() {
@@ -25,8 +26,11 @@ true;
 `;
 
 const ShoppingWebView = ({route}) => {
+  const auth = useSelector(state => state.auth);
+
   const ref = useRef(null);
   const [canGoBack, setCanGoBack] = useState(false);
+
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -48,23 +52,34 @@ const ShoppingWebView = ({route}) => {
       console.log(nativeEvent);
       setCanGoBack(nativeEvent.canGoBack);
     } else {
-      console.log(nativeEvent.data);
+      console.log('nativeEvent', nativeEvent);
     }
   };
   const runFirst = `
       window.isNativeApp = true;
       true; // note: this is required, or you'll sometimes get silent failures
     `;
+
+  const INJECTED_JAVASCRIPT = `(function() {
+    window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
+    window.user = ${JSON.stringify(auth?.user)};
+})();`;
+
   return (
     <WebView
       source={{uri: route?.params?.item?.url}}
+      // source={{uri: route?.params?.item?.url}}
       ref={ref}
+      injectedJavaScript={INJECTED_JAVASCRIPT}
       onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
       onNavigationStateChange={navState => {
         setCanGoBack(navState.canGoBack);
       }}
       onMessage={handleOnMessage}
       injectedJavaScriptBeforeContentLoaded={runFirst}
+      onLoad={() => {
+        ref.current.postMessage(JSON.stringify({auth}));
+      }}
     />
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
@@ -13,6 +13,10 @@ import RowView from '../../components/Views/RowView';
 import {SmallButton, BottomButton} from '../../components/Buttons/Buttons';
 
 const RePassword = ({navigation}) => {
+  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [certification, setCertification] = useState('');
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>

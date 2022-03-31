@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -11,7 +11,48 @@ import {
 import {ContentInput, AmountInput} from '../../components/TxInput';
 import RowView from '../../components/Views/RowView';
 import {BottomButton, SmallButton} from '../../components/Buttons/Buttons';
+import api from '../../api';
+import {logoutSuccess, resetAuth} from '../../redux/authSlice';
+import {config} from '../../constant';
 const SearchId = ({navigation}) => {
+  const [userName, setUserName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [certification, setCertification] = useState('');
+  const sendPhoneMsg = async () => {
+    let body = {
+      username: userName,
+      phone: phoneNumber,
+    };
+    try {
+      const {data} = await api.post(
+        'smssendforloginid',
+        JSON.stringify(body),
+        config,
+      );
+      console.log('data', data);
+    } catch (err) {
+      console.log('err', err);
+      console.log('err', err.response);
+    }
+  };
+  const confirmationPhoneNumber = async () => {
+    let body = {
+      username: userName,
+      phone: phoneNumber,
+      codeVerify: certification,
+    };
+    try {
+      const {data} = await api.post(
+        'sendloginid',
+        JSON.stringify(body),
+        config,
+      );
+      console.log('data', data);
+    } catch (err) {
+      console.log('err', err);
+      console.log('err response', err.response);
+    }
+  };
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <HeaderCompnent
@@ -31,6 +72,8 @@ const SearchId = ({navigation}) => {
           <ContentInput
             placeholder={'이름을 입력해주세요.'}
             textStyle={styles.textStlye}
+            onChangeText={text => setUserName(text)}
+            value={userName}
           />
         </View>
         <LabelNone text={'휴대폰 번호'} style={styles.subTitle2} />
@@ -40,17 +83,29 @@ const SearchId = ({navigation}) => {
             // rightText={'KSP'}
             placeholder="숫자만 입력해주세요."
             textStyle={{marginLeft: 23}}
+            onChangeText={text => setPhoneNumber(text)}
+            value={phoneNumber}
           />
 
-          <SmallButton style={styles.button} text={'전송'} />
+          <SmallButton
+            style={styles.button}
+            text={'전송'}
+            onPress={sendPhoneMsg}
+          />
         </RowView>
         <RowView style={{marginTop: 5}}>
           <AmountInput
             outStyle={{flex: 1}}
             placeholder="인증번호를 입력해주세요."
             textStyle={{marginLeft: 23}}
+            onChangeText={text => setCertification(text)}
+            value={certification}
           />
-          <SmallButton style={styles.button} text={'확인'} />
+          <SmallButton
+            style={styles.button}
+            text={'확인'}
+            onPress={confirmationPhoneNumber}
+          />
         </RowView>
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
@@ -68,7 +123,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: '500',
-    lineheight: 18,
+    lineHeight: 18,
     marginBottom: 11,
     marginLeft: 6,
   },
