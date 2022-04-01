@@ -12,6 +12,7 @@ const HasBoldModal = ({
   threeText,
   color,
   boldColor,
+  infoText,
 }) => {
   return (
     <Modal visible={visible} transparent>
@@ -64,7 +65,7 @@ const HasBoldModal = ({
               </View>
             </View>
             <ModalBottomButton
-              text={'닫기'}
+              text={infoText ? infoText : '닫기'}
               style={{backgroundColor: '#94D2E9', marginBottom: 16}}
               onPress={onPress}
             />

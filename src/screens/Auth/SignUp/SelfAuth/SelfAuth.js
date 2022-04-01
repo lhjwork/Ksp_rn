@@ -84,6 +84,7 @@ const SelfAuth = ({navigation}) => {
         },
       };
       let body = {Phone: phoneNumber, Verification: verifiedCode};
+      console.log(body);
       const res = await api.post('smsverify', JSON.stringify(body), config);
       console.log('Codeverify res', res?.data['Result']);
       setCodeVerify(res?.data['Result']);
@@ -189,7 +190,7 @@ const SelfAuth = ({navigation}) => {
             <AmountInput
               outStyle={{
                 flex: 1,
-                borderColor: !codeSame ? '#FF0000' : '#c4c4c4',
+                borderColor: phoneUnlock && !codeSame ? '#FF0000' : '#c4c4c4',
               }}
               onChangeText={text => setVerifiedCode(text)}
               value={verifiedCode}
@@ -213,7 +214,14 @@ const SelfAuth = ({navigation}) => {
                 color: verifiedCode.length === 4 ? '#fff' : '#46A0BD',
               }}
               text={'확인'}
-              onPress={() => Codeverify()}
+              onPress={async () => {
+                if (phoneUnlock === false) {
+                  await setModalText('휴대번호를 전송바랍니다.');
+                  setModalVisible(true);
+                  return;
+                }
+                Codeverify();
+              }}
             />
           </RowView>
           {codeSame.length !== 0 && (

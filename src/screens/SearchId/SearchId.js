@@ -170,12 +170,12 @@ const SearchId = ({navigation}) => {
         {isCheckValid !== null && (
           <LabelNone
             text={
-              isCheckValid
+              !isCheckValid
                 ? '인증번호가 일치하지 않습니다.'
                 : '인증번호가 일치합니다.'
             }
             style={{
-              color: isCheckValid ? '#FF0000' : '#46A0BD',
+              color: !isCheckValid ? '#FF0000' : '#46A0BD',
               fontSize: 12,
               marginLeft: 19,
               marginTop: 5,
@@ -183,6 +183,7 @@ const SearchId = ({navigation}) => {
           />
         )}
       </ContainerStyled>
+
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
         <BottomButton
           text={'아이디찾기'}

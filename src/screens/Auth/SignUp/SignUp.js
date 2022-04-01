@@ -143,7 +143,7 @@ const SignUp = ({navigation, route}) => {
         JSON.stringify(body),
         config,
       );
-
+      console.log('중복확인', res?.data);
       const {Result} = res?.data;
       // console.log(Result);
       if (Result === 'alreadyloginId') {
