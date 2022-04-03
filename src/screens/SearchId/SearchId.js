@@ -27,6 +27,7 @@ const SearchId = ({navigation}) => {
 
   const [myId, setMyId] = useState(null);
   const [isCheckValid, setIsCheckValid] = useState(null);
+  const [checkName, setCheckName] = useState('');
   const [sendPhone, setSendPhone] = useState('');
 
   const sendPhoneMsg = async () => {
@@ -35,16 +36,20 @@ const SearchId = ({navigation}) => {
       phone: phoneNumber,
     };
     try {
-      setIsCheckValid(true);
       const {data} = await api.post(
         'smssendforloginid',
         JSON.stringify(body),
         config,
       );
+      setIsCheckValid(true);
       setSendPhone(phoneNumber);
       await setInfoText('인증번호를 전송하였습니다');
       setIsShow(true);
     } catch (err) {
+      await setInfoText(
+        '휴대폰 전송에 실패하였습니다 \n 입력하신 정보를 다시 확인해주세요',
+      );
+      setIsShow(true);
       console.log('err', err);
       console.log('err', err.response);
     }
@@ -62,6 +67,7 @@ const SearchId = ({navigation}) => {
         config,
       );
       setIsCheckValid(false);
+      setCheckName(userName);
       setMyId(data?.loginId);
       console.log('data', data);
     } catch (err) {
@@ -70,6 +76,13 @@ const SearchId = ({navigation}) => {
     }
   };
   const showIdModal = async () => {
+    if (checkName !== userName) {
+      await setInfoText(
+        '현재 이름과 인증번호를 전송한 \n 이름이 일치하지 않습니다',
+      );
+      setIsShow(true);
+      return;
+    }
     if (sendPhone !== phoneNumber) {
       await setInfoText(
         '현재 휴대폰 번호와 인증번호 전송한 \n 휴대폰 번호가 일치하지 않습니다',

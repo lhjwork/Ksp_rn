@@ -53,18 +53,20 @@ const RePassword = ({navigation}) => {
     }
     let body = {loginId: userId, username: userName, phone: phoneNumber};
     try {
-      setIsCheckValid(true);
       const res = await api.post(
         'verifycodepasswordreset',
         JSON.stringify(body),
         config,
       );
+      setIsCheckValid(true);
       setCheckPhoneNumber(phoneNumber);
       setSendSuccess(true);
       console.log('res', res?.data);
     } catch (e) {
-      await setErrMsg('인증번호 전송에 실패하였습니다');
-      setIsErrModalShow(true);
+      await setInfoText(
+        '휴대폰 인증 전송에 실패하였습니다 \n 입력하신 정보를 다시 확인해주세요',
+      );
+      setIsShow(true);
       console.log(e);
       console.log(e.response);
     }
@@ -108,6 +110,9 @@ const RePassword = ({navigation}) => {
       setIsShowLogin(true);
       console.log('res', res?.data);
     } catch (e) {
+      console.log(
+        '070882368362758984258918535302436342143670611892367891923723146723217205340164925687274778234453534712389=4712390 4712389=74',
+      );
       console.log(e);
       console.log(e.response);
       await setInfoText(
