@@ -12,11 +12,8 @@ import {AmountInput, ContentInput} from '../../components/TxInput';
 import RowView from '../../components/Views/RowView';
 import {SmallButton, BottomButton} from '../../components/Buttons/Buttons';
 import api from '../../api';
-import {saveUserInfo} from '../../redux/authSlice';
 import {config} from '../../constant';
-import ModalFrame from '../../components/Modals/ModalFrame';
 import TrueModalFrame from '../../components/Modals/TrueModalFrame';
-import IDModal from '../../components/Modals/IDModal';
 import HasBoldModal from '../../components/Modals/HasBoldModal';
 
 const RePassword = ({navigation}) => {
@@ -24,13 +21,15 @@ const RePassword = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [certification, setCertification] = useState('');
+  const [checkPhoneNumber, setCheckPhoneNumber] = useState('');
 
   const [errMsg, setErrMsg] = useState('');
   const [isErrModalShow, setIsErrModalShow] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(null);
   const [isCheckValid, setIsCheckValid] = useState(null);
   const [isShowLogin, setIsShowLogin] = useState(false);
-
+  const [infoText, setInfoText] = useState('');
+  const [isShow, setIsShow] = useState(false);
   const ErrFunction = async () => {
     if (userId === '') {
       await setErrMsg('아이디를 입력해주세요');
@@ -60,6 +59,7 @@ const RePassword = ({navigation}) => {
         JSON.stringify(body),
         config,
       );
+      setCheckPhoneNumber(phoneNumber);
       setSendSuccess(true);
       console.log('res', res?.data);
     } catch (e) {
@@ -90,6 +90,13 @@ const RePassword = ({navigation}) => {
     }
   };
   const sendNewPassword = async () => {
+    if (phoneNumber !== checkPhoneNumber) {
+      await setInfoText(
+        '현재 휴대폰 번호와 인증번호 전송한 \n 휴대폰 번호가 일치하지 않습니다',
+      );
+      setIsShow(true);
+      return;
+    }
     let body = {
       loginId: userId,
       username: userName,
@@ -103,6 +110,10 @@ const RePassword = ({navigation}) => {
     } catch (e) {
       console.log(e);
       console.log(e.response);
+      await setInfoText(
+        '임시 비밀번호 전송에 실패하였습니다 \n 입력하신 정보를 다시 확인해주세요',
+      );
+      setIsShow(true);
     }
   };
   return (
@@ -119,7 +130,13 @@ const RePassword = ({navigation}) => {
         // color,
         boldColor={'#000'}
       />
-
+      <TrueModalFrame
+        visible={isShow}
+        infoText={infoText}
+        onPress={() => {
+          setIsShow(false);
+        }}
+      />
       <TrueModalFrame
         onPress={() => {
           setSendSuccess(false);

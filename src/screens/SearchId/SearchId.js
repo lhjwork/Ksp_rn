@@ -72,7 +72,7 @@ const SearchId = ({navigation}) => {
   const showIdModal = async () => {
     if (sendPhone !== phoneNumber) {
       await setInfoText(
-        '현재 휴대폰 번호와 인증번호 전송 휴대폰 번호가 일치하지 않습니다',
+        '현재 휴대폰 번호와 인증번호 전송한 \n 휴대폰 번호가 일치하지 않습니다',
       );
       setIsShow(true);
       return;
@@ -170,12 +170,12 @@ const SearchId = ({navigation}) => {
         {isCheckValid !== null && (
           <LabelNone
             text={
-              !isCheckValid
+              isCheckValid
                 ? '인증번호가 일치하지 않습니다.'
                 : '인증번호가 일치합니다.'
             }
             style={{
-              color: !isCheckValid ? '#FF0000' : '#46A0BD',
+              color: isCheckValid ? '#FF0000' : '#46A0BD',
               fontSize: 12,
               marginLeft: 19,
               marginTop: 5,
