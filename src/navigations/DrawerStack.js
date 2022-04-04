@@ -24,6 +24,8 @@ import SearchId from '../screens/SearchId/SearchId';
 import NotificationDetail from '../screens/Notification/NotificationDetail';
 import TermsDetail from '../screens/Terms/TermsDetail';
 import DeliveryTracking from '../screens/deliveryTracking';
+import PurchaseHistory from '../screens/purchaseHistory';
+import DetailPurchaseHistory from '../screens/detailPurchaseHistory';
 
 const Drawer = createDrawerNavigator();
 // test
@@ -107,6 +109,17 @@ export const DrawerStack = ({props}) => {
         component={DeliveryTracking}
         options={{headerShown: false}}
       />
+      <Drawer.Screen
+        name="PurchaseHistory"
+        component={PurchaseHistory}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="DetailPurchaseHistory"
+        component={DetailPurchaseHistory}
+        options={{headerShown: false}}
+      />
+      {/*PurchaseHistory*/}
     </Drawer.Navigator>
   );
 };

@@ -24,6 +24,12 @@ const DRAWER_LIST_DATA = [
     path: 'Calendar',
   },
   {
+    id: 5,
+    img: require('../asssets/icons/purchase.png'),
+    title: '구매내역',
+    path: 'PurchaseHistory',
+  },
+  {
     id: 3,
     img: require('../asssets/icons/notice_img.png'),
     title: '공지사항',
@@ -34,12 +40,6 @@ const DRAWER_LIST_DATA = [
     img: require('../asssets/icons/pencle_img.png'),
     title: '약관',
     path: 'Terms',
-  },
-  {
-    id: 5,
-    img: require('../asssets/icons/pencle_img.png'),
-    title: '배송 조회',
-    path: 'DeliveryTracking',
   },
 ];
 
