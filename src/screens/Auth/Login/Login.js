@@ -40,14 +40,14 @@ const Login = ({navigation}) => {
   useEffect(() => {
     // dispatch(signOut());
     if (user?.sessionToken) {
-      // navigation.reset({
-      //   routes: [
-      //     {
-      //       name: 'DrawerStack',
-      //     },
-      //   ],
-      // });
-      navigation.navigate('DrawerStack');
+      navigation.reset({
+        routes: [
+          {
+            name: 'DrawerStack',
+          },
+        ],
+      });
+      // navigation.navigate('DrawerStack');
     }
     // else if (user?.Result === 'failed') {
     //   setLoginModalVisible(true);
