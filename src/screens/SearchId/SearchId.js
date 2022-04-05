@@ -16,6 +16,7 @@ import {logoutSuccess, resetAuth} from '../../redux/authSlice';
 import {config} from '../../constant';
 import TrueModalFrame from '../../components/Modals/TrueModalFrame';
 import IDModal from '../../components/Modals/IDModal';
+import {getVerifyCode} from '../../utils';
 const SearchId = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -159,6 +160,7 @@ const SearchId = ({navigation}) => {
             maxLength={4}
           />
           <SmallButton
+            isDisabled={!isCheckValid}
             style={{
               backgroundColor:
                 !isCheckValid && isCheckValid !== null

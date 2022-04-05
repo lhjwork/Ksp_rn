@@ -218,6 +218,7 @@ const RePassword = ({navigation}) => {
               editable={isCheckValid}
             />
             <SmallButton
+              isDisabled={!isCheckValid}
               style={{
                 backgroundColor:
                   !isCheckValid && isCheckValid !== null

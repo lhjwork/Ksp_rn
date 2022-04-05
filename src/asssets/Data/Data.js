@@ -23,7 +23,7 @@ export const ShoppingMallData = [
     id: 4,
     title: '시계',
     path: require('../images/ShoppingMall/watchImg.png'),
-    // url: 'http://kona.sunnysideq.com/category/2',
+    url: 'http://kona.sunnysideq.com/category/2',
   },
   {
     id: 5,
