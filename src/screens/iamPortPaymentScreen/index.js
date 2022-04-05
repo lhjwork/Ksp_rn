@@ -4,6 +4,7 @@ import {Text, View, BackHandler} from 'react-native';
 import {useSelector} from 'react-redux';
 import IMP from 'iamport-react-native';
 import Loading from '../../components/Loading';
+import {IMPCode} from '../../key';
 
 const IamPortPaymentScreen = ({navigation, route}) => {
   const {user} = useSelector(state => state.auth);
@@ -51,7 +52,7 @@ const IamPortPaymentScreen = ({navigation, route}) => {
 
   return (
     <IMP.Payment
-      userCode={IMP}
+      userCode={IMPCode}
       // tierCode={'AAA'} // 티어 코드: agency 기능 사용자에 한함
       loading={<Loading />} // 웹뷰 로딩 컴포넌트
       data={data} // 결제 데이터
