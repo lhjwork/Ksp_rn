@@ -6,6 +6,7 @@ export const ProductBox = styled.View`
   border-radius: 5px;
   height: 218px;
   margin-bottom: 10px;
+  elevation: 5;
 `;
 export const RowBox = styled.View`
   display: flex;
