@@ -22,6 +22,7 @@ import {
   Union,
 } from './styles';
 import {ProductImage, SearchButton} from '../purchaseHistory/styles';
+import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
 
 const DetailPurchaseHistory = ({navigation}) => {
   return (
@@ -133,16 +134,21 @@ const DetailPurchaseHistory = ({navigation}) => {
             <ProductTitle style={{width: 'auto'}}>적립 포인트</ProductTitle>
             <Subtitle style={{textAlign: 'right'}}>2,000KSP</Subtitle>
           </RowView>
-          <SearchButton
+          <DeliveryTrackingButton
             style={{marginTop: 39}}
-            onPress={() => {
-              navigation.navigate('DeliveryTracking');
-            }}>
-            <BoldLabelSubTitle
-              text={'배송 조회'}
-              style={{textAlign: 'center', color: '#94D2E9'}}
-            />
-          </SearchButton>
+            t_code={'01'}
+            t_invoice={'6026700539577'}
+          />
+          {/*<SearchButton*/}
+          {/*  style={{marginTop: 39}}*/}
+          {/*  onPress={() => {*/}
+          {/*    navigation.navigate('DeliveryTracking');*/}
+          {/*  }}>*/}
+          {/*  <BoldLabelSubTitle*/}
+          {/*    text={'배송 조회'}*/}
+          {/*    style={{textAlign: 'center', color: '#94D2E9'}}*/}
+          {/*  />*/}
+          {/*</SearchButton>*/}
         </ScrollView>
       </ContainerStyled>
     </LinearGradient>

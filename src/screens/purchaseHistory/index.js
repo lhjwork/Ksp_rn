@@ -19,6 +19,7 @@ import {
   SearchButton,
 } from './styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
 
 const PurchaseHistory = ({navigation}) => {
   const renderList = () => {
@@ -56,15 +57,7 @@ const PurchaseHistory = ({navigation}) => {
             <BoldLabel16 text={'$256,00'} style={{color: '#000000'}} />
           </View>
         </RowBox>
-        <SearchButton
-          onPress={() => {
-            navigation.navigate('DeliveryTracking');
-          }}>
-          <BoldLabelSubTitle
-            text={'배송 조회'}
-            style={{textAlign: 'center', color: '#94D2E9'}}
-          />
-        </SearchButton>
+        <DeliveryTrackingButton t_code={'01'} t_invoice={'6026700539577'} />
       </ProductBox>
     );
   };
