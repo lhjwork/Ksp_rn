@@ -1,8 +1,15 @@
 import React, {useRef, useState, createRef} from 'react';
 
-import {BackHandler, Button, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  BackHandler,
+  Button,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {WebView} from 'react-native-webview';
-import {useFocusEffect} from '@react-navigation/native';
+import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const INJECTED_CODE = `
@@ -25,7 +32,7 @@ const INJECTED_CODE = `
 true;
 `;
 
-const ShoppingWebView = ({route}) => {
+const ShoppingWebView = ({navigation, route}) => {
   const auth = useSelector(state => state.auth);
 
   const ref = useRef(null);
@@ -48,12 +55,31 @@ const ShoppingWebView = ({route}) => {
     }, [canGoBack]),
   );
   const handleOnMessage = ({nativeEvent}) => {
-    const {price, type} = JSON.parse(nativeEvent.data);
+    // const {price, type} = JSON?.parse(nativeEvent?.data)?.type;
 
     if (nativeEvent.data === 'navigationStateChange') {
       console.log(nativeEvent);
       setCanGoBack(nativeEvent.canGoBack);
-    } else if (type === 'payment') {
+    }
+    //결제 관련
+    else if (JSON?.parse(nativeEvent?.data)?.type === 'payment') {
+      const {price, type} = JSON?.parse(nativeEvent?.data);
+      navigation.navigate('IamPortPayment', {
+        price,
+        onComplete: res => {
+          const {imp_success, imp_uid, merchant_uid, error_msg} = res;
+          if (imp_success === 'true') {
+            const reset = CommonActions.reset({
+              index: 0,
+              routes: [{name: 'DrawerStack'}],
+            });
+            navigation.dispatch(reset);
+            Alert.alert('결제를 완료하였습니다.');
+          } else {
+            Alert.alert('결제에 실패하였습니다.', error_msg);
+          }
+        },
+      });
     }
   };
   const runFirst = `
