@@ -162,7 +162,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   bottomBtn: {marginTop: 10},
-  signUpText: {fontWeight: '700', color: '#555555', fontWeight: '400'},
+  signUpText: {color: '#555555', fontWeight: '400'},
   signUpBox: {justifyContent: 'center', marginTop: 56},
   signup: {
     color: '#46A0BD',
