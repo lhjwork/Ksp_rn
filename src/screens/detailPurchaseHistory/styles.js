@@ -21,6 +21,7 @@ export const ProductTitle = styled.Text`
   font-size: 14px;
   line-height: 20px;
   width: 60px;
+  color: #777777;
 `;
 
 export const ProductTitleBlack = styled(ProductTitle)`

@@ -43,16 +43,12 @@ const PurchaseHistory = ({navigation}) => {
         </RowBoxLine>
         <RowBox>
           <ProductImage
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpI0AXNwNk6USPik9Z6g1o95HI--bHI1kc2aXtXbT6ofg2wBOHdSDu_VdXSFKrn7LAFSs&usqp=CAU',
-            }}
+            source={require('../../asssets/Data/testProduct.png')}
           />
           <View style={{flex: 1}}>
             <NormalLabel14
               style={{color: '#000', flex: 1}}
-              text={
-                '옵션 추가 시 회원 앱애 연동 잘됨 옵션 추가 시 회원 앱애 연동 잘됨'
-              }
+              text={'[PRADA] cross wallet coin classic bag/black'}
             />
             <BoldLabel16 text={'$256,00'} style={{color: '#000000'}} />
           </View>
