@@ -19,6 +19,7 @@ export const Date = styled.Text`
   font-weight: 400;
   font-size: 12px;
   line-height: 17px;
+  color: #000000;
 `;
 export const DetailText = styled.Text`
   font-weight: 500;
