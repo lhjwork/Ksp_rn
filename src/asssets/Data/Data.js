@@ -11,7 +11,8 @@ export const ShoppingMallData = [
     id: 2,
     title: '가방',
     path: require('../images/ShoppingMall/bagImg.png'),
-    url: 'http://kona.sunnysideq.com/category/3',
+    url: 'http://10.89.56.242:3000/category/3',
+    // url: 'http://kona.sunnysideq.com/category/3',
   },
   {
     id: 3,

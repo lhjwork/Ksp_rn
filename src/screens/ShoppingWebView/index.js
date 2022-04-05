@@ -48,11 +48,12 @@ const ShoppingWebView = ({route}) => {
     }, [canGoBack]),
   );
   const handleOnMessage = ({nativeEvent}) => {
+    const {price, type} = JSON.parse(nativeEvent.data);
+
     if (nativeEvent.data === 'navigationStateChange') {
       console.log(nativeEvent);
       setCanGoBack(nativeEvent.canGoBack);
-    } else {
-      console.log('nativeEvent', nativeEvent);
+    } else if (type === 'payment') {
     }
   };
   const runFirst = `
