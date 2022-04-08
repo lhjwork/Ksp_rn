@@ -58,24 +58,30 @@ const PurchaseHistory = ({navigation}) => {
     );
   };
   return (
-    <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <ScrollView>
-        <HeaderCompnent
-          onPerssDrawer={() => navigation.openDrawer()}
-          onPressLeftBtn={() => navigation.goBack()}
-        />
-        <View style={{marginHorizontal: 24, flex: 1}}>
-          <BoldLabelTitle
-            text={'구매내역'}
-            style={{marginTop: 27.5, marginBottom: 30}}
-          />
-          <FlatList
-            data={[1, 2, 3]}
-            renderItem={renderList}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      </ScrollView>
+    <LinearGradient
+      colors={['#91C7D6', '#CBE2DC']}
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 0.65}}
+      style={{flex: 1}}>
+      <FlatList
+        style={{paddingHorizontal: 24, flex: 1}}
+        data={[1, 2, 3]}
+        renderItem={renderList}
+        keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={
+          <>
+            <HeaderCompnent
+              onPerssDrawer={() => navigation.openDrawer()}
+              onPressLeftBtn={() => navigation.goBack()}
+              style={{marginHorizontal: -24}}
+            />
+            <BoldLabelTitle
+              text={'구매내역'}
+              style={{marginTop: 27.5, marginBottom: 30}}
+            />
+          </>
+        }
+      />
     </LinearGradient>
   );
 };

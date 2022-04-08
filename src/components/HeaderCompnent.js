@@ -10,9 +10,10 @@ const HeaderCompnent = ({
   rightView,
   onPressLeftBtn,
   antStyle,
+  style,
 }) => {
   return (
-    <RowView style={styles.headerRow}>
+    <RowView style={{...style, ...styles.headerRow}}>
       <Touchable onPress={onPressLeftBtn}>
         <AntDesign
           name={'left'}
