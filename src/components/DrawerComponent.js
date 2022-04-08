@@ -74,13 +74,19 @@ const DrawerComponent = ({navigation}) => {
             <Image
               source={require('../asssets/images/null_image.png')}
               resizeMode={'contain'}
-              style={{width: 30, height: 30, marginBottom: 7}}
+              style={{width: 30, height: 30}}
             />
             <BoldLabelTitle
               text={username}
               style={{color: '#46A0BD', marginLeft: 9}}
             />
-            <BoldLabel14 text={' 님,안녕하세요.'} style={{color: '#000'}} />
+            <BoldLabel14
+              text={' 님, 안녕하세요!'}
+              style={{
+                lineHeight: 20,
+                color: '#000',
+              }}
+            />
           </RowView>
           <LabelNone
             text={email}
@@ -105,6 +111,7 @@ const DrawerComponent = ({navigation}) => {
                 <Image
                   source={menu?.img}
                   style={{width: 18, height: 18, marginRight: 10}}
+                  resizeMode={'contain'}
                 />
                 <BoldLabel14 text={menu?.title} style={styles.listText} />
               </RowView>
@@ -116,7 +123,7 @@ const DrawerComponent = ({navigation}) => {
         {/* 버전 정보  */}
         <RowView style={styles.imgAndtextRow}>
           <BoldLabel14 text={'버전정보v1.0'} style={styles.listText2} />
-          <AntDesign name="right" size={9} style={styles.antDesignSytle} />
+          {/*<AntDesign name="right" size={9} style={styles.antDesignSytle} />*/}
         </RowView>
       </View>
 
@@ -157,13 +164,23 @@ const styles = StyleSheet.create({
     marginBottom: 33,
   },
   listText: {color: '#555'},
-  listText2: {color: '#C4C4C4', marginLeft: 13.5},
+  listText2: {
+    fontSize: 12,
+    lineHeight: 17,
+    fontWeight: '400',
+    color: '#C4C4C4',
+    marginLeft: 13.5,
+  },
   solidLine: {
     height: 3,
     backgroundColor: '#E5E5E5',
     marginTop: 15,
   },
-  titleRow: {marginTop: 30.4, marginBottom: 14},
+  titleRow: {
+    marginTop: 30.4,
+    marginBottom: 14,
+    alignItems: 'flex-end',
+  },
   xBtn: {textAlign: 'right', padding: 5, color: '#46A0BD'},
   titleBox: {marginHorizontal: 24, height: 130.6, marginTop: 20},
   itemBox: {marginHorizontal: 24},
