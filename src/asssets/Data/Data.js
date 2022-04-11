@@ -5,16 +5,16 @@ export const ShoppingMallData = [
     id: 1,
     title: '의류',
     path: require('../images/ShoppingMall/clothesImg.png'),
-    // url: 'http://3.34.76.208/category/1',
-    url: 'http://10.89.59.164:3000/category/1',
+    url: 'http://3.34.76.208/category/1',
+    // url: 'http://10.89.59.164:3000/category/1',
   },
   {
     id: 2,
     title: '가방',
     path: require('../images/ShoppingMall/bagImg.png'),
-    url: 'http://10.89.59.164:3000/category/3',
+    // url: 'http://10.89.59.164:3000/category/3',
 
-    // url: 'http://3.34.76.208/category/3',
+    url: 'http://3.34.76.208/category/3',
     // url: 'https://www.kspcshop.com/category/3',
   },
   {
