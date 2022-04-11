@@ -40,7 +40,6 @@ const ShoppingWebView = ({navigation, route}) => {
   const {sessionToken} = auth?.user;
   const ref = useRef(null);
   const [canGoBack, setCanGoBack] = useState(false);
-  console.log('user', auth);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -58,8 +57,7 @@ const ShoppingWebView = ({navigation, route}) => {
       };
     }, [canGoBack]),
   );
-  const onPayment = async (body, imp_uid) => {
-    body.imp_uid = imp_uid;
+  const onPayment = async body => {
     body.sessionToken = sessionToken;
     try {
       const res = await api.post(`paymentupdate`, JSON.stringify(body), config);
@@ -73,11 +71,12 @@ const ShoppingWebView = ({navigation, route}) => {
   };
   const onCheckIamPortPayment = async (imp_uid, body) => {
     // /payment/complete
+    console.log('imp_uid', imp_uid);
 
     try {
       const res = await api.post('payment/complete', {imp_uid}, config);
       console.log('payment/complete res', res);
-      onPayment(body, imp_uid);
+      onPayment(body);
     } catch (e) {
       console.log('payment/complete', e);
       console.log('payment/complete, e.res', e.response);
@@ -92,6 +91,14 @@ const ShoppingWebView = ({navigation, route}) => {
     //결제 관련
     else if (JSON?.parse(nativeEvent?.data)?.type === 'payment') {
       const {body, type} = JSON?.parse(nativeEvent?.data);
+      if (body.totalPrice < 0) {
+        Alert.alert('결제 금액 오류입니다');
+        return;
+      }
+      if (body.totalPrice === 0) {
+        onPayment(body);
+        return;
+      }
       // navigation.navigate('IamPortPayment', {
       //   paymentMethod,
       //   totalPrice,
