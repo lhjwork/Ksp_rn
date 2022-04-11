@@ -56,7 +56,7 @@ const DrawerComponent = ({navigation}) => {
       const res = await api.post('applogout', {Logout: true}, config);
       console.log('res', res?.data);
       dispatch(saveUserInfo(res?.data));
-      navigation.navigate('Login');
+      navigation.navigate('AuthStack');
     } catch (e) {
       console.log(e);
       console.log(e.response);

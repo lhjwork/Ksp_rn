@@ -38,11 +38,11 @@ const Myinfo = ({navigation}) => {
   };
 
   const Data = [
-    {id: 1, title: '이름', info: userInfo['username']},
-    {id: 2, title: '휴대폰 번호', info: userInfo['phone']},
-    {id: 3, title: '성별', info: userInfo['gender']},
-    {id: 4, title: '이메일', info: userInfo['email']},
-    {id: 4, title: '아이디', info: userInfo['loginId']},
+    {id: 1, title: '이름', info: userInfo?.userInfo?.username},
+    {id: 2, title: '휴대폰 번호', info: userInfo?.userInfo?.phone},
+    {id: 3, title: '성별', info: userInfo?.userInfo?.gender},
+    {id: 4, title: '이메일', info: userInfo?.userInfo?.email},
+    {id: 4, title: '아이디', info: userInfo?.userInfo?.loginId},
   ];
 
   return (
@@ -53,7 +53,7 @@ const Myinfo = ({navigation}) => {
       />
       <View style={{marginHorizontal: 24.5}}>
         <BoldLabelTitle text={'내정보'} style={{marginTop: 27.5}} />
-        {Data.map((menu, index) => (
+        {Data?.map((menu, index) => (
           <View key={index}>
             <BoldLabel14
               text={menu?.title}

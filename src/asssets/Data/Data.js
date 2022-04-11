@@ -12,9 +12,10 @@ export const ShoppingMallData = [
     id: 2,
     title: '가방',
     path: require('../images/ShoppingMall/bagImg.png'),
-    // url: 'http://10.89.59.164:3000/category/3',
+    url: 'http://10.89.59.164:3000/category/3',
 
-    url: 'http://3.34.76.208/category/3',
+    // url: 'http://3.34.76.208/category/3',
+
     // url: 'https://www.kspcshop.com/category/3',
   },
   {
