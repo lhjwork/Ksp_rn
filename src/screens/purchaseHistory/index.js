@@ -65,6 +65,7 @@ const PurchaseHistory = ({navigation}) => {
       style={{flex: 1}}>
       <FlatList
         style={{paddingHorizontal: 24, flex: 1}}
+        contentContainerStyle={{paddingBottom: 10}}
         data={[1, 2, 3]}
         renderItem={renderList}
         keyExtractor={(item, index) => index.toString()}

@@ -8,7 +8,7 @@ import {IMPCode} from '../../key';
 
 const IamPortPaymentScreen = ({navigation, route}) => {
   const {user} = useSelector(state => state.auth);
-  const {price, payMethod = 'card'} = route.params;
+  const {body, payMethod = 'card'} = route.params;
 
   React.useEffect(() => {
     const backAction = () => {
@@ -28,24 +28,26 @@ const IamPortPaymentScreen = ({navigation, route}) => {
   function callback(res) {
     console.log('payment res', res);
     route.params.onComplete(res);
-    // navigation.goBack();
+    if (res?.imp_success === true) {
+      navigation.navigate('DrawerStack');
+    }
+    navigation.goBack();
   }
 
   const data = {
-    // pg: `html5_inicis.MOIpetpo20`,
     pg: `html5_inicis`,
     pay_method: payMethod, // card: 신용카드, vbank: 가상계좌, trans: 실시간계좌이체
     name: `KSP 결제`,
-    merchant_uid: `merchant_${user.id}_${new Date().getTime()}`,
-    // amount: price,
+    merchant_uid: `merchant_${user?.sessionToken}_${new Date().getTime()}`,
+    // amount: `${body?.totalPrice}`,
     amount: 100,
-
-    buyer_name: `${user?.koreanName}`,
-    buyer_tel: `${user?.phoneNumber}`,
+    buyer_name: `${body?.receiver}`,
+    buyer_tel: `${body?.phone}`,
     buyer_email: `${user?.email}`,
     app_scheme: 'KSP',
+    buyer_addr: `${body?.address}`,
+
     // app_scheme: 'FightMaster',
-    // buyer_addr: "서울시 강남구 신사동 661-16",
     // buyer_postcode: "06018",
     // paid_amount: 0 // 실제 결제승인된 금액이나 가상계좌 입금예정 금액
   };

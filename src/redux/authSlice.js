@@ -89,6 +89,7 @@ export const signIn =
         setPwdModalVisible(true);
       } else {
         dispatch(loginSuccess());
+        console.log('datadata', data);
         dispatch(saveUserInfo(data));
       }
     } catch (err) {
