@@ -7,6 +7,7 @@ import {
   ImageBackground,
   StyleSheet,
   SafeAreaView,
+  Clipboard,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -24,13 +25,17 @@ import RowView from '../../components/Views/RowView';
 import Touchable from '../../components/Touchable';
 import styled from 'styled-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import {useDispatch, useSelector} from 'react-redux';
+import api from '../../api';
+import {saveUserInfo, saveWallet} from '../../redux/authSlice';
+// import Clipboard from '@react-native-clipboard/clipboard';
 const WalletKsp = ({navigation}) => {
-  const [isKspc, setIsKspc] = useState('ㅡ');
-  const [walletAddress, setWalletAddress] = useState(
-    '0xQ231h2345yfE2001d8a9g9im8730h8a0s',
-  );
-  const [createWalletAddress, setCreateWalletAddress] = useState(false);
+  const dispatch = useDispatch();
+
+  const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
+  const hasWallet = auth.walletAddress !== null;
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const DATAES_COIN_SEND = [
     {
@@ -52,6 +57,34 @@ const WalletKsp = ({navigation}) => {
       path: 'StackingApply',
     },
   ];
+
+  const onClickHandler = async () => {
+    setIsDisabled(false);
+    if (hasWallet) {
+      Clipboard.setString(auth?.walletAddress);
+      setIsDisabled(false);
+    } else {
+      console.log('tets');
+      let body = {sessionToken: sessionToken};
+      const config = {
+        headers: {'Content-Type': 'application/json'},
+      };
+      try {
+        const res = await api.post(
+          'createwallet',
+          JSON.stringify(body),
+          config,
+        );
+        dispatch(saveWallet(res?.data?.result));
+        console.log('res', res?.data);
+      } catch (e) {
+        console.log(e);
+        console.log(e.response);
+      } finally {
+        setIsDisabled(false);
+      }
+    }
+  };
 
   return (
     <LinearGradient
@@ -77,45 +110,70 @@ const WalletKsp = ({navigation}) => {
                 resizeMode="cover"
                 style={styles.cardBackground}>
                 <RowView style={styles.walletPoint}>
-                  {createWalletAddress === false ? (
-                    <BoldLabel20 text={isKspc} />
-                  ) : (
-                    <BoldLabel20
-                      text={isKspc
-                        ?.toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      style={{color: '#46A0BD'}}
-                    />
-                  )}
-
+                  <View
+                    style={{
+                      ...styles.centerText,
+                      transform: [
+                        {translateX: hasWallet ? -15 : 6},
+                        {translateY: hasWallet ? 0 : -5},
+                      ],
+                    }}>
+                    {hasWallet ? (
+                      <BoldLabel20
+                        text={2000
+                          ?.toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        style={{color: '#46A0BD'}}
+                      />
+                    ) : (
+                      <BoldLabel20
+                        text={'-'}
+                        style={{fontSize: 38, lineHeight: 43, color: '#333333'}}
+                      />
+                    )}
+                  </View>
                   <LabelNone text={'KSPC'} style={styles.kspcUnit} />
                 </RowView>
-                {createWalletAddress === false ? (
-                  <LabelNone text={''} style={styles.walletAddress} Path />
-                ) : (
+                {hasWallet ? (
                   <LabelNone
-                    text={walletAddress}
+                    text={auth?.walletAddress}
                     style={styles.walletAddress}
                     Path
                   />
+                ) : (
+                  <LabelNone text={''} style={styles.walletAddress} Path />
                 )}
               </ImageBackground>
 
               {/* 지갑 주소 복사 버튼 start*/}
-
-              <View style={styles.walletCopyBox}>
-                <View style={styles.touchBackground}>
-                  <Touchable style={styles.walletCopyTouch}>
-                    <LabelNone
-                      text={'지갑 주소 복사'}
-                      style={styles.walletCopyText}
-                    />
-                    <Image
-                      source={require('../../asssets/icons/walletAddressCopyIcon.png')}
-                      style={styles.walletCopyIcon}
-                    />
-                  </Touchable>
-                </View>
+              {/*hasWalletCopyBox*/}
+              <View
+                style={
+                  hasWallet ? styles.walletCopyBox : styles.hasWalletCopyBox
+                }>
+                {/*<View style={styles.touchBackground}>*/}
+                <Touchable
+                  onPress={onClickHandler}
+                  disabled={isDisabled}
+                  style={
+                    hasWallet
+                      ? styles.walletCopyTouch
+                      : styles.hasWalletCopyTouch
+                  }>
+                  <LabelNone
+                    text={hasWallet ? '지갑 주소 복사' : '지갑 생성 하기'}
+                    style={styles.walletCopyText}
+                  />
+                  <Image
+                    source={
+                      hasWallet
+                        ? require('../../asssets/icons/walletAddressCopyIcon.png')
+                        : require('../../asssets/icons/Wallet_alt.png')
+                    }
+                    style={styles.walletCopyIcon}
+                  />
+                </Touchable>
+                {/*</View>*/}
               </View>
               {/* 지갑 주소 복사 버튼 end*/}
 
@@ -127,20 +185,20 @@ const WalletKsp = ({navigation}) => {
                   Img={item?.img}
                 />
               ))}
-              {createWalletAddress === true ? (
-                <></>
-              ) : (
-                <WalletButtons
-                  style={{marginBottom: 15}}
-                  Title={'지갑생성'}
-                  onPressBoolean={true}
-                  Img={require('../../asssets/icons/Wallet_alt_blue.png')}
-                  onPress={() => {
-                    setIsKspc('1000');
-                    setCreateWalletAddress(true);
-                  }}
-                />
-              )}
+              {/*{createWalletAddress === true ? (*/}
+              {/*  <></>*/}
+              {/*) : (*/}
+              {/*  <WalletButtons*/}
+              {/*    style={{marginBottom: 15}}*/}
+              {/*    Title={'지갑생성'}*/}
+              {/*    onPressBoolean={true}*/}
+              {/*    Img={require('../../asssets/icons/Wallet_alt_blue.png')}*/}
+              {/*    onPress={() => {*/}
+              {/*      setIsKspc('1000');*/}
+              {/*      setCreateWalletAddress(true);*/}
+              {/*    }}*/}
+              {/*  />*/}
+              {/*)}*/}
             </View>
           </ContainerStyled>
         </ScrollView>
@@ -174,6 +232,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
   },
+  hasWalletCopyTouch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#46A0BD',
+    width: SCREEN_WIDTH * 0.347,
+    height: 37,
+    borderRadius: 20,
+    justifyContent: 'center',
+  },
   walletCopyText: {
     color: '#fff',
     fontSize: 12,
@@ -187,18 +254,31 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 15,
   },
+  hasWalletCopyBox: {
+    backgroundColor: '#46A0BD',
+    width: SCREEN_WIDTH * 0.347,
+    borderRadius: 20,
+    alignSelf: 'center',
+    marginBottom: 15,
+  },
   touchBackground: {
     backgroundColor: '#C4C4C4',
     width: SCREEN_WIDTH * 0.347,
     borderRadius: 20,
   },
+
   cardBackground: {
     height: 180,
     marginTop: 33,
     marginBottom: 20,
     elevation: 7,
   },
+  centerText: {
+    left: '50%',
+    position: 'absolute',
+  },
   walletPoint: {
+    position: 'relative',
     marginTop: 67,
     justifyContent: 'flex-end',
     marginRight: SCREEN_WIDTH * 0.08,

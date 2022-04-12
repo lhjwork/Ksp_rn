@@ -36,7 +36,9 @@ const Login = ({navigation}) => {
   const [loginIdModalVisible, setLoginModalVisible] = useState(false);
   const [pwdModalVisible, setPwdModalVisible] = useState(false);
   const [modalControl, setModalControl] = useState('');
-
+  {
+    console.log('tqw', auth);
+  }
   useEffect(() => {
     // dispatch(signOut());
     if (user?.sessionToken) {

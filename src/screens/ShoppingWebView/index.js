@@ -59,6 +59,7 @@ const ShoppingWebView = ({navigation, route}) => {
   );
   const onPayment = async body => {
     body.sessionToken = sessionToken;
+    console.log('body', body);
     try {
       const res = await api.post(`paymentupdate`, JSON.stringify(body), config);
       console.log('res,구매연동', res);
