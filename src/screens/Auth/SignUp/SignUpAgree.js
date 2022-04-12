@@ -79,14 +79,14 @@ const SignUpAgree = ({navigation}) => {
           />
           <RowView
             style={{
-              backgroundColor: allAgree === true ? '#46A0BD' : '#fff',
+              backgroundColor: allAgree ? '#46A0BD' : '#fff',
               paddingVertical: 12,
               paddingHorizontal: 17.25,
               marginTop: 46,
               borderRadius: 10,
             }}>
             <Touchable onPress={() => getAllAgree()}>
-              {allAgree === false ? (
+              {!allAgree ? (
                 <Ionicons
                   name={'checkmark-circle-outline'}
                   size={19.5}
@@ -108,7 +108,7 @@ const SignUpAgree = ({navigation}) => {
                 fontWeight: '700',
                 lineHeight: 26,
                 marginLeft: 13,
-                color: allAgree === false ? '#555555' : '#fff',
+                color: !allAgree ? '#555555' : '#fff',
               }}
             />
           </RowView>
@@ -148,10 +148,9 @@ const SignUpAgree = ({navigation}) => {
           </View>
         </View>
       </ContainerStyled>
+
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        {allAgree === true ? (
-          <></>
-        ) : (
+        {(serviceAgree === false || privateInfoAgree === false) && (
           <View style={styles.agreeNeed}>
             <LabelNone
               text={'필수 약관의 동의가 필요합니다.'}

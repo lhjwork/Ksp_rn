@@ -25,6 +25,7 @@ export const ContentInput = ({
   placeholder,
   textStyle,
   imageNone = false,
+  editable = true,
 }) => {
   return (
     <RowView
@@ -54,6 +55,7 @@ export const ContentInput = ({
         value={value}
         onChangeText={onChangeText}
         placeholderTextColor={'#c4c4c4'}
+        editable={editable}
       />
     </RowView>
   );
@@ -70,6 +72,7 @@ export const AmountInput = ({
   rightText,
   rightTextStyle,
   maxLength,
+  editable = true,
 }) => {
   return (
     <RowView
@@ -96,6 +99,7 @@ export const AmountInput = ({
         keyboardType="number-pad"
         placeholderTextColor={'#c4c4c4'}
         maxLength={maxLength}
+        editable={editable}
       />
       <LabelNone
         text={rightText}

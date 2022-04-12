@@ -107,6 +107,10 @@ export const BoldLabel18 = ({
     {text}
   </Text>
 );
+export const NormalLabel14 = ({text, style}) => (
+  <Text style={{...styles.normalLabel14, ...style}}>{text}</Text>
+);
+
 const styles = StyleSheet.create({
   titleLabel: {
     fontSize: 24,
@@ -120,6 +124,7 @@ const styles = StyleSheet.create({
     color: '#555555',
     fontWeight: '400',
   },
+  normalLabel14: {fontSize: 14, fontWeight: '400'},
   boldLabel20: {fontSize: 20, fontWeight: '700'},
   boldLabel16: {fontSize: 16, fontWeight: '700'},
   boldLabel14: {fontSize: 14, fontWeight: '500', color: '#fff', lineHeight: 18},

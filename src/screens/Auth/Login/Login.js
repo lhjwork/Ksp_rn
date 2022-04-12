@@ -40,19 +40,20 @@ const Login = ({navigation}) => {
   useEffect(() => {
     // dispatch(signOut());
     if (user?.sessionToken) {
-      // navigation.reset({
-      //   routes: [
-      //     {
-      //       name: 'DrawerStack',
-      //     },
-      //   ],
-      // });
-      navigation.navigate('DrawerStack');
-    } else if (user?.Result === 'failed') {
-      setLoginModalVisible(true);
-    } else if (user?.Result === '비밀번호가 틀렸습니다.') {
-      setPwdModalVisible(true);
+      navigation.reset({
+        routes: [
+          {
+            name: 'DrawerStack',
+          },
+        ],
+      });
+      // navigation.navigate('DrawerStack');
     }
+    // else if (user?.Result === 'failed') {
+    //   setLoginModalVisible(true);
+    // } else if (user?.Result === '비밀번호가 틀렸습니다.') {
+    //   setPwdModalVisible(true);
+    // }
   }, [dispatch, user, user?.sessionToken, user?.Result]);
 
   const visiblePassword = () => {
@@ -70,7 +71,7 @@ const Login = ({navigation}) => {
     };
     console.log('body', body);
 
-    dispatch(signIn(body));
+    dispatch(signIn(body, setLoginModalVisible, setPwdModalVisible));
     // if (user?.Result === 'failed') {
     //   setLoginModalVisible(true);
     // } else if (user?.Result === '비밀번호가 틀렸습니다.') {
@@ -79,7 +80,11 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+    <LinearGradient
+      colors={['#91C7D6', '#CBE2DC']}
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 0.65}}
+      style={{flex: 1}}>
       <ScrollView>
         <ModalFrame
           infoText={'존재하지 않는 아이디입니다.'}
@@ -161,7 +166,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   bottomBtn: {marginTop: 10},
-  signUpText: {fontWeight: '700', color: '#555555', fontWeight: '400'},
+  signUpText: {color: '#555555', fontWeight: '400'},
   signUpBox: {justifyContent: 'center', marginTop: 56},
   signup: {
     color: '#46A0BD',

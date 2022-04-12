@@ -35,6 +35,7 @@ const PasswordChange = ({navigation}) => {
     };
     try {
       let {data} = await api.post(`/rePassword`, body, config);
+      console.log('비밀번호 변경', data);
       if (data?.result === 'success') {
         setIsSuccess(true);
         navigation.navigate('ShoppingMall');
@@ -46,8 +47,9 @@ const PasswordChange = ({navigation}) => {
 
       // navigation.navigate('main');
     } catch (e) {
-      setIsSuccess(false);
       console.log('비밀변호 변경 에러 제거', e);
+      console.log(e.response);
+      setIsSuccess(false);
     } finally {
       setPwdModalVisible(true);
     }
@@ -102,6 +104,7 @@ const PasswordChange = ({navigation}) => {
           secureTextEntry={passwordVisible1}
           onPress={() => visiblePassword1()}
           value={passwordValue1}
+          secureTextEntry={true}
           onChangeText={text => setPasswordValue1(text)}
         />
         <PasswordInput
@@ -118,7 +121,7 @@ const PasswordChange = ({navigation}) => {
           placeholder={'새 비밀번호 확인'}
           eyeSytle={{marginRight: 18}}
           textStyle={{marginLeft: 24}}
-          secureTextEntry={passwordVisible2}
+          secureTextEntry={true}
           onPress={() => visiblePassword2()}
           value={passwordValue2}
           onChangeText={text => setPasswordValue2(text)}

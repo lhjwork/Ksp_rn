@@ -6,6 +6,8 @@ const ContainerGradient = ({childern, style}) => {
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 0.65}}
       style={{...styles.containerGradient, ...style}}>
       {childern}
     </LinearGradient>

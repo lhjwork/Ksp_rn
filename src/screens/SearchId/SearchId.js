@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -11,9 +11,106 @@ import {
 import {ContentInput, AmountInput} from '../../components/TxInput';
 import RowView from '../../components/Views/RowView';
 import {BottomButton, SmallButton} from '../../components/Buttons/Buttons';
+import api from '../../api';
+import {logoutSuccess, resetAuth} from '../../redux/authSlice';
+import {config} from '../../constant';
+import TrueModalFrame from '../../components/Modals/TrueModalFrame';
+import IDModal from '../../components/Modals/IDModal';
+import {getVerifyCode} from '../../utils';
 const SearchId = ({navigation}) => {
+  const [userName, setUserName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [certification, setCertification] = useState('');
+  const [infoText, setInfoText] = useState('');
+  const [isShow, setIsShow] = useState(false);
+
+  const [isShowIDModal, setIsShowIDModal] = useState(false);
+
+  const [myId, setMyId] = useState(null);
+  const [isCheckValid, setIsCheckValid] = useState(null);
+  const [checkName, setCheckName] = useState('');
+  const [sendPhone, setSendPhone] = useState('');
+
+  const sendPhoneMsg = async () => {
+    let body = {
+      username: userName,
+      phone: phoneNumber,
+    };
+    try {
+      const {data} = await api.post(
+        'smssendforloginid',
+        JSON.stringify(body),
+        config,
+      );
+      setIsCheckValid(true);
+      setSendPhone(phoneNumber);
+      await setInfoText('인증번호를 전송하였습니다');
+      setIsShow(true);
+    } catch (err) {
+      await setInfoText(
+        '휴대폰 전송에 실패하였습니다 \n 입력하신 정보를 다시 확인해주세요',
+      );
+      setIsShow(true);
+      console.log('err', err);
+      console.log('err', err.response);
+    }
+  };
+  const confirmationPhoneNumber = async () => {
+    let body = {
+      username: userName,
+      phone: phoneNumber,
+      codeVerify: certification,
+    };
+    try {
+      const {data} = await api.post(
+        'sendloginid',
+        JSON.stringify(body),
+        config,
+      );
+      setIsCheckValid(false);
+      setCheckName(userName);
+      setMyId(data?.loginId);
+      console.log('data', data);
+    } catch (err) {
+      console.log('err', err);
+      console.log('err response', err.response);
+    }
+  };
+  const showIdModal = async () => {
+    if (checkName !== userName) {
+      await setInfoText(
+        '현재 이름과 인증번호를 전송한 \n 이름이 일치하지 않습니다',
+      );
+      setIsShow(true);
+      return;
+    }
+    if (sendPhone !== phoneNumber) {
+      await setInfoText(
+        '현재 휴대폰 번호와 인증번호 전송한 \n 휴대폰 번호가 일치하지 않습니다',
+      );
+      setIsShow(true);
+      return;
+    }
+    await setInfoText(`해당 아이디는 \n "${myId} "    입니다`);
+    setIsShowIDModal(true);
+  };
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+      <TrueModalFrame
+        visible={isShow}
+        infoText={infoText}
+        onPress={() => {
+          setIsShow(false);
+        }}
+      />
+      <IDModal
+        visible={isShowIDModal}
+        infoText={myId}
+        onPress={() => {
+          navigation.navigate('Login');
+        }}
+        userName={userName}
+      />
       <HeaderCompnent
         rightView={false}
         onPressLeftBtn={() => navigation.goBack()}
@@ -31,6 +128,8 @@ const SearchId = ({navigation}) => {
           <ContentInput
             placeholder={'이름을 입력해주세요.'}
             textStyle={styles.textStlye}
+            onChangeText={text => setUserName(text)}
+            value={userName}
           />
         </View>
         <LabelNone text={'휴대폰 번호'} style={styles.subTitle2} />
@@ -40,21 +139,76 @@ const SearchId = ({navigation}) => {
             // rightText={'KSP'}
             placeholder="숫자만 입력해주세요."
             textStyle={{marginLeft: 23}}
+            onChangeText={text => setPhoneNumber(text)}
+            value={phoneNumber}
           />
 
-          <SmallButton style={styles.button} text={'전송'} />
+          <SmallButton
+            style={styles.button}
+            text={'전송'}
+            onPress={sendPhoneMsg}
+          />
         </RowView>
         <RowView style={{marginTop: 5}}>
           <AmountInput
             outStyle={{flex: 1}}
             placeholder="인증번호를 입력해주세요."
             textStyle={{marginLeft: 23}}
+            onChangeText={text => setCertification(text)}
+            value={certification}
+            editable={isCheckValid}
+            maxLength={4}
           />
-          <SmallButton style={styles.button} text={'확인'} />
+          <SmallButton
+            isDisabled={!isCheckValid}
+            style={{
+              backgroundColor:
+                !isCheckValid && isCheckValid !== null
+                  ? '#C4C4C4'
+                  : certification.length === 4
+                  ? '#46A0BD'
+                  : '#FFFFFF',
+              ...styles.button,
+            }}
+            textStyle={{
+              color: certification.length === 4 ? '#fff' : '#46A0BD',
+            }}
+            text={'확인'}
+            onPress={() => {
+              if (isCheckValid !== false) {
+                confirmationPhoneNumber();
+              }
+            }}
+          />
         </RowView>
+
+        {isCheckValid !== null && (
+          <LabelNone
+            text={
+              isCheckValid
+                ? '인증번호가 일치하지 않습니다.'
+                : '인증번호가 일치합니다.'
+            }
+            style={{
+              color: isCheckValid ? '#FF0000' : '#46A0BD',
+              fontSize: 12,
+              marginLeft: 19,
+              marginTop: 5,
+            }}
+          />
+        )}
       </ContainerStyled>
+
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        <BottomButton text={'아이디찾기'} />
+        <BottomButton
+          text={'아이디찾기'}
+          disabled={isCheckValid !== false}
+          onPress={() => {
+            if (isCheckValid === false) {
+              showIdModal();
+            }
+          }}
+        />
       </View>
     </LinearGradient>
   );
@@ -68,7 +222,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: '500',
-    lineheight: 18,
+    lineHeight: 18,
     marginBottom: 11,
     marginLeft: 6,
   },

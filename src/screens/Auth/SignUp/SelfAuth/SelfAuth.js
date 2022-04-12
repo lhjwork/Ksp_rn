@@ -44,7 +44,6 @@ const SelfAuth = ({navigation}) => {
           'Content-Type': 'application/json',
         },
       };
-      setCodeSame(false);
       let body = {Phone: phoneNumber};
       const res = await api.post(
         'smsverification',
@@ -54,20 +53,15 @@ const SelfAuth = ({navigation}) => {
 
       const {data} = res;
       let tempboolean = data['Result'];
-      console.log('tempboolean', tempboolean);
-      // if (tempboolean !== 'success') {
-      //   setPhoneUnlock(false);
-      //   return;
-      // } else if (tempboolean == 'success') {
-      //   setPhoneUnlock(true);
-      // }
+      setCodeSame(false);
       setPhoneUnlock(true);
-      if (tempboolean === true) {
-        setModalText('이미 등록된 회원입니다.');
-        setModalVisible(true);
-      } else if (tempboolean === false || tempboolean === 'success') {
+
+      if (tempboolean === 'success' || tempboolean.length === 4) {
         setCheckPhone(phoneNumber);
-        setTrueModalText('인증 번호가 전송되었습니다.');
+        await setTrueModalText('인증 번호가 전송되었습니다.');
+        setTrueModalVisible(true);
+      } else {
+        await setTrueModalText('인증번호 전송 실패하였습니다');
         setTrueModalVisible(true);
       }
     } catch (e) {
@@ -85,13 +79,11 @@ const SelfAuth = ({navigation}) => {
       };
       let body = {Phone: phoneNumber, Verification: verifiedCode};
       const res = await api.post('smsverify', JSON.stringify(body), config);
-      console.log('Codeverify res', res?.data['Result']);
       setCodeVerify(res?.data['Result']);
-
-      if (codeVerify === 'failed') {
+      console.log('codever', res);
+      if (res?.data['Result'] === 'failed') {
         setCodeSame(false);
-        return;
-      } else if (codeVerify === 'success') {
+      } else if (res?.data['Result'] === 'success') {
         setCodeSame(true);
         // return;
       }
@@ -189,7 +181,7 @@ const SelfAuth = ({navigation}) => {
             <AmountInput
               outStyle={{
                 flex: 1,
-                borderColor: !codeSame ? '#FF0000' : '#c4c4c4',
+                borderColor: phoneUnlock && !codeSame ? '#FF0000' : '#c4c4c4',
               }}
               onChangeText={text => setVerifiedCode(text)}
               value={verifiedCode}
@@ -213,7 +205,14 @@ const SelfAuth = ({navigation}) => {
                 color: verifiedCode.length === 4 ? '#fff' : '#46A0BD',
               }}
               text={'확인'}
-              onPress={() => Codeverify()}
+              onPress={async () => {
+                if (phoneUnlock === false) {
+                  await setModalText('휴대번호를 전송바랍니다.');
+                  setModalVisible(true);
+                  return;
+                }
+                Codeverify();
+              }}
             />
           </RowView>
           {codeSame.length !== 0 && (

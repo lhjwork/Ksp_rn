@@ -12,13 +12,17 @@ import {
 } from '../../components/Buttons/Buttons';
 import CalendarTc from '../../components/CalendarTc';
 import Calendars from '../../components/Calendars';
+import dayjs from 'dayjs';
 
 const Calendar = ({navigation}) => {
-  const [month, setMonth] = useState(5);
   const [attendanceCount, setAttendanceCount] = useState(5);
-  const [dates, setDates] = useState([]);
+
   return (
-    <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+    <LinearGradient
+      colors={['#91C7D6', '#CBE2DC']}
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 0.65}}
+      style={{flex: 1}}>
       <ScrollView>
         <HeaderCompnent
           onPerssDrawer={() => navigation.openDrawer()}
@@ -33,7 +37,10 @@ const Calendar = ({navigation}) => {
           />
         </View>
         <View style={styles.checkContainer}>
-          <CheckBoxView month={month} attendanceCount={attendanceCount} />
+          <CheckBoxView
+            month={dayjs().get('month') + 1}
+            attendanceCount={attendanceCount}
+          />
           <BottomButtonWithIcon
             text={'출석체크 하기'}
             iconName={'checkmark-done'}
