@@ -5,7 +5,7 @@ export const ShoppingMallData = [
     id: 1,
     title: '의류',
     path: require('../images/ShoppingMall/clothesImg.png'),
-    url: 'https://www.naver.com/',
+    url: 'http://kona.sunnysideq.com/category/1',
   },
   {
     id: 2,
