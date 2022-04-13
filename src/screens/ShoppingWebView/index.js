@@ -24,7 +24,7 @@ const INJECTED_CODE = `
       return res;
     }
   }
-
+  window.isNativeApp = true;
   history.pushState = wrap(history.pushState);
   history.replaceState = wrap(history.replaceState);
   window.addEventListener('popstate', function() {
@@ -133,6 +133,7 @@ const ShoppingWebView = ({navigation, route}) => {
 
   const INJECTED_JAVASCRIPT = `(function() {
     window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
+    window.isNativeApp = true;
     window.user = ${JSON.stringify(auth?.user)};
 })();`;
 

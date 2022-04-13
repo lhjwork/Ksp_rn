@@ -78,9 +78,13 @@ export const BottomButtonWithIcon = ({
   style,
   iconName,
   iconSize,
+  disabled = false,
+  textStyle,
+  iconStyle,
 }) => {
   return (
     <Touchable
+      disabled={disabled}
       onPress={onPress}
       style={{
         paddingVertical: 13,
@@ -99,9 +103,14 @@ export const BottomButtonWithIcon = ({
             color: '#fff',
             fontWeight: '700',
             marginRight: 5,
+            ...textStyle,
           }}
         />
-        <Ionicons name={iconName} size={24} style={{color: '#fff'}} />
+        <Ionicons
+          name={iconName}
+          size={24}
+          style={{color: '#fff', ...iconStyle}}
+        />
       </RowView>
     </Touchable>
   );

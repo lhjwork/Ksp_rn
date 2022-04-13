@@ -13,7 +13,7 @@ import {
 } from './styles';
 import dayjs from 'dayjs';
 
-const Calendars = () => {
+const Calendars = ({setSelectDate, selectDate, attendanceList}) => {
   const checkedArray = [
     '2022-03-01',
     '2022-03-02',
@@ -24,7 +24,6 @@ const Calendars = () => {
   ]; // 출석한 날짜들 테스트 데이터
   let weekOfYear = require('dayjs/plugin/weekOfYear');
   dayjs.extend(weekOfYear);
-  const [selectDate, setSelectDate] = useState(new Date());
   const today = dayjs(selectDate);
 
   const firstWeek = today.clone().startOf('month').week();
@@ -58,7 +57,8 @@ const Calendars = () => {
                 );
               }
               // 해당 값이 출석한 날짜에 추가 되어있는 경우
-              else if (checkedArray.includes(days.format('YYYY-MM-DD'))) {
+              //   attendanceList.flat()
+              else if (attendanceList.includes(days.format('YYYY-MM-DD'))) {
                 return (
                   <DatesContainer key={index}>
                     <HasCheckImage
