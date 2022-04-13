@@ -13,3 +13,10 @@ export const resetNavigation = (navigation, path) => {
   });
   navigation.dispatch(reset);
 };
+
+export const PhoneNumberConvert = number => {
+  return number
+    ?.toString()
+    ?.replace(/\D+/g, '')
+    ?.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+};

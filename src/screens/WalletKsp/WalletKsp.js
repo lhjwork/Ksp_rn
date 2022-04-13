@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -19,16 +19,15 @@ import {
   BoldLabel20,
   BoldLabel16,
 } from '../../components/Labels';
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
-import ColumnView from '../../components/Views/Column';
+import {SCREEN_WIDTH} from '../../constants';
 import RowView from '../../components/Views/RowView';
 import Touchable from '../../components/Touchable';
-import styled from 'styled-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useDispatch, useSelector} from 'react-redux';
 import api from '../../api';
-import {saveUserInfo, saveWallet} from '../../redux/authSlice';
-// import Clipboard from '@react-native-clipboard/clipboard';
+import {saveWallet} from '../../redux/authSlice';
+import ToastMsg from '../../components/toastMsg';
+import {config} from '../../constant';
 const WalletKsp = ({navigation}) => {
   const dispatch = useDispatch();
 
@@ -36,6 +35,30 @@ const WalletKsp = ({navigation}) => {
   const {sessionToken} = auth?.user;
   const hasWallet = auth.walletAddress !== null;
   const [isDisabled, setIsDisabled] = useState(false);
+  const toastRef = useRef(null);
+  const [balance, setBalance] = useState([]);
+
+  useEffect(() => {
+    if (hasWallet) {
+      let body = {sessionToken};
+      (async () => {
+        try {
+          const {data} = await api.post(
+            'balance',
+            JSON.stringify(body),
+            config,
+          );
+          setBalance(data?.result);
+        } catch (e) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [hasWallet]);
+
+  const showToast = useCallback(() => {
+    toastRef.current.show('지갑 주소가 복사 되었습니다.');
+  }, []);
 
   const DATAES_COIN_SEND = [
     {
@@ -62,6 +85,7 @@ const WalletKsp = ({navigation}) => {
     setIsDisabled(false);
     if (hasWallet) {
       Clipboard.setString(auth?.walletAddress);
+      showToast();
       setIsDisabled(false);
     } else {
       console.log('tets');
@@ -92,7 +116,7 @@ const WalletKsp = ({navigation}) => {
       start={{x: 0, y: 0}}
       end={{x: 0, y: 0.65}}
       style={{flex: 1}}>
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
         <ScrollView>
           <HeaderCompnent
             onPerssDrawer={() => navigation.openDrawer()}
@@ -120,7 +144,7 @@ const WalletKsp = ({navigation}) => {
                     }}>
                     {hasWallet ? (
                       <BoldLabel20
-                        text={2000
+                        text={balance?.kspc
                           ?.toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         style={{color: '#46A0BD'}}
@@ -202,6 +226,7 @@ const WalletKsp = ({navigation}) => {
             </View>
           </ContainerStyled>
         </ScrollView>
+        <ToastMsg ref={toastRef} />
       </SafeAreaView>
     </LinearGradient>
   );

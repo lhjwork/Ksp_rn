@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {FlatList, ScrollView, TouchableOpacity, View} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -20,16 +20,40 @@ import {
 } from './styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
+import api from '../../api';
+import {config} from '../../constant';
+import {useSelector} from 'react-redux';
 
 const PurchaseHistory = ({navigation}) => {
-  const renderList = () => {
+  const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
+  const [paymentList, setPaymentList] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let body = {sessionToken};
+      try {
+        const {data} = await api.post(
+          'paymentselect/user',
+          JSON.stringify(body),
+          config,
+        );
+        setPaymentList(data?.paymentList);
+        console.log(data?.paymentList);
+      } catch (e) {
+        console.log(e);
+        console.log(e.response);
+      }
+    })();
+  }, []);
+  const renderList = data => {
+    let {item} = data;
     return (
       <ProductBox>
         <RowBoxLine>
-          <Date>2022.04.23</Date>
+          <Date>{item?.createdAt}</Date>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('DetailPurchaseHistory');
+              navigation.navigate('DetailPurchaseHistory', item);
             }}
             style={{flexDirection: 'row', alignItems: 'center'}}>
             <DetailText>주문 상세보기</DetailText>
@@ -48,12 +72,18 @@ const PurchaseHistory = ({navigation}) => {
           <View style={{flex: 1}}>
             <NormalLabel14
               style={{color: '#000', flex: 1}}
-              text={'[PRADA] cross wallet coin classic bag/black'}
+              text={`[${item?.brand}] ${item?.title}`}
             />
-            <BoldLabel16 text={'$256,00'} style={{color: '#000000'}} />
+            <BoldLabel16
+              text={item?.totalPrice.toLocaleString() + ' 원'}
+              style={{color: '#000000'}}
+            />
           </View>
         </RowBox>
-        <DeliveryTrackingButton t_code={'01'} t_invoice={'6026700539577'} />
+        <DeliveryTrackingButton
+          t_code={item?.deliveryCode}
+          t_invoice={item?.invoiceNumber}
+        />
       </ProductBox>
     );
   };
@@ -66,7 +96,7 @@ const PurchaseHistory = ({navigation}) => {
       <FlatList
         style={{paddingHorizontal: 24, flex: 1}}
         contentContainerStyle={{paddingBottom: 10}}
-        data={[1, 2, 3]}
+        data={paymentList}
         renderItem={renderList}
         keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent={
