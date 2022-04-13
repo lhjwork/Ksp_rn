@@ -7,12 +7,11 @@ import {
   Image,
   ScrollView,
   Alert,
+  Linking,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import Touchable from '../../components/Touchable';
 import LinearGradient from 'react-native-linear-gradient';
-import ContainerGradient from '../../components/Containers/ContainerGradient';
 import {
   BoldLabelSubTitle,
   BoldLabelTitle,
@@ -20,12 +19,15 @@ import {
 } from '../../components/Labels';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
 
-import {ShoppingMallData} from '../../asssets/Data/Data';
+import {HOMEPAGE_URL, ShoppingMallData} from '../../asssets/Data/Data';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 import RowView from '../../components/Views/RowView';
 
 const ShoppingMall = ({navigation}) => {
+  const openURL = () => {
+    Linking.openURL(HOMEPAGE_URL);
+  };
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ScrollView>
@@ -128,7 +130,11 @@ const ShoppingMall = ({navigation}) => {
             <LinearGradient
               colors={['#91C7D6', '#CBE2DC']}
               style={styles.shoppingBox}>
-              <Touchable style={styles.shoppingButton}>
+              <Touchable
+                style={styles.shoppingButton}
+                onPress={() => {
+                  openURL();
+                }}>
                 <LabelNone
                   text={'코나 쇼핑몰 홈페이지 바로가기'}
                   style={styles.shoppingText}
