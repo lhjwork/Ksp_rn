@@ -5,7 +5,6 @@ import HeaderCompnent from '../../components/HeaderCompnent';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   BoldLabel16,
-  BoldLabelSubTitle,
   BoldLabelTitle,
   NormalLabel14,
 } from '../../components/Labels';
@@ -16,7 +15,6 @@ import {
   ProductImage,
   RowBox,
   RowBoxLine,
-  SearchButton,
 } from './styles';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
@@ -29,8 +27,10 @@ const PurchaseHistory = ({navigation}) => {
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
   const [paymentList, setPaymentList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       let body = {sessionToken};
       try {
         const {data} = await api.post(
@@ -43,6 +43,8 @@ const PurchaseHistory = ({navigation}) => {
       } catch (e) {
         console.log(e);
         console.log(e.response);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -94,38 +96,39 @@ const PurchaseHistory = ({navigation}) => {
       start={{x: 0, y: 0}}
       end={{x: 0, y: 0.65}}
       style={{flex: 1}}>
-      {paymentList.length === 0 ? (
-        <View style={{paddingHorizontal: 24, flex: 1}}>
-          <HeaderCompnent
-            onPerssDrawer={() => navigation.openDrawer()}
-            onPressLeftBtn={() => navigation.goBack()}
-            style={{marginHorizontal: -24}}
+      {!isLoading &&
+        (paymentList.length === 0 ? (
+          <View style={{paddingHorizontal: 24, flex: 1}}>
+            <HeaderCompnent
+              onPerssDrawer={() => navigation.openDrawer()}
+              onPressLeftBtn={() => navigation.goBack()}
+              style={{marginHorizontal: -24}}
+            />
+            <BoldLabelTitle text={'구매내역'} style={{marginTop: 27.5}} />
+            <NoneScreen text={'앗!  구매내역이 존재하지 않습니다.'} />
+          </View>
+        ) : (
+          <FlatList
+            style={{paddingHorizontal: 24, flex: 1}}
+            contentContainerStyle={{paddingBottom: 10}}
+            data={paymentList}
+            renderItem={renderList}
+            keyExtractor={(item, index) => index.toString()}
+            ListHeaderComponent={
+              <>
+                <HeaderCompnent
+                  onPerssDrawer={() => navigation.openDrawer()}
+                  onPressLeftBtn={() => navigation.goBack()}
+                  style={{marginHorizontal: -24}}
+                />
+                <BoldLabelTitle
+                  text={'구매내역'}
+                  style={{marginTop: 27.5, marginBottom: 30}}
+                />
+              </>
+            }
           />
-          <BoldLabelTitle text={'구매내역'} style={{marginTop: 27.5}} />
-          <NoneScreen text={'앗!  구매내역이 존재하지 않습니다.'} />
-        </View>
-      ) : (
-        <FlatList
-          style={{paddingHorizontal: 24, flex: 1}}
-          contentContainerStyle={{paddingBottom: 10}}
-          data={paymentList}
-          renderItem={renderList}
-          keyExtractor={(item, index) => index.toString()}
-          ListHeaderComponent={
-            <>
-              <HeaderCompnent
-                onPerssDrawer={() => navigation.openDrawer()}
-                onPressLeftBtn={() => navigation.goBack()}
-                style={{marginHorizontal: -24}}
-              />
-              <BoldLabelTitle
-                text={'구매내역'}
-                style={{marginTop: 27.5, marginBottom: 30}}
-              />
-            </>
-          }
-        />
-      )}
+        ))}
     </LinearGradient>
   );
 };
