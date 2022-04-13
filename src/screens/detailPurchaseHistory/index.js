@@ -59,7 +59,7 @@ const DetailPurchaseHistory = ({navigation, route}) => {
               paddingHorizontal: 24,
             }}>
             <NormalLabel14 text={'주문 일자'} style={{color: '#000'}} />
-            <NormalLabel14 text={'2022.04.23'} style={{color: '#000'}} />
+            <NormalLabel14 text={params?.createdAt} style={{color: '#000'}} />
           </RowView>
           <View style={{paddingHorizontal: 24}}>
             <Title style={{marginTop: 26}}>상품 정보</Title>
@@ -127,7 +127,7 @@ const DetailPurchaseHistory = ({navigation, route}) => {
               />
               <ProductTitle style={{width: 'auto'}}>포인트사용</ProductTitle>
               <SubtitleGray style={{textAlign: 'right'}}>
-                {params?.usedPoint?.toLocaleString() + ' KSP'}
+                {'- ' + params?.usedPoint?.toLocaleString() + ' KSP'}
               </SubtitleGray>
             </RowView>
 
