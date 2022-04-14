@@ -39,6 +39,9 @@ const Scann = ({navigation}) => {
   const [QRurl, setQRurl] = useState('');
   const [isReactivate, setReactivate] = useState(false);
   const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
+  console.log(sessionToken);
+
   const [iscameraTypeback, setIsCameraTypeback] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
@@ -115,7 +118,7 @@ const Scann = ({navigation}) => {
   const fetchQRCode = async (Qr, name) => {
     let touchPoint;
     let endPoint = name === '내부' ? 'internalscan' : 'scan';
-    let body = {sessionToken: auth.sessionToken, Qr: Qr};
+    let body = {sessionToken, Qr};
     console.log(body);
     try {
       const config = {
@@ -124,25 +127,26 @@ const Scann = ({navigation}) => {
         },
       };
 
-      const res = await api.post(endPoint, JSON.stringify(body), config);
-      if (res.data.Result === '터치콘 포인트가 부족합니다.') {
-        Alert.alert(res?.data?.Result);
-        // navigation.goBack();
-        return;
-      }
-      if (res.data.Result === '이미 스캔된 쿠폰입니다.') {
-        Alert.alert(res?.data?.Result);
-        return;
-      }
-      if (res.data.Result !== 'success') {
-        // navigation.navigate('ScanResult', {touchPoint: 10});
-        Alert.alert(`${name}스캔 실패했습니다`);
-        // navigation.goBack();
-        return;
-      }
-      Alert.alert(`${name}스캔 성공하였습니다`);
-      navigation.navigate('ScanResult', {touchPoint: res?.data?.Amount});
-      console.log('Amount확인', res.data.Amount);
+      const {result} = await api.post(endPoint, JSON.stringify(body), config);
+      console.log(result);
+      // if (res.data.Result === '터치콘 포인트가 부족합니다.') {
+      //   Alert.alert(res?.data?.Result);
+      //   // navigation.goBack();
+      //   return;
+      // }
+      // if (res.data.Result === '이미 스캔된 쿠폰입니다.') {
+      //   Alert.alert(res?.data?.Result);
+      //   return;
+      // }
+      // if (res.data.Result !== 'success') {
+      //   // navigation.navigate('ScanResult', {touchPoint: 10});
+      //   Alert.alert(`${name}스캔 실패했습니다`);
+      //   // navigation.goBack();
+      //   return;
+      // }
+      // Alert.alert(`${name}스캔 성공하였습니다`);
+      // navigation.navigate('ScanResult', {touchPoint: res?.data?.Amount});
+      // console.log('Amount확인', res.data.Amount);
       //  navigation.navigate('ScanResult', {touchPoint: touchPoint});
       // navigation.goBack();
       // navigation.navigate(touchPoint, 'ScanResult');

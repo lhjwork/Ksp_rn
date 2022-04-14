@@ -30,14 +30,13 @@ import ToastMsg from '../../components/toastMsg';
 import {config} from '../../constant';
 const WalletKsp = ({navigation}) => {
   const dispatch = useDispatch();
-
+  console.log(sessionToken);
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
   const hasWallet = auth.walletAddress !== null;
   const [isDisabled, setIsDisabled] = useState(false);
   const toastRef = useRef(null);
   const [balance, setBalance] = useState([]);
-
   useEffect(() => {
     if (hasWallet) {
       let body = {sessionToken};
@@ -55,7 +54,6 @@ const WalletKsp = ({navigation}) => {
       })();
     }
   }, [hasWallet]);
-
   const showToast = useCallback(() => {
     toastRef.current.show('지갑 주소가 복사 되었습니다.');
   }, []);

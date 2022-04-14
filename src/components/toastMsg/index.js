@@ -18,6 +18,7 @@ const ToastMsg = forwardRef((props, ref) => {
   const [message, setMessage] = useState('');
   const toastOpacity = useSharedValue(0);
   const isShowed = useRef(false);
+  console.log(message);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
