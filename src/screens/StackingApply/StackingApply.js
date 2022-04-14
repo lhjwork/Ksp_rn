@@ -1,6 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {Text, View, ScrollView, StyleSheet, FlatList} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  Alert,
+} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabelTitle, LabelNone, BoldLabel14} from '../../components/Labels';
 import RowView from '../../components/Views/RowView';
@@ -10,9 +17,21 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import {TableContainer, CalendarInformation} from './styles';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
+import TrueModalFrame from '../../components/Modals/TrueModalFrame';
+import {useIsFocused} from '@react-navigation/native';
+import api from '../../api';
+import {config} from '../../constant';
+import {useSelector} from 'react-redux';
 
 const StackingApply = ({navigation}) => {
+  const isFocused = useIsFocused();
   const [interest, setInterest] = useState('start');
+  const [sumInput, onChangeSumInput] = useState('');
+  const [isErrShow, setIsErrShow] = useState(false);
+  const [errText, setErrText] = useState('');
+  const [balance, setBalance] = useState([]);
+  const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
 
   let interestInforFirst =
     interest === 'start' ? 560000 : parseInt(parseInt(interest) * 0.07);
@@ -66,12 +85,95 @@ const StackingApply = ({navigation}) => {
       '',
     ],
   ];
+  const onClickSum = async () => {
+    if (sumInput.length === 0) {
+      setErrText('수량을 입력해주세요');
+      await setInterest('start');
+      setIsErrShow(true);
+      return;
+    }
+    if (parseInt(sumInput) < 1000) {
+      await setErrText('1000 이상만 가능합니다');
+      setIsErrShow(true);
+      return;
+    }
+    setInterest(sumInput);
+
+    try {
+      setErrText('계산 완료');
+    } catch (e) {
+      setErrText('계산 실패');
+    } finally {
+      setIsErrShow(true);
+    }
+  };
+  useEffect(() => {
+    getBalance();
+    setInterest('start');
+    onChangeSumInput('');
+  }, [isFocused]);
+
+  const getBalance = async () => {
+    let body = {sessionToken};
+    try {
+      const {data} = await api.post('balance', JSON.stringify(body), config);
+      console.log(data);
+      setBalance(data?.result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const fetchStaking = async () => {
+    if (sumInput.length === 0) {
+      await setErrText('수량을 입력해주세요');
+      setIsErrShow(true);
+      return;
+    }
+    if (parseInt(sumInput) < 1000) {
+      await setErrText('1000 이상만 가능합니다');
+      setIsErrShow(true);
+      return;
+    }
+    if (parseInt(sumInput) > balance?.ksp) {
+      await setErrText('보유하신 KSP 를 초과하셨습니다');
+      setIsErrShow(true);
+      return;
+    }
+    try {
+      let body = {sessionToken: auth.sessionToken, amount: interest};
+      console.log('staking', body);
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const res = await api.post('staking', JSON.stringify(body), config);
+      await setErrText('스테이킹을 완료!');
+      setIsErrShow(true);
+      navigation.goBack();
+    } catch (err) {
+      if (err?.response?.data?.errMsg) {
+        await setErrText(err.response.data.errMsg);
+        setIsErrShow(true);
+        return;
+      }
+      Alert.alert('서버와 통신에 실패');
+      console.log('err', err);
+      console.log('err', err.respon);
+    }
+  };
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
       start={{x: 0, y: 0}}
       end={{x: 0, y: 0.65}}
       style={{flex: 1}}>
+      <TrueModalFrame
+        infoText={errText}
+        visible={isErrShow}
+        onPress={() => setIsErrShow(false)}
+      />
       <ScrollView>
         <HeaderCompnent
           onPressLeftBtn={() => navigation.goBack()}
@@ -84,12 +186,20 @@ const StackingApply = ({navigation}) => {
           />
           <RowView style={{marginTop: 5}}>
             <AmountInput
+              value={sumInput}
               outStyle={{flex: 1}}
               rightText={'KSP'}
               placeholder="수량을 입력해주세요."
               textStyle={{marginLeft: 19}}
+              onChangeText={onChangeSumInput}
             />
-            <SmallButton style={styles.button} text={'계산'} />
+            <SmallButton
+              style={styles.button}
+              text={'계산'}
+              onPress={() => {
+                onClickSum();
+              }}
+            />
           </RowView>
           <LabelNone
             text={'최소 신청 수량은 1,000KSP 입니다.'}
@@ -141,7 +251,17 @@ const StackingApply = ({navigation}) => {
                 marginBottom: 9,
               }}
             />
-            <BottomButton text={'신청하기'} />
+            <BottomButton
+              text={'신청하기'}
+              onPress={async () => {
+                if (interest === 'start') {
+                  await setErrText('계산 후 신청해주세요.');
+                  setIsErrShow(true);
+                  return;
+                }
+                fetchStaking();
+              }}
+            />
           </View>
         </View>
       </ScrollView>

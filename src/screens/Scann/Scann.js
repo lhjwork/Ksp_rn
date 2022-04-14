@@ -47,23 +47,23 @@ const Scann = ({navigation}) => {
   const [modalText, setModalText] = useState(null);
   const [isErrShow, setIsErrShow] = useState(false);
 
-  useEffect(() => {
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // if (Platform.OS === 'android') {
-    //   // console.log(' 111 ');
-    //   PermissionsAndroid.requestMultiple([
-    //     PermissionsAndroid.PERMISSIONS.CAMERA,
-    //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    //     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-    //   ]).then(result => {});
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // }
-  }, []);
+  // useEffect(() => {
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // if (Platform.OS === 'android') {
+  //   //   // console.log(' 111 ');
+  //   //   PermissionsAndroid.requestMultiple([
+  //   //     PermissionsAndroid.PERMISSIONS.CAMERA,
+  //   //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  //   //     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+  //   //   ]).then(result => {});
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // }
+  // }, []);
 
   // render({navigation}) {
   //   const onSuccess = e => {
@@ -88,7 +88,7 @@ const Scann = ({navigation}) => {
         fetchQRCode(res?.assets[0]?.base64, '내부');
       })
       .catch(err => {
-        Alert.alert('입력 실패하여 ㅆ습니다');
+        Alert.alert('입력 실패하여 했습니다');
       });
   };
 
@@ -114,7 +114,7 @@ const Scann = ({navigation}) => {
   // };
 
   const fetchQRCode = async (Qr, name) => {
-    let endPoint = name === '내부' ? 'scan' : 'scan';
+    let endPoint = name === '내부' ? 'exchangerate' : 'scan';
     let body = {sessionToken, Qr};
     console.log('scan body : ', body);
     try {
