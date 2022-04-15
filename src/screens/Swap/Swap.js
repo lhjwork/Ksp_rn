@@ -72,7 +72,8 @@ const Swap = ({navigation}) => {
         setIsErrShow(true);
         return;
       }
-      setErrText('포인트 전환에 실패했습니다.');
+      await setErrText('포인트 전환에 실패했습니다.');
+      setIsErrShow(true);
     }
   };
 

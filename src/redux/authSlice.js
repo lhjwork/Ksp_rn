@@ -81,7 +81,6 @@ export const signIn =
   (userData, setLoginModalVisible, setPwdModalVisible) => async dispatch => {
     try {
       let {data} = await api.post(`applogin`, userData, config);
-      console.log(data?.wallet);
 
       if (data.Result === 'failed') {
         setLoginModalVisible(true);

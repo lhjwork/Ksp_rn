@@ -54,11 +54,12 @@ const ShoppingMall = ({navigation}) => {
             </View>
           </Touchable>
 
-          <View style={{marginHorizontal: 30}}>
+          <View>
             <RowView
               style={{
                 flexWrap: 'wrap',
-                justifyContent: 'space-between',
+                justifyContent: 'space-around',
+                flex: 1,
               }}>
               {ShoppingMallData.map((item, index) => (
                 <Touchable
@@ -72,8 +73,8 @@ const ShoppingMall = ({navigation}) => {
                     <Image
                       resizeMode={'contain'}
                       style={{
-                        width: SCREEN_WIDTH * 0.22,
-                        height: SCREEN_WIDTH * 0.22,
+                        width: SCREEN_WIDTH * 0.26,
+                        height: SCREEN_WIDTH * 0.26,
                       }}
                       source={item.path}
                     />
