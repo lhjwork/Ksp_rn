@@ -26,6 +26,7 @@ const Swap = ({navigation}) => {
   const isFocused = useIsFocused();
   const [isErrShow, setIsErrShow] = useState(false);
   const [errText, setErrText] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     setPointCount(0);
@@ -41,6 +42,7 @@ const Swap = ({navigation}) => {
   }, [isFocused]);
 
   const onClickChangePoint = async () => {
+    setIsDisabled(true);
     if (pointCount === 0 || pointCount.length === 0) {
       await setErrText('KSPC를 입력해주세요');
       setIsErrShow(true);
@@ -55,7 +57,6 @@ const Swap = ({navigation}) => {
       sessionToken,
       point: pointCount,
     };
-    console.log(body);
     try {
       const {data} = await api.post(
         'convertcoin',
@@ -86,7 +87,10 @@ const Swap = ({navigation}) => {
       <TrueModalFrame
         infoText={errText}
         visible={isErrShow}
-        onPress={() => setIsErrShow(false)}
+        onPress={() => {
+          setIsDisabled(false);
+          setIsErrShow(false);
+        }}
       />
       <HeaderCompnent
         onPressLeftBtn={() => navigation.goBack()}
@@ -141,6 +145,7 @@ const Swap = ({navigation}) => {
             }}
           />
           <BottomButton
+            disabled={isDisabled}
             style={styles.bottomBtnPosition}
             text={'포인트 전환'}
             onPress={onClickChangePoint}
