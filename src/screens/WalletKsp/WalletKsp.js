@@ -30,7 +30,6 @@ import ToastMsg from '../../components/toastMsg';
 import {config} from '../../constant';
 const WalletKsp = ({navigation}) => {
   const dispatch = useDispatch();
-  console.log(sessionToken);
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
   const hasWallet = auth.walletAddress !== null;
@@ -69,7 +68,7 @@ const WalletKsp = ({navigation}) => {
       id: 1,
       titie: '이더리움 보내기',
       img: require('../../asssets/icons/WalletKsp/wallet_ethereum.png'),
-      path: 'EtherSend',
+      path: 'KspSend',
     },
     {
       id: 1,
@@ -203,7 +202,12 @@ const WalletKsp = ({navigation}) => {
                 <WalletButtons
                   key={index}
                   Title={item?.titie}
-                  onPress={() => navigation.navigate(item?.path)}
+                  onPress={() =>
+                    navigation.navigate(item?.path, {
+                      balance,
+                      isKspSend: item?.titie.includes('KSPC'),
+                    })
+                  }
                   Img={item?.img}
                 />
               ))}

@@ -73,6 +73,7 @@ export const AmountInput = ({
   rightTextStyle,
   maxLength,
   editable = true,
+  keyboardType = 'number-pad',
 }) => {
   return (
     <RowView
@@ -96,7 +97,7 @@ export const AmountInput = ({
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        keyboardType="number-pad"
+        keyboardType={keyboardType}
         placeholderTextColor={'#c4c4c4'}
         maxLength={maxLength}
         editable={editable}

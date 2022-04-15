@@ -5,7 +5,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -14,11 +14,10 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 
-const ToastMsg = forwardRef((props, ref) => {
+const ToastMsg = forwardRef((props, ref, style) => {
   const [message, setMessage] = useState('');
   const toastOpacity = useSharedValue(0);
   const isShowed = useRef(false);
-  console.log(message);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -48,28 +47,47 @@ const ToastMsg = forwardRef((props, ref) => {
   }, []);
 
   return (
-    <Animated.View style={[styles.rootContainer, animatedStyle]}>
-      <Text style={styles.message}>{message}</Text>
-    </Animated.View>
+    <View style={styles.rootView}>
+      <Animated.View style={[styles.rootContainer, animatedStyle]}>
+        <Text style={styles.message}>{message}</Text>
+      </Animated.View>
+    </View>
   );
 });
 
 const styles = StyleSheet.create({
+  rootView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'relative',
+  },
   rootContainer: {
     position: 'absolute',
-    left: '50%',
+    // left: '50%',
     bottom: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     paddingVertical: 9,
     paddingHorizontal: 33,
     borderRadius: 20,
-    transform: [{translateX: -105}],
+    // transform: [{translateX: -105}],
   },
   message: {
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '17px',
   },
+  // rootContainer: {
+  //   position: 'absolute',
+  //   bottom: 100,
+  //   backgroundColor: 'rgb(95, 209, 251)',
+  //   paddingVertical: 9,
+  //   paddingHorizontal: 23,
+  //   borderRadius: 100,
+  // },
+  // message: {
+  //   color: 'rgb(255, 255, 255)',
+  // },
 });
 
 export default ToastMsg;
