@@ -18,12 +18,14 @@ import TrueModalFrame from '../../components/Modals/TrueModalFrame';
 import {useIsFocused} from '@react-navigation/native';
 
 const KspSend = ({navigation, route}) => {
+  const {balance, isKspSend} = route?.params;
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
-  const {balance, isKspSend} = route?.params;
   const toastRef = useRef(null);
+
   const [sendAddress, setSendAddress] = useState('');
-  const [sendKsp, setSendKsp] = useState(0);
+  const [sendAmount, setSendAmount] = useState(0);
+
   const [isShow, setIsShow] = useState(false);
   const [errMsgModal, setErrMsgModal] = useState('');
   const isFocused = useIsFocused();
@@ -31,7 +33,7 @@ const KspSend = ({navigation, route}) => {
 
   useEffect(() => {
     setSendAddress('');
-    setSendKsp(0);
+    setSendAmount(0);
     if (route?.params?.balance.length === 0 || !route?.params) {
       navigation.goBack();
     }
@@ -43,20 +45,20 @@ const KspSend = ({navigation, route}) => {
 
   const onClickSend = async () => {
     if (isKspSend) {
-      if (balance.kspc < Number(sendKsp)) {
+      if (balance.kspc < Number(sendAmount)) {
         await setErrMsgModal('보유한 Kspc 이상은 전송할 수 없습니다');
         setIsShow(true);
         return;
       }
     }
     if (!isKspSend) {
-      if (balance.Ethereum < Number(sendKsp)) {
+      if (balance.Ethereum < Number(sendAmount)) {
         await setErrMsgModal('보유한 Kspc 이상은 전송할 수 없습니다');
         setIsShow(true);
         return;
       }
     }
-    if (sendKsp === '' || sendAddress === '') {
+    if (sendAmount === '' || sendAddress === '') {
       await setErrMsgModal('입력을 완료해주세요');
       setIsShow(true);
       return;
@@ -64,7 +66,7 @@ const KspSend = ({navigation, route}) => {
     let body = {
       sessionToken,
       coin: isKspSend ? 'Ksp' : 'Ethereum',
-      amount: sendKsp,
+      amount: sendAmount,
       toAddress: sendAddress,
     };
     setIsDisabled(true);
@@ -88,7 +90,6 @@ const KspSend = ({navigation, route}) => {
       setIsDisabled(false);
     }
   };
-  // Ethereum": "1.0", "ksp": "5225.0", "kspc": "300.0
 
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
@@ -143,8 +144,8 @@ const KspSend = ({navigation, route}) => {
             placeholder={'수량을 입력해주세요.'}
             textStyle={{marginLeft: 19}}
             rightText={isKspSend ? 'KSPC' : 'ETH'}
-            value={sendKsp}
-            onChangeText={setSendKsp}
+            value={sendAmount}
+            onChangeText={setSendAmount}
           />
 
           <LabelNone text={'숫자만 입력해주세요.'} style={styles.onlyNumber} />
