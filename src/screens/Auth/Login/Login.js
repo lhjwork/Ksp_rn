@@ -35,10 +35,7 @@ const Login = ({navigation}) => {
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [loginIdModalVisible, setLoginModalVisible] = useState(false);
   const [pwdModalVisible, setPwdModalVisible] = useState(false);
-  const [modalControl, setModalControl] = useState('');
-  {
-    console.log('tqw', auth);
-  }
+
   useEffect(() => {
     // dispatch(signOut());
     if (user?.sessionToken) {
@@ -71,7 +68,6 @@ const Login = ({navigation}) => {
       LoginId: loginId,
       Password: password,
     };
-    console.log('body', body);
 
     dispatch(signIn(body, setLoginModalVisible, setPwdModalVisible));
     // if (user?.Result === 'failed') {

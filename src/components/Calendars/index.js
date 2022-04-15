@@ -14,14 +14,6 @@ import {
 import dayjs from 'dayjs';
 
 const Calendars = ({setSelectDate, selectDate, attendanceList}) => {
-  const checkedArray = [
-    '2022-03-01',
-    '2022-03-02',
-    '2022-04-07',
-    '2022-03-30',
-    '2022-03-08',
-    '2022-03-10',
-  ]; // 출석한 날짜들 테스트 데이터
   let weekOfYear = require('dayjs/plugin/weekOfYear');
   dayjs.extend(weekOfYear);
   const today = dayjs(selectDate);

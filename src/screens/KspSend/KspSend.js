@@ -25,7 +25,6 @@ const KspSend = ({navigation, route}) => {
 
   const [sendAddress, setSendAddress] = useState('');
   const [sendAmount, setSendAmount] = useState(0);
-
   const [isShow, setIsShow] = useState(false);
   const [errMsgModal, setErrMsgModal] = useState('');
   const isFocused = useIsFocused();
@@ -53,7 +52,7 @@ const KspSend = ({navigation, route}) => {
     }
     if (!isKspSend) {
       if (balance.Ethereum < Number(sendAmount)) {
-        await setErrMsgModal('보유한 Kspc 이상은 전송할 수 없습니다');
+        await setErrMsgModal('보유한 ETH 이상은 전송할 수 없습니다');
         setIsShow(true);
         return;
       }
@@ -69,6 +68,7 @@ const KspSend = ({navigation, route}) => {
       amount: sendAmount,
       toAddress: sendAddress,
     };
+    console.log('body입니다', body);
     setIsDisabled(true);
     try {
       const res = await api.post('sendcoin', JSON.stringify(body), config);
@@ -79,13 +79,13 @@ const KspSend = ({navigation, route}) => {
       navigation.goBack();
       setIsShow(true);
     } catch (err) {
+      console.log('err', err);
+      console.log('err', err.response);
       console.log('err', err?.response?.data?.errMsg);
       if (err?.response?.data?.errMsg) {
         showToast(err.response.data.errMsg);
         return;
       }
-      console.log('err', err);
-      console.log('err', err.response);
     } finally {
       setIsDisabled(false);
     }

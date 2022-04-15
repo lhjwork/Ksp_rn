@@ -67,13 +67,13 @@ const ShoppingMall = ({navigation}) => {
                     if (item?.url) {
                       navigation.navigate('ShoppingWebView', {item});
                     }
-                  }}
-                  style={{marginLeft: index % 3 === 0 ? 0 : 37}}>
-                  <ColumnView style={{flexWrap: 'wrap'}}>
+                  }}>
+                  <ColumnView>
                     <Image
+                      resizeMode={'contain'}
                       style={{
-                        width: 80,
-                        height: 80,
+                        width: SCREEN_WIDTH * 0.22,
+                        height: SCREEN_WIDTH * 0.22,
                       }}
                       source={item.path}
                     />
