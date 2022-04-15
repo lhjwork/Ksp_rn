@@ -114,7 +114,7 @@ const Scann = ({navigation}) => {
   // };
 
   const fetchQRCode = async (Qr, name) => {
-    let endPoint = name === '내부' ? 'exchangerate' : 'scan';
+    let endPoint = name === '내부' ? 'internalscan' : 'scan';
     let body = {sessionToken, Qr};
     console.log('scan body : ', body);
     try {
@@ -129,8 +129,8 @@ const Scann = ({navigation}) => {
         setIsErrShow(true);
         return;
       }
+      console.log(err.response.data);
       Alert.alert('서버와 통신에 실패');
-      // console.log('err', err);
     }
   };
 

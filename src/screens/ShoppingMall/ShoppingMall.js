@@ -1,14 +1,5 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  ScrollView,
-  Alert,
-  Linking,
-} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, StyleSheet, FlatList, Image, Linking} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import Touchable from '../../components/Touchable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,112 +13,69 @@ import {ContainerStyled} from '../../components/StyledComponents/StyledComponent
 import {HOMEPAGE_URL, ShoppingMallData} from '../../asssets/Data/Data';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
-import RowView from '../../components/Views/RowView';
 
 const ShoppingMall = ({navigation}) => {
   const openURL = () => {
     Linking.openURL(HOMEPAGE_URL);
   };
+  const renderItem = useCallback(({item, index}) => {
+    let indexValue = (index + 1) % 3;
+    let justifyContentValue =
+      indexValue === 1
+        ? 'flex-start'
+        : indexValue === 2
+        ? 'center'
+        : 'flex-end';
+    return (
+      <Touchable
+        style={{
+          width: (SCREEN_WIDTH - 60) / 3,
+          alignItems: justifyContentValue,
+        }}
+        onPress={() => {
+          if (item?.url) {
+            navigation.navigate('ShoppingWebView', {item});
+          }
+        }}>
+        <ColumnView>
+          <Image
+            style={{
+              width: SCREEN_WIDTH * 0.22,
+              height: SCREEN_WIDTH * 0.22,
+            }}
+            source={item.path}
+          />
+
+          <LabelNone
+            style={{
+              marginTop: 9.61,
+              marginBottom: 26.63,
+              fontSize: 14,
+              color: '#fff',
+              lineHeight: 17,
+            }}
+            text={item.title}
+          />
+        </ColumnView>
+      </Touchable>
+    );
+  }, []);
+
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
-      <ScrollView>
-        <HeaderCompnent
-          onPerssDrawer={() => navigation.openDrawer()}
-          onPressLeftBtn={() => navigation.goBack()}
-        />
-
-        <ContainerStyled>
-          <View style={{marginHorizontal: 30}}>
-            <BoldLabelTitle text={'코나 쇼핑몰'} style={{marginTop: 27.5}} />
-            <BoldLabelSubTitle
-              text={'TOTAL PORTFOLIO VALUE'}
-              style={{marginTop: 13}}
-            />
-          </View>
-          <Touchable onPress={() => navigation.navigate('Calendar')}>
-            <View style={styles.adverBanner}>
-              <Image
-                source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
-                resizeMode="contain"
-                style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
-              />
-            </View>
-          </Touchable>
-
-          <View>
-            <RowView
-              style={{
-                flexWrap: 'wrap',
-                justifyContent: 'space-around',
-                flex: 1,
-              }}>
-              {ShoppingMallData.map((item, index) => (
-                <Touchable
-                  key={index}
-                  onPress={() => {
-                    if (item?.url) {
-                      navigation.navigate('ShoppingWebView', {item});
-                    }
-                  }}>
-                  <ColumnView>
-                    <Image
-                      resizeMode={'contain'}
-                      style={{
-                        width: SCREEN_WIDTH * 0.26,
-                        height: SCREEN_WIDTH * 0.26,
-                      }}
-                      source={item.path}
-                    />
-
-                    <LabelNone
-                      style={{
-                        marginTop: 9.61,
-                        marginBottom: 26.63,
-                        fontSize: 14,
-                        color: '#fff',
-                        lineHeight: 17,
-                      }}
-                      text={item.title}
-                    />
-                  </ColumnView>
-                </Touchable>
-              ))}
-            </RowView>
-
-            {/* <FlatList
-              data={ShoppingMallData}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => item.id + index.toString()}
-              numColumns={3}
-              renderItem={({item, index}) => {
-                return (
-                  <ColumnView>
-                    <Touchable onPress={() => Alert.alert('준비중입니다.')}>
-                      <Image
-                        style={{
-                          width: 80,
-                          height: 80,
-                          marginLeft: index % 3 === 0 ? 0 : 37,
-                        }}
-                        source={item.path}
-                      />
-                    </Touchable>
-                    <LabelNone
-                      style={{
-                        marginLeft: index % 3 === 0 ? 0 : 37,
-                        marginTop: 9.61,
-                        marginBottom: 26.63,
-                        fontSize: 14,
-                        color: '#fff',
-                        lineHeight: 17,
-                      }}
-                      text={item.title}
-                    />
-                  </ColumnView>
-                );
-              }}
-            /> */}
-
+      <ContainerStyled>
+        <FlatList
+          keyExtractor={(item, index) => index}
+          data={ShoppingMallData}
+          renderItem={renderItem}
+          numColumns={3}
+          ListHeaderComponentStyle={{marginHorizontal: -30}}
+          ListFooterComponentStyle={{marginHorizontal: -6}}
+          contentContainerStyle={{
+            paddingHorizontal: 30,
+            // justifyContent: 'space-between',
+          }}
+          ListFooterComponent={
             <LinearGradient
               colors={['#91C7D6', '#CBE2DC']}
               style={styles.shoppingBox}>
@@ -142,9 +90,36 @@ const ShoppingMall = ({navigation}) => {
                 />
               </Touchable>
             </LinearGradient>
-          </View>
-        </ContainerStyled>
-      </ScrollView>
+          }
+          ListHeaderComponent={
+            <>
+              <HeaderCompnent
+                onPerssDrawer={() => navigation.openDrawer()}
+                onPressLeftBtn={() => navigation.goBack()}
+              />
+              <View style={{marginHorizontal: 30}}>
+                <BoldLabelTitle
+                  text={'코나 쇼핑몰'}
+                  style={{marginTop: 27.5}}
+                />
+                <BoldLabelSubTitle
+                  text={'TOTAL PORTFOLIO VALUE'}
+                  style={{marginTop: 13}}
+                />
+              </View>
+              <Touchable onPress={() => navigation.navigate('Calendar')}>
+                <View style={styles.adverBanner}>
+                  <Image
+                    source={require('../../asssets/images/ShoppingMall/main_attend_img.png')}
+                    resizeMode="contain"
+                    style={{width: '100%', height: SCREEN_HEIGHT * 0.15}}
+                  />
+                </View>
+              </Touchable>
+            </>
+          }
+        />
+      </ContainerStyled>
     </LinearGradient>
   );
 };
