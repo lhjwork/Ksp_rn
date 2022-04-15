@@ -140,8 +140,7 @@ const StackingApply = ({navigation}) => {
       return;
     }
     try {
-      let body = {sessionToken: auth.sessionToken, amount: interest};
-      console.log('staking', body);
+      let body = {sessionToken: sessionToken, amount: Number(sumInput)};
       const config = {
         headers: {
           'Content-Type': 'application/json',
@@ -253,12 +252,7 @@ const StackingApply = ({navigation}) => {
             />
             <BottomButton
               text={'신청하기'}
-              onPress={async () => {
-                if (interest === 'start') {
-                  await setErrText('계산 후 신청해주세요.');
-                  setIsErrShow(true);
-                  return;
-                }
+              onPress={() => {
                 fetchStaking();
               }}
             />
