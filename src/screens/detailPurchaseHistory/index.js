@@ -25,10 +25,11 @@ import {ProductImage, SearchButton} from '../purchaseHistory/styles';
 import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
 import {SCREEN_WIDTH} from '../../constants';
 import {PhoneNumberConvert} from '../../utils';
+import {DrawerActions} from '@react-navigation/native';
 
 const DetailPurchaseHistory = ({navigation, route}) => {
   let {params} = route;
-
+  console.log(navigation);
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
@@ -36,7 +37,7 @@ const DetailPurchaseHistory = ({navigation, route}) => {
       end={{x: 0, y: 0.15}}
       style={{flex: 1}}>
       <HeaderCompnent
-        onPerssDrawer={() => navigation.openDrawer()}
+        onPerssDrawer={() => navigation.dispatch(DrawerActions.openDrawer())}
         onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled>

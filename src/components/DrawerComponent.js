@@ -8,7 +8,9 @@ import RowView from './Views/RowView';
 import Touchable from './Touchable';
 import {useSelector, useDispatch} from 'react-redux';
 import api from '../api';
+
 import {saveUserInfo} from '../redux/authSlice';
+import {DrawerActions} from '@react-navigation/native';
 
 const DRAWER_LIST_DATA = [
   {
@@ -65,7 +67,10 @@ const DrawerComponent = ({navigation}) => {
     <ContainerStyled>
       <View style={{flex: 1}}>
         <View style={styles.titleBox}>
-          <Touchable onPress={() => navigation.closeDrawer()}>
+          <Touchable
+            onPress={() => {
+              navigation.closeDrawer();
+            }}>
             <Feather name={'x'} size={13.18} style={styles.xBtn} />
           </Touchable>
 
@@ -182,6 +187,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   xBtn: {textAlign: 'right', padding: 5, color: '#46A0BD'},
-  titleBox: {marginHorizontal: 24, height: 130.6, marginTop: 20},
+  titleBox: {
+    marginHorizontal: 24,
+    height: 130.6,
+    marginTop: 20,
+  },
   itemBox: {marginHorizontal: 24},
 });
