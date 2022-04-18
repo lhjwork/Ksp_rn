@@ -9,16 +9,7 @@ import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../constants';
 import api from '../../api';
 import {config} from '../../constant';
 import {useSelector} from 'react-redux';
-
-const Data = [
-  {id: 1, date: '22.01.03', amount: '12,000', brand: 'PRADA'},
-  {id: 2, date: '22.01.03', amount: '30,000', brand: 'PRADA'},
-  {id: 3, date: '22.01.03', amount: '10,000', brand: 'PRADA'},
-  {id: 4, date: '22.01.03', amount: '7,000', brand: 'PRADA'},
-  {id: 5, date: '22.01.03', amount: '500', brand: 'muimui'},
-  {id: 6, date: '22.01.03', amount: '30,000', brand: '영화쿠'},
-  {id: 7, date: '22.01.03', amount: '30,000', brand: 'PRADA'},
-];
+import dayjs from 'dayjs';
 
 const ScannHistory = ({navigation}) => {
   const auth = useSelector(state => state.auth);
@@ -48,14 +39,11 @@ const ScannHistory = ({navigation}) => {
             onPerssDrawer={() => navigation.openDrawer()}
             onPressLeftBtn={() => navigation.goBack()}
           />
-          <View style={{marginHorizontal: 24, flex: 1}}>
-            <BoldLabelTitle text={'스캔 히스토리'} style={{marginTop: 27.5}} />
-          </View>
-          <RowView style={styles.tableTitleBox}>
-            <BoldLabel14 text={'날짜'} style={styles.tableTitleText1} />
-            <BoldLabel14 text={'금액'} style={styles.tableTitleText1} />
-            <BoldLabel14 text={'브랜드'} style={styles.tableTitleText1} />
-          </RowView>
+
+          <BoldLabelTitle
+            text={'스캔 히스토리'}
+            style={{marginTop: 27.5, marginHorizontal: 30, marginBottom: 55}}
+          />
           <View
             style={{
               flex: 1,
@@ -66,18 +54,17 @@ const ScannHistory = ({navigation}) => {
               nestedScrollEnabled={true}
               contentContainerStyle={{paddingBottom: 30}}>
               {scanHistory?.map((menu, index) => (
-                <RowView style={styles.tableDataBox}>
+                <RowView style={styles.tableDataBox} key={index}>
+                  <View>
+                    <BoldLabel14 text={menu?.title} style={styles.title} />
+                    <BoldLabel14
+                      text={dayjs(menu?.Date).format('YY.MM.DD')}
+                      style={styles.subTitle}
+                    />
+                  </View>
                   <BoldLabel14
-                    text={menu?.Date}
-                    style={styles.tableTitleData1}
-                  />
-                  <BoldLabel14
-                    text={menu?.amount}
-                    style={styles.tableTitleData1}
-                  />
-                  <BoldLabel14
-                    text={menu?.title}
-                    style={styles.tableTitleData1}
+                    text={'+ ' + menu?.amount.toLocaleString()}
+                    style={styles.point}
                   />
                 </RowView>
               ))}
@@ -94,9 +81,10 @@ export default ScannHistory;
 const styles = StyleSheet.create({
   tableDataBox: {
     marginHorizontal: 24,
-    paddingVertical: 10,
+    paddingVertical: 14,
     borderBottomColor: '#E5E5E5',
     borderBottomWidth: 1,
+    justifyContent: 'space-between',
   },
   tableTitleBox: {
     flex: 1,
@@ -119,7 +107,21 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#555',
     lineHeight: 19,
-    textAlign: 'center',
-    flex: 1,
+  },
+  title: {
+    fontWeight: '400',
+    color: '#555',
+    lineHeight: 20,
+  },
+  subTitle: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#C4C4C4',
+    marginTop: 13,
+  },
+  point: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#46A0BD',
   },
 });
