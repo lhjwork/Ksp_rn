@@ -1,12 +1,33 @@
-import React, {useRef} from 'react';
-import {View, ScrollView} from 'react-native';
+import React, {useRef, useState, useEffect} from 'react';
+import {View, ScrollView, BackHandler} from 'react-native';
 import {ContainerStyled} from '../../components/StyledComponents/StyledComponents';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabel14, BoldLabelTitle} from '../../components/Labels';
 import {WebView} from 'react-native-webview';
+import {CommonActions, useFocusEffect} from '@react-navigation/native';
 
 const TermsDetail = ({navigation, route}) => {
   const {title, content, url} = route?.params;
+  const [canGoBack, setCanGoBack] = useState(false);
+
+  const ref = useRef(null);
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (ref.current && canGoBack) {
+          // ref.current.goBack();
+          navigation.navigate('ShoppingMall');
+          return true;
+        } else {
+          return false;
+        }
+      };
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      };
+    }, [canGoBack]),
+  );
   const runFirst = `
       window.isNativeApp = true;
       true; // note: this is required, or you'll sometimes get silent failures
@@ -34,7 +55,13 @@ true;
     window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
     window.isNativeApp = true;
 })();`;
-  const ref = useRef(null);
+
+  const handleOnMessage = ({nativeEvent}) => {
+    if (nativeEvent.data === 'navigationStateChange') {
+      console.log(nativeEvent);
+      setCanGoBack(nativeEvent.canGoBack);
+    }
+  };
   return (
     // <ScrollView style={{backgroundColor: '#fff'}}>
     //   <HeaderCompnent
@@ -51,10 +78,30 @@ true;
     //   </View>
     // </ScrollView>
     <WebView
+      includeDiskFiles={false}
+      originWhitelist={['*']}
+      setSupportMultipleWindows={true}
+      // startInLoadingState={true}
+      cacheEnabled={false}
+      allowsInlineMediaPlayback
+      javaScriptEnabled
+      scalesPageToFit
+      mediaPlaybackRequiresUserAction={false}
+      javaScriptEnabledAndroid
+      useWebkit
+      incognito
       source={{uri: url}}
       ref={ref}
-      injectedJavaScriptBeforeContentLoaded={runFirst}
+      onNavigationStateChange={navState => {
+        setCanGoBack(navState.canGoBack);
+      }}
+      onMessage={handleOnMessage}
       injectedJavaScript={INJECTED_JAVASCRIPT}
+      onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
+      injectedJavaScriptBeforeContentLoaded={runFirst}
+      onShouldStartLoadWithRequest={event => {
+        return action(event.url);
+      }}
     />
   );
 };

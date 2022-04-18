@@ -96,6 +96,7 @@ const ShoppingWebView = ({navigation, route}) => {
         Alert.alert('결제 금액 오류입니다');
         return;
       }
+
       if (body.totalPrice === 0) {
         onPayment(body);
         return;
@@ -139,8 +140,17 @@ const ShoppingWebView = ({navigation, route}) => {
 
   return (
     <WebView
+      originWhitelist={['*']}
+      allowsInlineMediaPlayback
+      javaScriptEnabled
+      scalesPageToFit
+      mediaPlaybackRequiresUserAction={false}
+      javaScriptEnabledAndroid
+      useWebkit
+      startInLoadingState={true}
+      cacheEnabled={false}
+      incognito
       source={{uri: route?.params?.item?.url}}
-      // source={{uri: route?.params?.item?.url}}
       ref={ref}
       injectedJavaScript={INJECTED_JAVASCRIPT}
       onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
@@ -151,6 +161,9 @@ const ShoppingWebView = ({navigation, route}) => {
       injectedJavaScriptBeforeContentLoaded={runFirst}
       onLoad={() => {
         ref.current.postMessage(JSON.stringify({auth}));
+      }}
+      onShouldStartLoadWithRequest={event => {
+        return action(event.url);
       }}
     />
   );
