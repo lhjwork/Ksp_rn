@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -6,6 +6,9 @@ import {BoldLabel14, BoldLabelTitle} from '../../components/Labels';
 import RowView from '../../components/Views/RowView';
 
 import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../constants';
+import api from '../../api';
+import {config} from '../../constant';
+import {useSelector} from 'react-redux';
 
 const Data = [
   {id: 1, date: '22.01.03', amount: '12,000', brand: 'PRADA'},
@@ -18,6 +21,25 @@ const Data = [
 ];
 
 const ScannHistory = ({navigation}) => {
+  const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
+  const [scanHistory, setScanHistory] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let body = {sessionToken};
+      try {
+        const {data} = await api.post(
+          'scanhistory',
+          JSON.stringify(body),
+          config,
+        );
+        setScanHistory(data?.result);
+      } catch (e) {
+        console.log(e);
+        console.log(e.response);
+      }
+    })();
+  }, []);
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <SafeAreaView style={{flex: 1}}>
@@ -40,11 +62,13 @@ const ScannHistory = ({navigation}) => {
               backgroundColor: '#fff',
               height: SCREEN_HEIGHT * 0.85,
             }}>
-            <ScrollView nestedScrollEnabled={true}>
-              {Data.map((menu, index) => (
+            <ScrollView
+              nestedScrollEnabled={true}
+              contentContainerStyle={{paddingBottom: 30}}>
+              {scanHistory?.map((menu, index) => (
                 <RowView style={styles.tableDataBox}>
                   <BoldLabel14
-                    text={menu?.date}
+                    text={menu?.Date}
                     style={styles.tableTitleData1}
                   />
                   <BoldLabel14
@@ -52,7 +76,7 @@ const ScannHistory = ({navigation}) => {
                     style={styles.tableTitleData1}
                   />
                   <BoldLabel14
-                    text={menu?.brand}
+                    text={menu?.title}
                     style={styles.tableTitleData1}
                   />
                 </RowView>

@@ -9,9 +9,7 @@ import api from '../../api';
 
 const Splash = ({navigation}) => {
   const auth = useSelector(state => state.auth);
-  const {user} = auth;
 
-  console.log('dd');
   useEffect(() => {
     setTimeout(() => {
       navigation.reset({

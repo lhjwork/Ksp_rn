@@ -65,22 +65,31 @@ const ShoppingWebView = ({navigation, route}) => {
       console.log('res,구매연동', res);
       Alert.alert('결제가 완료되었습니다.');
       resetNavigation(navigation, 'DrawerStack');
-    } catch (e) {
-      console.log('결제완료 에러 입니다', e);
-      console.log('결제완료 에러 입니다', e.response);
+    } catch (err) {
+      console.log('payment/complete', err);
+      console.log('payment/complete, e.res', err.response);
+      if (err?.response?.data?.errMsg) {
+        Alert.alert(err.response.data.errMsg);
+        return;
+      }
+      Alert.alert('서버와 통신에 실패');
+      console.log('결제완료 에러 입니다', err);
+      console.log('결제완료 에러 입니다', err.response);
     }
   };
   const onCheckIamPortPayment = async (imp_uid, body) => {
-    // /payment/complete
-    console.log('imp_uid', imp_uid);
-
     try {
       const res = await api.post('payment/complete', {imp_uid}, config);
       console.log('payment/complete res', res);
       onPayment(body);
-    } catch (e) {
-      console.log('payment/complete', e);
-      console.log('payment/complete, e.res', e.response);
+    } catch (err) {
+      console.log('payment/complete', err);
+      console.log('payment/complete, e.res', err.response);
+      if (err?.response?.data?.errMsg) {
+        Alert.alert(err.response.data.errMsg);
+        return;
+      }
+      Alert.alert('서버와 통신에 실패');
     }
   };
 

@@ -44,8 +44,8 @@ const DRAWER_LIST_DATA = [
 ];
 
 const DrawerComponent = ({navigation}) => {
-  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   const {email, username} = auth?.user;
 
   const onLogout = async () => {
@@ -54,7 +54,6 @@ const DrawerComponent = ({navigation}) => {
     };
     try {
       const res = await api.post('applogout', {Logout: true}, config);
-      console.log('res', res?.data);
       dispatch(saveUserInfo(res?.data));
       navigation.navigate('AuthStack');
     } catch (e) {
@@ -102,7 +101,8 @@ const DrawerComponent = ({navigation}) => {
 
         {DRAWER_LIST_DATA.map((menu, index) => (
           <Touchable
-            onPress={() => {
+            onPress={async () => {
+              await navigation.closeDrawer();
               navigation.navigate(menu?.path);
             }}
             key={index}>

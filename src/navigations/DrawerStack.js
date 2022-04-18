@@ -28,7 +28,7 @@ import PurchaseHistory from '../screens/purchaseHistory';
 import DetailPurchaseHistory from '../screens/detailPurchaseHistory';
 
 const Drawer = createDrawerNavigator();
-// test
+
 export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator
