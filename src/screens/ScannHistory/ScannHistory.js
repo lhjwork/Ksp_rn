@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
+import {View, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabel14, BoldLabelTitle} from '../../components/Labels';
 import RowView from '../../components/Views/RowView';
 
-import {SCREEN_WIDTH, SCREEN_HEIGHT} from '../../constants';
+import {SCREEN_HEIGHT} from '../../constants';
 import api from '../../api';
 import {config} from '../../constant';
 import {useSelector} from 'react-redux';
