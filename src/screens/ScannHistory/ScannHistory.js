@@ -32,7 +32,11 @@ const ScannHistory = ({navigation}) => {
     })();
   }, []);
   return (
-    <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+    <LinearGradient
+      colors={['#91C7D6', '#CBE2DC']}
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 0.15}}
+      style={{flex: 1}}>
       <SafeAreaView style={{flex: 1}}>
         <ScrollView>
           <HeaderCompnent
