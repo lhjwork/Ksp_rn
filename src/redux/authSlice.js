@@ -81,6 +81,7 @@ export const signIn =
   (userData, setLoginModalVisible, setPwdModalVisible) => async dispatch => {
     try {
       let {data} = await api.post(`applogin`, userData, config);
+
       if (data.Result === 'failed') {
         setLoginModalVisible(true);
       } else if (data.Result === '비밀번호가 틀렸습니다.') {
@@ -88,10 +89,10 @@ export const signIn =
       } else {
         dispatch(loginSuccess());
         dispatch(saveUserInfo(data));
+        dispatch(saveWallet(data?.wallet));
       }
     } catch (err) {
       const {data} = err.response;
-      console.log('data', data);
       if (data?.Result === 'failed') {
         setLoginModalVisible(true);
       }

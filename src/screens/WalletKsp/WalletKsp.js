@@ -30,13 +30,16 @@ import ToastMsg from '../../components/toastMsg';
 import {config} from '../../constant';
 const WalletKsp = ({navigation}) => {
   const dispatch = useDispatch();
-  console.log(sessionToken);
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
-  const hasWallet = auth.walletAddress !== null;
+  const hasWallet =
+    auth?.walletAddress !== null &&
+    auth?.walletAddress !== undefined &&
+    auth?.walletAddress !== '';
   const [isDisabled, setIsDisabled] = useState(false);
   const toastRef = useRef(null);
   const [balance, setBalance] = useState([]);
+
   useEffect(() => {
     if (hasWallet) {
       let body = {sessionToken};
@@ -69,7 +72,7 @@ const WalletKsp = ({navigation}) => {
       id: 1,
       titie: '이더리움 보내기',
       img: require('../../asssets/icons/WalletKsp/wallet_ethereum.png'),
-      path: 'EtherSend',
+      path: 'KspSend',
     },
     {
       id: 1,
@@ -86,7 +89,6 @@ const WalletKsp = ({navigation}) => {
       showToast();
       setIsDisabled(false);
     } else {
-      console.log('tets');
       let body = {sessionToken: sessionToken};
       const config = {
         headers: {'Content-Type': 'application/json'},
@@ -129,16 +131,13 @@ const WalletKsp = ({navigation}) => {
               />
               <ImageBackground
                 source={require('../../asssets/images/ShoppingMall/cardBackground.png')}
-                resizeMode="cover"
-                style={styles.cardBackground}>
+                resizeMode="contain"
+                style={{...styles.cardBackground, height: SCREEN_WIDTH * 0.48}}>
+                <View />
                 <RowView style={styles.walletPoint}>
                   <View
                     style={{
                       ...styles.centerText,
-                      transform: [
-                        {translateX: hasWallet ? -15 : 6},
-                        {translateY: hasWallet ? 0 : -5},
-                      ],
                     }}>
                     {hasWallet ? (
                       <BoldLabel20
@@ -163,7 +162,7 @@ const WalletKsp = ({navigation}) => {
                     Path
                   />
                 ) : (
-                  <LabelNone text={''} style={styles.walletAddress} Path />
+                  <LabelNone text={''} style={styles.walletAddress} />
                 )}
               </ImageBackground>
 
@@ -203,7 +202,12 @@ const WalletKsp = ({navigation}) => {
                 <WalletButtons
                   key={index}
                   Title={item?.titie}
-                  onPress={() => navigation.navigate(item?.path)}
+                  onPress={() =>
+                    navigation.navigate(item?.path, {
+                      balance,
+                      isKspSend: item?.titie.includes('KSPC'),
+                    })
+                  }
                   Img={item?.img}
                 />
               ))}
@@ -291,35 +295,37 @@ const styles = StyleSheet.create({
   },
 
   cardBackground: {
-    height: 180,
+    // height: 180,
     marginTop: 33,
     marginBottom: 20,
     elevation: 7,
+    justifyContent: 'space-between',
   },
   centerText: {
-    left: '50%',
-    position: 'absolute',
+    // left: '50%',
+    // position: 'absolute',
   },
   walletPoint: {
     position: 'relative',
-    marginTop: 67,
-    justifyContent: 'flex-end',
-    marginRight: SCREEN_WIDTH * 0.08,
+    // marginTop: 67,
+    justifyContent: 'center',
     alignItems: 'baseline',
   },
   kspcUnit: {
-    marginLeft: SCREEN_WIDTH * 0.136,
     fontSize: 18,
     lineHeight: 26.06,
     color: '#333333',
     fontWeight: '400',
+    position: 'absolute',
+    right: 31,
   },
   walletAddress: {
-    marginTop: 43,
+    // marginTop: 43,
     alignSelf: 'center',
     fontSize: 12,
     lineHeight: 17.38,
     color: '#94D2E9',
+    marginBottom: 12,
   },
 });
 

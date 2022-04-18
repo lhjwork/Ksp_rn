@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, ScrollView, Image, StyleSheet} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, ScrollView, Image, StyleSheet, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import {
@@ -11,15 +11,87 @@ import RowView from '../../components/Views/RowView';
 import {AmountInput} from '../../components/TxInput';
 import {BottomButton} from '../../components/Buttons/Buttons';
 import {SCREEN_HEIGHT} from '../../constants';
+import {useSelector} from 'react-redux';
+import api from '../../api';
+import {config} from '../../constant';
+import {useIsFocused} from '@react-navigation/native';
+import TrueModalFrame from '../../components/Modals/TrueModalFrame';
+import {saveUserInfo} from '../../redux/authSlice';
 
 const Swap = ({navigation}) => {
-  const [kspPoint, setKspPoint] = useState(20000);
+  const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
+  const [balance, setBalance] = useState([]);
+  const [pointCount, setPointCount] = useState(0);
+  const isFocused = useIsFocused();
+  const [isErrShow, setIsErrShow] = useState(false);
+  const [errText, setErrText] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    setPointCount(0);
+    let body = {sessionToken};
+    (async () => {
+      try {
+        const {data} = await api.post('balance', JSON.stringify(body), config);
+        setBalance(data?.result);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, [isFocused]);
+
+  const onClickChangePoint = async () => {
+    setIsDisabled(true);
+    if (pointCount === 0 || pointCount.length === 0) {
+      await setErrText('KSPC를 입력해주세요');
+      setIsErrShow(true);
+      return;
+    }
+    if (pointCount > Number(balance?.ksp)) {
+      await setErrText('보유한 KSP를 초과할 수없습니다');
+      setIsErrShow(true);
+      return;
+    }
+    let body = {
+      sessionToken,
+      point: pointCount,
+    };
+    try {
+      const {data} = await api.post(
+        'convertcoin',
+        JSON.stringify(body),
+        config,
+      );
+
+      await setErrText('포인트 전환에 성공하셨습니다!');
+      navigation.goBack();
+      setIsErrShow(true);
+    } catch (e) {
+      if (e?.response?.data?.errMsg) {
+        await setErrText(e.response.data.errMsg);
+        setIsErrShow(true);
+        return;
+      }
+      await setErrText('포인트 전환에 실패했습니다.');
+      setIsErrShow(true);
+    }
+  };
+
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
       start={{x: 0, y: 0}}
       end={{x: 0, y: 0.65}}
       style={{flex: 1}}>
+      <TrueModalFrame
+        infoText={errText}
+        visible={isErrShow}
+        onPress={() => {
+          setIsDisabled(false);
+          setIsErrShow(false);
+        }}
+      />
       <HeaderCompnent
         onPressLeftBtn={() => navigation.goBack()}
         onPerssDrawer={() => navigation.openDrawer()}
@@ -39,7 +111,9 @@ const Swap = ({navigation}) => {
             />
             <RowView>
               <LabelNone
-                text={kspPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                text={balance?.ksp
+                  ?.toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 style={styles.kspPoint}
               />
               <LabelNone text={'KSP'} style={styles.KspUnit} />
@@ -51,6 +125,8 @@ const Swap = ({navigation}) => {
             rightText={'KSPC'}
             rightTextStyle={{marginRight: 16}}
             outStyle={{marginTop: 26}}
+            value={pointCount}
+            onChangeText={setPointCount}
           />
           <LabelNone
             text={
@@ -68,7 +144,12 @@ const Swap = ({navigation}) => {
               marginTop: SCREEN_HEIGHT * 0.17,
             }}
           />
-          <BottomButton style={styles.bottomBtnPosition} text={'포인트 전환'} />
+          <BottomButton
+            disabled={isDisabled}
+            style={styles.bottomBtnPosition}
+            text={'포인트 전환'}
+            onPress={onClickChangePoint}
+          />
         </View>
       </ScrollView>
     </LinearGradient>
