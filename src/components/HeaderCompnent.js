@@ -8,6 +8,7 @@ const HeaderCompnent = ({
   navigation,
   onPerssDrawer,
   rightView,
+  titleShow,
   onPressLeftBtn,
   antStyle,
   style,

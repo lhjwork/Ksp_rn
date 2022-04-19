@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const HOMEPAGE_URL = 'http://3.34.76.208';
+export const HOMEPAGE_URL = 'https://www.kspcshop.com/';
 export const ShoppingMallData = [
   {
     id: 1,

@@ -66,8 +66,9 @@ const KspSend = ({navigation, route}) => {
       sessionToken,
       coin: isKspSend ? 'Ksp' : 'Ethereum',
       amount: sendAmount,
-      toAddress: sendAddress,
+      toAddress: sendAddress.toString().trim(),
     };
+
     console.log('body입니다', body);
     setIsDisabled(true);
     try {

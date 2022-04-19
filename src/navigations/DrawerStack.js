@@ -27,6 +27,7 @@ import TermsDetail from '../screens/Terms/TermsDetail';
 import DeliveryTracking from '../screens/deliveryTracking';
 import PurchaseHistory from '../screens/purchaseHistory';
 import DetailPurchaseHistory from '../screens/detailPurchaseHistory';
+import {useDrawerStatus} from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +35,7 @@ export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator
       initialRouteName="BottomTabs"
+      // drawerPosition="left"
       screenOptions={{
         drawerPosition: 'right',
         drawerStyle: {

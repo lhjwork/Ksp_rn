@@ -32,6 +32,11 @@ const RootStack = () => {
         component={Login}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="DrawerStack"
+        component={DrawerStack}
+        options={{headerShown: false}}
+      />
       {/* <Stack.Screen
         name="Login"
         component={Login}
@@ -57,11 +62,7 @@ const RootStack = () => {
         component={IamPortPaymentScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="DrawerStack"
-        component={DrawerStack}
-        options={{headerShown: false}}
-      />
+
       {/* <Stack.Screen
         name="TermsDetail"
         component={TermsDetail}

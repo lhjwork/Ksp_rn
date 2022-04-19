@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View, StyleSheet, FlatList, Image, Linking} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
 import Touchable from '../../components/Touchable';
@@ -15,6 +15,7 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 
 const ShoppingMall = ({navigation}) => {
+  const [titleShow, setTitleShow] = useState(false);
   const openURL = () => {
     Linking.openURL(HOMEPAGE_URL);
   };

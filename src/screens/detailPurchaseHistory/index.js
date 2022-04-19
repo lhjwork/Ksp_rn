@@ -37,7 +37,7 @@ const DetailPurchaseHistory = ({navigation, route}) => {
       end={{x: 0, y: 0.15}}
       style={{flex: 1}}>
       <HeaderCompnent
-        onPerssDrawer={() => navigation.dispatch(DrawerActions.openDrawer())}
+        onPerssDrawer={() => navigation.openDrawer()}
         onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled>

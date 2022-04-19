@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet, Image, Alert} from 'react-native';
 import {BoldLabelTitle, LabelNone, BoldLabel14} from './Labels';
 import {ContainerStyled} from './StyledComponents/StyledComponents';
@@ -11,6 +11,10 @@ import api from '../api';
 
 import {saveUserInfo} from '../redux/authSlice';
 import {DrawerActions} from '@react-navigation/native';
+import {
+  getDrawerStatusFromState,
+  useDrawerStatus,
+} from '@react-navigation/drawer';
 
 const DRAWER_LIST_DATA = [
   {
