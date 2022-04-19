@@ -6,11 +6,7 @@ export const ShoppingMallData = [
     id: 1,
     title: '의류',
     path: require('../images/ShoppingMall/clothesImg.png'),
-    url: 'https://www.kspcshop.com/category/1',
-    // url: 'http://10.89.61.49:3001/category/1',
-
-    // url: 'http://3.34.76.208/category/1',
-    // url: 'http://10.89.60.138:3000/catego ry/1',
+    url: 'http://3.34.76.208/category/1',
   },
   {
     id: 2,

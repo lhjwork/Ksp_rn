@@ -28,6 +28,8 @@ import api from '../../api';
 import {saveWallet} from '../../redux/authSlice';
 import ToastMsg from '../../components/toastMsg';
 import {config} from '../../constant';
+import {useIsFocused} from '@react-navigation/native';
+
 const WalletKsp = ({navigation}) => {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
@@ -39,6 +41,7 @@ const WalletKsp = ({navigation}) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const toastRef = useRef(null);
   const [balance, setBalance] = useState([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (hasWallet) {
@@ -56,7 +59,7 @@ const WalletKsp = ({navigation}) => {
         }
       })();
     }
-  }, [hasWallet]);
+  }, [hasWallet, isFocused]);
   const showToast = useCallback(() => {
     toastRef.current.show('지갑 주소가 복사 되었습니다.');
   }, []);
