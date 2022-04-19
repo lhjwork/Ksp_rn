@@ -15,13 +15,17 @@ const HeaderCompnent = ({
 }) => {
   return (
     <RowView style={{...style, ...styles.headerRow}}>
-      <Touchable onPress={onPressLeftBtn}>
-        <AntDesign
-          name={'left'}
-          size={20}
-          style={{marginLeft: 27.5, color: '#fff', ...antStyle}}
-        />
-      </Touchable>
+      {onPressLeftBtn ? (
+        <Touchable onPress={onPressLeftBtn}>
+          <AntDesign
+            name={'left'}
+            size={20}
+            style={{marginLeft: 27.5, color: '#fff', ...antStyle}}
+          />
+        </Touchable>
+      ) : (
+        <View />
+      )}
       {rightView === false ? (
         <></>
       ) : (

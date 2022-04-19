@@ -15,7 +15,6 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import ColumnView from '../../components/Views/Column';
 
 const ShoppingMall = ({navigation}) => {
-  const [titleShow, setTitleShow] = useState(false);
   const openURL = () => {
     Linking.openURL(HOMEPAGE_URL);
   };
@@ -94,10 +93,7 @@ const ShoppingMall = ({navigation}) => {
           }
           ListHeaderComponent={
             <>
-              <HeaderCompnent
-                onPerssDrawer={() => navigation.openDrawer()}
-                onPressLeftBtn={() => navigation.goBack()}
-              />
+              <HeaderCompnent onPerssDrawer={() => navigation.openDrawer()} />
               <View style={{marginHorizontal: 30}}>
                 <BoldLabelTitle
                   text={'코나 쇼핑몰'}
