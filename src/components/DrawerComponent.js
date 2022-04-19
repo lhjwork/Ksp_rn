@@ -8,7 +8,9 @@ import RowView from './Views/RowView';
 import Touchable from './Touchable';
 import {useSelector, useDispatch} from 'react-redux';
 import api from '../api';
+
 import {saveUserInfo} from '../redux/authSlice';
+import {DrawerActions} from '@react-navigation/native';
 
 const DRAWER_LIST_DATA = [
   {
@@ -44,8 +46,8 @@ const DRAWER_LIST_DATA = [
 ];
 
 const DrawerComponent = ({navigation}) => {
-  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   const {email, username} = auth?.user;
 
   const onLogout = async () => {
@@ -54,7 +56,6 @@ const DrawerComponent = ({navigation}) => {
     };
     try {
       const res = await api.post('applogout', {Logout: true}, config);
-      console.log('res', res?.data);
       dispatch(saveUserInfo(res?.data));
       navigation.navigate('AuthStack');
     } catch (e) {
@@ -66,7 +67,10 @@ const DrawerComponent = ({navigation}) => {
     <ContainerStyled>
       <View style={{flex: 1}}>
         <View style={styles.titleBox}>
-          <Touchable onPress={() => navigation.closeDrawer()}>
+          <Touchable
+            onPress={() => {
+              navigation.closeDrawer();
+            }}>
             <Feather name={'x'} size={13.18} style={styles.xBtn} />
           </Touchable>
 
@@ -102,7 +106,8 @@ const DrawerComponent = ({navigation}) => {
 
         {DRAWER_LIST_DATA.map((menu, index) => (
           <Touchable
-            onPress={() => {
+            onPress={async () => {
+              await navigation.closeDrawer();
               navigation.navigate(menu?.path);
             }}
             key={index}>
@@ -182,6 +187,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   xBtn: {textAlign: 'right', padding: 5, color: '#46A0BD'},
-  titleBox: {marginHorizontal: 24, height: 130.6, marginTop: 20},
+  titleBox: {
+    marginHorizontal: 24,
+    height: 130.6,
+    marginTop: 20,
+  },
   itemBox: {marginHorizontal: 24},
 });

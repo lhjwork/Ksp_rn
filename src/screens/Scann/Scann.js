@@ -28,6 +28,8 @@ import {BoldLabel14, LabelNone} from '../../components/Labels';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../constants';
 import {BottomButton} from '../../components/Buttons/Buttons';
 import ColumnView from '../../components/Views/Column';
+import {config} from '../../constant';
+import ModalFrame from '../../components/Modals/ModalFrame';
 
 const {height, width} = Dimensions.get('window');
 
@@ -35,29 +37,33 @@ const vh = height / 100;
 const vw = width / 100;
 
 // class view extends Component {
+
 const Scann = ({navigation}) => {
-  const [QRurl, setQRurl] = useState('');
-  const [isReactivate, setReactivate] = useState(false);
+  const [amount, setAmount] = useState(0);
   const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
   const [iscameraTypeback, setIsCameraTypeback] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  useEffect(() => {
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // if (Platform.OS === 'android') {
-    //   // console.log(' 111 ');
-    //   PermissionsAndroid.requestMultiple([
-    //     PermissionsAndroid.PERMISSIONS.CAMERA,
-    //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    //     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-    //   ]).then(result => {});
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // 일단 주석 처리...............====================
-    // }
-  }, []);
+  const [modalText, setModalText] = useState(null);
+  const [isErrShow, setIsErrShow] = useState(false);
+
+  // useEffect(() => {
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // if (Platform.OS === 'android') {
+  //   //   // console.log(' 111 ');
+  //   //   PermissionsAndroid.requestMultiple([
+  //   //     PermissionsAndroid.PERMISSIONS.CAMERA,
+  //   //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  //   //     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+  //   //   ]).then(result => {});
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // 일단 주석 처리...............====================
+  //   // }
+  // }, []);
 
   // render({navigation}) {
   //   const onSuccess = e => {
@@ -79,15 +85,10 @@ const Scann = ({navigation}) => {
     };
     await launchImageLibrary(options)
       .then(res => {
-        console.log(res);
-
-        // console.log(res.assets[0].base64.slice(4, res.assets[0].base64.length));
-        // // ImagePick(res.assets[0].base64.slice(4, res.assets[0].base64.length));
-        // ImagePick(res.assets[0].base64);
         fetchQRCode(res?.assets[0]?.base64, '내부');
       })
       .catch(err => {
-        console.log('ㅇㅇㅇㅇㅇ:', err);
+        Alert.alert('입력 실패하여 했습니다');
       });
   };
 
@@ -113,51 +114,33 @@ const Scann = ({navigation}) => {
   // };
 
   const fetchQRCode = async (Qr, name) => {
-    let touchPoint;
     let endPoint = name === '내부' ? 'internalscan' : 'scan';
-    let body = {sessionToken: auth.sessionToken, Qr: Qr};
-    console.log(body);
+    let body = {sessionToken, Qr};
+    console.log('scan body : ', body);
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
       const res = await api.post(endPoint, JSON.stringify(body), config);
-      if (res.data.Result === '터치콘 포인트가 부족합니다.') {
-        Alert.alert(res?.data?.Result);
-        // navigation.goBack();
-        return;
+      if (res?.data?.result === 'success') {
+        await setAmount(res?.data?.amount);
+        setModalVisible(true);
       }
-      if (res.data.Result === '이미 스캔된 쿠폰입니다.') {
-        Alert.alert(res?.data?.Result);
-        return;
-      }
-      if (res.data.Result !== 'success') {
-        // navigation.navigate('ScanResult', {touchPoint: 10});
-        Alert.alert(`${name}스캔 실패했습니다`);
-        // navigation.goBack();
-        return;
-      }
-      Alert.alert(`${name}스캔 성공하였습니다`);
-      navigation.navigate('ScanResult', {touchPoint: res?.data?.Amount});
-      console.log('Amount확인', res.data.Amount);
-      //  navigation.navigate('ScanResult', {touchPoint: touchPoint});
-      // navigation.goBack();
-      // navigation.navigate(touchPoint, 'ScanResult');
-
-      // console.log(res);
-      // navigation.navigate('Wallet');
-      // console.log('test', res.data.Result);
     } catch (err) {
-      // Alert.alert('', '서버와 통신에 실패');
-      console.log('err', err);
+      if (err?.response?.data?.errMsg) {
+        await setModalText(err.response.data.errMsg);
+        setIsErrShow(true);
+        return;
+      }
+      console.log(err.response.data);
+      Alert.alert('서버와 통신에 실패');
     }
   };
 
   return (
     <View>
+      <ModalFrame
+        infoText={modalText}
+        visible={isErrShow}
+        onPress={() => setIsErrShow(false)}
+      />
       {/* -------- 1회 스캔한 큐알코드는~~~ start ------- */}
       <Modal
         visible={modalVisible}
@@ -170,7 +153,7 @@ const Scann = ({navigation}) => {
             source={require('../../asssets/images/scann_modal_img.png')}
             style={{resizeMode: 'cover', flex: 1, alignItems: 'center'}}>
             <RowView style={styles.modalPointRowBox}>
-              <LabelNone text={'+1,200'} style={styles.ksPoint} />
+              <LabelNone text={`+${amount}`} style={styles.ksPoint} />
               <LabelNone text={'KSP'} style={styles.kspUnit} />
             </RowView>
             <BottomButton
@@ -219,7 +202,8 @@ const Scann = ({navigation}) => {
             height: SCREEN_HEIGHT * 0.3,
             width: SCREEN_WIDTH * 0.66,
             textAlign: 'center',
-          }}></ImageBackground>
+          }}
+        />
       </ColumnView>
 
       <RowView
@@ -236,7 +220,6 @@ const Scann = ({navigation}) => {
         <TouchableOpacity
           onPress={() => {
             internalScan();
-            setModalVisible(true);
           }}>
           <BoldLabel14 text={'내부스캔'} style={styles.textStyle} />
         </TouchableOpacity>

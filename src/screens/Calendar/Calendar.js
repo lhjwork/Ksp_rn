@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -13,10 +13,62 @@ import {
 import CalendarTc from '../../components/CalendarTc';
 import Calendars from '../../components/Calendars';
 import dayjs from 'dayjs';
+import api from '../../api';
+import {config} from '../../constant';
+import {useSelector} from 'react-redux';
 
 const Calendar = ({navigation}) => {
-  const [attendanceCount, setAttendanceCount] = useState(5);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const auth = useSelector(state => state.auth);
+  const {sessionToken} = auth?.user;
+  const [attendanceList, setAttendanceList] = useState([]);
+  const [selectDate, setSelectDate] = useState(new Date());
 
+  useEffect(() => {
+    (async () => {
+      setIsDisabled(true);
+      let body = {sessionToken};
+      try {
+        const {data} = await api.post(
+          'attendancerecord',
+          JSON.stringify(body),
+          config,
+        );
+        setAttendanceList(data?.result.map(category => category[1]));
+      } catch (e) {
+        console.log(e);
+        console.log(e.response);
+      } finally {
+        setIsDisabled(false);
+      }
+    })();
+  }, []);
+  const onClickAttendance = async () => {
+    if (attendanceList?.includes(dayjs().format('YYYY-MM-DD'))) {
+      return;
+    }
+    let body = {sessionToken, Date: dayjs().format('YYYY-MM-DD')};
+
+    try {
+      const {data} = await api.post('attendance', JSON.stringify(body), config);
+      let newData = [...attendanceList];
+      newData.push(body?.Date);
+      setAttendanceList(newData);
+    } catch (e) {
+      console.log(e);
+      console.log(e.response);
+    }
+  };
+  const monthAttendanceCount = () => {
+    let newData = [...attendanceList];
+    if (newData?.length === 0) {
+      return 0;
+    }
+    return newData?.filter(
+      data =>
+        dayjs(data).get('month') + 1 === dayjs(selectDate).get('month') + 1,
+    ).length;
+  };
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
@@ -38,16 +90,46 @@ const Calendar = ({navigation}) => {
         </View>
         <View style={styles.checkContainer}>
           <CheckBoxView
-            month={dayjs().get('month') + 1}
-            attendanceCount={attendanceCount}
+            month={dayjs(selectDate).get('month') + 1}
+            attendanceCount={monthAttendanceCount()}
           />
           <BottomButtonWithIcon
-            text={'출석체크 하기'}
+            disabled={
+              attendanceList?.includes(dayjs().format('YYYY-MM-DD')) ||
+              isDisabled
+            }
+            onPress={onClickAttendance}
+            text={
+              attendanceList?.includes(dayjs().format('YYYY-MM-DD'))
+                ? '출석체크 완료!'
+                : '출석체크 하기'
+            }
             iconName={'checkmark-done'}
-            style={{marginTop: 24}}
+            style={{
+              marginTop: 24,
+              backgroundColor: attendanceList?.includes(
+                dayjs().format('YYYY-MM-DD'),
+              )
+                ? '#FFFFFF'
+                : '#46A0BD',
+            }}
+            textStyle={{
+              color: attendanceList?.includes(dayjs().format('YYYY-MM-DD'))
+                ? '#C4C4C4'
+                : '#FFFFFF',
+            }}
+            iconStyle={{
+              color: attendanceList?.includes(dayjs().format('YYYY-MM-DD'))
+                ? '#C4C4C4'
+                : '#FFFFFF',
+            }}
           />
         </View>
-        <Calendars />
+        <Calendars
+          selectDate={selectDate}
+          setSelectDate={setSelectDate}
+          attendanceList={attendanceList}
+        />
         {/*<CalendarTc dates={dates} />*/}
       </ScrollView>
     </LinearGradient>

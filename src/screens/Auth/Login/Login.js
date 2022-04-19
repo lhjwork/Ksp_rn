@@ -35,7 +35,6 @@ const Login = ({navigation}) => {
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [loginIdModalVisible, setLoginModalVisible] = useState(false);
   const [pwdModalVisible, setPwdModalVisible] = useState(false);
-  const [modalControl, setModalControl] = useState('');
 
   useEffect(() => {
     // dispatch(signOut());
@@ -69,7 +68,6 @@ const Login = ({navigation}) => {
       LoginId: loginId,
       Password: password,
     };
-    console.log('body', body);
 
     dispatch(signIn(body, setLoginModalVisible, setPwdModalVisible));
     // if (user?.Result === 'failed') {

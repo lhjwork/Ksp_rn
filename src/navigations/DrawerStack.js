@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {NavigationContainer} from '@react-navigation/native';
 
 import DrawerComponent from '../components/DrawerComponent';
 import {View, Text, Image} from 'react-native';
@@ -28,7 +29,7 @@ import PurchaseHistory from '../screens/purchaseHistory';
 import DetailPurchaseHistory from '../screens/detailPurchaseHistory';
 
 const Drawer = createDrawerNavigator();
-// test
+
 export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator

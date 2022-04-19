@@ -13,8 +13,8 @@ import ModalFrame from '../../components/Modals/ModalFrame';
 import HasBoldModal from '../../components/Modals/HasBoldModal';
 import {useIsFocused} from '@react-navigation/native';
 const PasswordChange = ({navigation}) => {
-  const [passwordVisible1, setPasswordVisible1] = useState(false);
-  const [passwordVisible2, setPasswordVisible2] = useState(false);
+  const [passwordVisible1, setPasswordVisible1] = useState(true);
+  const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [passwordValue1, setPasswordValue1] = useState('');
   const [passwordValue2, setPasswordValue2] = useState('');
   const [pwdModalVisible, setPwdModalVisible] = useState(false);
@@ -104,7 +104,7 @@ const PasswordChange = ({navigation}) => {
           secureTextEntry={passwordVisible1}
           onPress={() => visiblePassword1()}
           value={passwordValue1}
-          secureTextEntry={true}
+          // secureTextEntry={true}
           onChangeText={text => setPasswordValue1(text)}
         />
         <PasswordInput
@@ -121,7 +121,7 @@ const PasswordChange = ({navigation}) => {
           placeholder={'새 비밀번호 확인'}
           eyeSytle={{marginRight: 18}}
           textStyle={{marginLeft: 24}}
-          secureTextEntry={true}
+          secureTextEntry={passwordVisible2}
           onPress={() => visiblePassword2()}
           value={passwordValue2}
           onChangeText={text => setPasswordValue2(text)}

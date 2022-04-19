@@ -24,16 +24,20 @@ import {
 import {ProductImage, SearchButton} from '../purchaseHistory/styles';
 import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
 import {SCREEN_WIDTH} from '../../constants';
+import {PhoneNumberConvert} from '../../utils';
+import {DrawerActions} from '@react-navigation/native';
 
-const DetailPurchaseHistory = ({navigation}) => {
+const DetailPurchaseHistory = ({navigation, route}) => {
+  let {params} = route;
+  console.log(navigation);
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
       start={{x: 0, y: 0}}
-      end={{x: 0, y: 0.65}}
+      end={{x: 0, y: 0.15}}
       style={{flex: 1}}>
       <HeaderCompnent
-        onPerssDrawer={() => navigation.openDrawer()}
+        onPerssDrawer={() => navigation.dispatch(DrawerActions.openDrawer())}
         onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled>
@@ -56,7 +60,7 @@ const DetailPurchaseHistory = ({navigation}) => {
               paddingHorizontal: 24,
             }}>
             <NormalLabel14 text={'주문 일자'} style={{color: '#000'}} />
-            <NormalLabel14 text={'2022.04.23'} style={{color: '#000'}} />
+            <NormalLabel14 text={params?.createdAt} style={{color: '#000'}} />
           </RowView>
           <View style={{paddingHorizontal: 24}}>
             <Title style={{marginTop: 26}}>상품 정보</Title>
@@ -67,23 +71,26 @@ const DetailPurchaseHistory = ({navigation}) => {
               <View style={{flex: 1}}>
                 <NormalLabel14
                   style={{color: '#000', flex: 1}}
-                  text={'[PRADA] cross wallet coin classic bag/black'}
+                  text={`[${params?.brand}] ${params?.title}`}
                 />
-                <NormalLabel14 text={'$256,00'} style={{color: '#000000'}} />
+                <NormalLabel14
+                  text={params?.price?.toLocaleString() + ' 원'}
+                  style={{color: '#000000'}}
+                />
               </View>
             </RowView>
             <Title style={{marginTop: 50}}>배송지 정보</Title>
             <RowView style={{marginBottom: 25, marginTop: 22}}>
               <ProductTitle>받는분</ProductTitle>
-              <Subtitle>김선주</Subtitle>
+              <Subtitle>{params?.receiver}</Subtitle>
             </RowView>
             <RowView style={{marginBottom: 25}}>
               <ProductTitle>연락처</ProductTitle>
-              <Subtitle>010-5553-0041</Subtitle>
+              <Subtitle>{PhoneNumberConvert(params?.phoneNumber)}</Subtitle>
             </RowView>
             <RowView style={{marginBottom: 25, alignItems: 'flex-start'}}>
               <ProductTitle>배송지</ProductTitle>
-              <Subtitle>부산 진구 서전로8번길 59 너굴빌딩 201호</Subtitle>
+              <Subtitle>{params?.address}</Subtitle>
             </RowView>
             <RowView>
               <ProductTitle>요청사항</ProductTitle>
@@ -93,7 +100,7 @@ const DetailPurchaseHistory = ({navigation}) => {
             <RowView style={{marginTop: 25}}>
               <ProductTitleBlack>상품가격</ProductTitleBlack>
               <Subtitle style={{textAlign: 'right', color: '#000000'}}>
-                $660,00
+                {params?.price?.toLocaleString() + ' 원'}
               </Subtitle>
             </RowView>
             <RowView style={{marginVertical: 10}}>
@@ -102,7 +109,11 @@ const DetailPurchaseHistory = ({navigation}) => {
                 resizeMode={'contain'}
               />
               <ProductTitle>배송비</ProductTitle>
-              <SubtitleGray style={{textAlign: 'right'}}>2,500원</SubtitleGray>
+              <SubtitleGray style={{textAlign: 'right'}}>
+                {params?.shippingFee === null
+                  ? '무료배송'
+                  : params?.shippingFee?.toLocaleString() + ' 원'}
+              </SubtitleGray>
             </RowView>
             <RowView
               style={{
@@ -117,7 +128,7 @@ const DetailPurchaseHistory = ({navigation}) => {
               />
               <ProductTitle style={{width: 'auto'}}>포인트사용</ProductTitle>
               <SubtitleGray style={{textAlign: 'right'}}>
-                -1,300KSP
+                {'- ' + params?.usedPoint?.toLocaleString() + ' KSP'}
               </SubtitleGray>
             </RowView>
 
@@ -127,18 +138,20 @@ const DetailPurchaseHistory = ({navigation}) => {
                 style={{width: 'auto', color: '#000'}}
               />
               <BoldLabel18
-                text={'$680,00'}
+                text={params?.totalPrice?.toLocaleString() + ' 원'}
                 style={{flex: 1, textAlign: 'right', color: '#46A0BD'}}
               />
             </RowView>
             <RowView>
               <ProductTitle style={{width: 'auto'}}>적립 포인트</ProductTitle>
-              <Subtitle style={{textAlign: 'right'}}>2,000KSP</Subtitle>
+              <Subtitle style={{textAlign: 'right'}}>
+                {params?.awardPoint?.toLocaleString() + ' KSP'}
+              </Subtitle>
             </RowView>
             <DeliveryTrackingButton
               style={{marginTop: 39}}
-              t_code={'01'}
-              t_invoice={'6026700539577'}
+              t_code={params?.deliveryCode}
+              t_invoice={params?.invoiceNumber}
             />
             {/*<SearchButton*/}
             {/*  style={{marginTop: 39}}*/}

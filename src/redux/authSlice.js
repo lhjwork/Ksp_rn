@@ -10,28 +10,23 @@ const config = {
 
 const initalState = {
   user: null,
+  phone: null,
+  email: null,
+  walletAddress: null,
   sessionToken: null,
   isVerified: false,
-
-  logoutSuccess: true,
+  logoutSuccess: false,
   editProfileSuccess: false,
   errorMsg: null,
 };
 
 const userSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    phone: null,
-    email: null,
-    sessionToken: null,
-    isVerified: false,
-    logoutSuccess: false,
-    editProfileSuccess: false,
-    errorMsg: null,
-  },
+  initialState: initalState,
   reducers: {
-    resetAuth: state => initialState,
+    resetAuth: () => {
+      return initalState;
+    },
     saveSignUpSuccess(state) {
       state.logoutSuccess = false;
     },
@@ -62,6 +57,9 @@ const userSlice = createSlice({
     errorMsgReset(state, action) {
       state.errorMsg = null;
     },
+    saveWallet(state, action) {
+      state.walletAddress = action.payload;
+    },
   },
 });
 
@@ -76,13 +74,14 @@ export const {
   resetAuth,
   saveErrorMsg,
   errorMsgReset,
+  saveWallet,
 } = userSlice.actions;
 
 export const signIn =
   (userData, setLoginModalVisible, setPwdModalVisible) => async dispatch => {
     try {
       let {data} = await api.post(`applogin`, userData, config);
-      console.log(data);
+
       if (data.Result === 'failed') {
         setLoginModalVisible(true);
       } else if (data.Result === '비밀번호가 틀렸습니다.') {
@@ -90,13 +89,14 @@ export const signIn =
       } else {
         dispatch(loginSuccess());
         dispatch(saveUserInfo(data));
+        dispatch(saveWallet(data?.wallet));
       }
     } catch (err) {
       const {data} = err.response;
-      console.log('data', data);
-      if (data === 'failed') {
+      if (data?.Result === 'failed') {
         setLoginModalVisible(true);
       }
+
       //  const {data} = err.response;
     }
   };

@@ -24,7 +24,7 @@ const INJECTED_CODE = `
       return res;
     }
   }
-
+  window.isNativeApp = true;
   history.pushState = wrap(history.pushState);
   history.replaceState = wrap(history.replaceState);
   window.addEventListener('popstate', function() {
@@ -59,27 +59,37 @@ const ShoppingWebView = ({navigation, route}) => {
   );
   const onPayment = async body => {
     body.sessionToken = sessionToken;
+    console.log('body', body);
     try {
       const res = await api.post(`paymentupdate`, JSON.stringify(body), config);
       console.log('res,구매연동', res);
       Alert.alert('결제가 완료되었습니다.');
       resetNavigation(navigation, 'DrawerStack');
-    } catch (e) {
-      console.log('결제완료 에러 입니다', e);
-      console.log('결제완료 에러 입니다', e.response);
+    } catch (err) {
+      console.log('payment/complete', err);
+      console.log('payment/complete, e.res', err.response);
+      if (err?.response?.data?.errMsg) {
+        Alert.alert(err.response.data.errMsg);
+        return;
+      }
+      Alert.alert('서버와 통신에 실패');
+      console.log('결제완료 에러 입니다', err);
+      console.log('결제완료 에러 입니다', err.response);
     }
   };
   const onCheckIamPortPayment = async (imp_uid, body) => {
-    // /payment/complete
-    console.log('imp_uid', imp_uid);
-
     try {
       const res = await api.post('payment/complete', {imp_uid}, config);
       console.log('payment/complete res', res);
       onPayment(body);
-    } catch (e) {
-      console.log('payment/complete', e);
-      console.log('payment/complete, e.res', e.response);
+    } catch (err) {
+      console.log('payment/complete', err);
+      console.log('payment/complete, e.res', err.response);
+      if (err?.response?.data?.errMsg) {
+        Alert.alert(err.response.data.errMsg);
+        return;
+      }
+      Alert.alert('서버와 통신에 실패');
     }
   };
 
@@ -95,6 +105,7 @@ const ShoppingWebView = ({navigation, route}) => {
         Alert.alert('결제 금액 오류입니다');
         return;
       }
+
       if (body.totalPrice === 0) {
         onPayment(body);
         return;
@@ -132,13 +143,23 @@ const ShoppingWebView = ({navigation, route}) => {
 
   const INJECTED_JAVASCRIPT = `(function() {
     window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
+    window.isNativeApp = true;
     window.user = ${JSON.stringify(auth?.user)};
 })();`;
 
   return (
     <WebView
+      originWhitelist={['*']}
+      allowsInlineMediaPlayback
+      javaScriptEnabled
+      scalesPageToFit
+      mediaPlaybackRequiresUserAction={false}
+      javaScriptEnabledAndroid
+      useWebkit
+      startInLoadingState={true}
+      cacheEnabled={false}
+      incognito
       source={{uri: route?.params?.item?.url}}
-      // source={{uri: route?.params?.item?.url}}
       ref={ref}
       injectedJavaScript={INJECTED_JAVASCRIPT}
       onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
@@ -149,6 +170,9 @@ const ShoppingWebView = ({navigation, route}) => {
       injectedJavaScriptBeforeContentLoaded={runFirst}
       onLoad={() => {
         ref.current.postMessage(JSON.stringify({auth}));
+      }}
+      onShouldStartLoadWithRequest={event => {
+        return action(event.url);
       }}
     />
   );
