@@ -142,7 +142,7 @@ const DrawerComponent = ({navigation}) => {
           <AntDesign
             name="logout"
             size={15}
-            style={{marginLeft: 13.5, marginRight: 11.5}}
+            style={{marginLeft: 13.5, marginRight: 11.5, color: '#555555'}}
           />
           <BoldLabel14 text={'로그아웃'} style={styles.logoutText} />
         </RowView>
