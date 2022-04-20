@@ -5,6 +5,7 @@ import {ContainerStyled} from '../../../components/StyledComponents/StyledCompon
 import {SCREEN_HEIGHT} from '../../../constants';
 import {LabelNone, BoldLabelTitle} from '../../../components/Labels';
 import {BottomButton} from '../../../components/Buttons/Buttons';
+import {resetNavigation} from '../../../utils';
 
 const SignUpComplete = ({navigation}) => {
   return (
@@ -30,7 +31,7 @@ const SignUpComplete = ({navigation}) => {
           style={styles.bottomBtn}
           text={'로그인하러 가기'}
           onPress={() => {
-            navigation.navigate('Login');
+            resetNavigation(navigation, 'Login');
           }}
         />
       </View>

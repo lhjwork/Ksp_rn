@@ -67,7 +67,6 @@ const ShoppingWebView = ({navigation, route}) => {
       resetNavigation(navigation, 'DrawerStack');
     } catch (err) {
       // console.log('payment/complete', err);
-      console.log('payment/complete, e.res', err.response);
       if (err?.response?.data?.errMsg) {
         Alert.alert(err.response.data.errMsg);
         return;
@@ -79,12 +78,12 @@ const ShoppingWebView = ({navigation, route}) => {
   };
   const onCheckIamPortPayment = async (imp_uid, body) => {
     try {
+      console.log('bodys', body);
       const res = await api.post('payment/complete', {imp_uid}, config);
       console.log('payment/complete res', res);
       onPayment(body);
     } catch (err) {
-      console.log('payment/complete', err);
-      console.log('payment/complete, e.res', err.response);
+      console.log('payment/complete, e.res', err?.response);
       if (err?.response?.data?.errMsg) {
         Alert.alert(err.response.data.errMsg);
         return;
