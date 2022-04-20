@@ -17,6 +17,8 @@ import {config} from '../../constant';
 import {useIsFocused} from '@react-navigation/native';
 import TrueModalFrame from '../../components/Modals/TrueModalFrame';
 import {saveUserInfo} from '../../redux/authSlice';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Touchable from '../../components/Touchable';
 
 const Swap = ({navigation}) => {
   const auth = useSelector(state => state.auth);
@@ -27,6 +29,7 @@ const Swap = ({navigation}) => {
   const [isErrShow, setIsErrShow] = useState(false);
   const [errText, setErrText] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isCovertKspToKspc, setIsCovertKspToKspc] = useState(true);
 
   useEffect(() => {
     setPointCount(0);
@@ -44,26 +47,38 @@ const Swap = ({navigation}) => {
   const onClickChangePoint = async () => {
     setIsDisabled(true);
     if (pointCount === 0 || pointCount.length === 0) {
-      await setErrText('KSPC를 입력해주세요');
+      await setErrText(
+        isCovertKspToKspc ? 'KSPC를 입력해주세요' : 'KSP를 입력해주세요',
+      );
       setIsErrShow(true);
       return;
     }
-    if (pointCount > Number(balance?.ksp)) {
-      await setErrText('보유한 KSP를 초과할 수없습니다');
-      setIsErrShow(true);
-      return;
+    if (isCovertKspToKspc) {
+      if (pointCount > Number(balance?.ksp)) {
+        await setErrText('보유한 KSP를 초과할 수없습니다');
+        setIsErrShow(true);
+        return;
+      }
+    } else {
+      if (pointCount > Number(balance?.kspc)) {
+        await setErrText('보유한 KSPC를 초과할 수없습니다');
+        setIsErrShow(true);
+        return;
+      }
     }
     let body = {
       sessionToken,
-      point: pointCount,
+      // point: pointCount,
     };
-    try {
-      const {data} = await api.post(
-        'convertcoin',
-        JSON.stringify(body),
-        config,
-      );
+    if (isCovertKspToKspc) {
+      body.point = pointCount;
+    } else {
+      body.coin = pointCount;
+    }
+    let url = isCovertKspToKspc ? 'convertcoin' : 'convert';
 
+    try {
+      const {data} = await api.post(url, JSON.stringify(body), config);
       await setErrText('포인트 전환에 성공하셨습니다!');
       navigation.goBack();
       setIsErrShow(true);
@@ -110,20 +125,29 @@ const Swap = ({navigation}) => {
               style={{width: 73, height: 73}}
               resizeMode="contain"
             />
-            <RowView>
-              <LabelNone
-                text={balance?.ksp
-                  ?.toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                style={styles.kspPoint}
-              />
-              <LabelNone text={'KSP'} style={styles.KspUnit} />
-            </RowView>
+            <LabelNone
+              text={(isCovertKspToKspc ? balance?.ksp : balance?.kspc)
+                ?.toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              style={styles.kspPoint}
+            />
+            <LabelNone
+              text={isCovertKspToKspc ? 'KSP' : 'KSPC'}
+              style={styles.KspUnit}
+            />
+          </RowView>
+          <RowView style={{justifyContent: 'center', marginTop: 19}}>
+            <Touchable
+              onPress={() => {
+                setIsCovertKspToKspc(!isCovertKspToKspc);
+              }}>
+              <Icon name="swap-vertical-variant" color="#000" size={40} />
+            </Touchable>
           </RowView>
           <AmountInput
             placeholder={'수량을 입력해주세요.'}
             textStyle={{marginLeft: 19}}
-            rightText={'KSPC'}
+            rightText={isCovertKspToKspc ? 'KSPC' : 'KSP'}
             rightTextStyle={{marginRight: 16}}
             outStyle={{marginTop: 26}}
             value={pointCount}
@@ -167,7 +191,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 23,
     color: '#fff',
-    marginLeft: 41,
+    // marginLeft: 41,
     marginRight: 9,
   },
   kspPointBox: {
