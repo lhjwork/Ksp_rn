@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import {FlatList, ScrollView, TouchableOpacity, View} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -22,12 +22,22 @@ import api from '../../api';
 import {config} from '../../constant';
 import {useSelector} from 'react-redux';
 import NoneScreen from '../noneScreen';
+import {SCREEN_HEIGHT} from '../../constants';
+import ToastMsg from '../../components/toastMsg';
 
 const PurchaseHistory = ({navigation}) => {
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
   const [paymentList, setPaymentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const toastRef = useRef(null);
+  const showToast = useCallback(() => {
+    toastRef.current.show('배송 준비중 입니다.');
+  }, []);
+  const showToastMsg = () => {
+    showToast();
+  };
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -78,7 +88,7 @@ const PurchaseHistory = ({navigation}) => {
               text={`[${item?.brand}] ${item?.title}`}
             />
             <BoldLabel16
-              text={item?.totalPrice.toLocaleString() + ' 원'}
+              text={item?.totalPrice?.toLocaleString() + ' 원'}
               style={{color: '#000000'}}
             />
           </View>
@@ -86,6 +96,7 @@ const PurchaseHistory = ({navigation}) => {
         <DeliveryTrackingButton
           t_code={item?.deliveryCode}
           t_invoice={item?.invoiceNumber}
+          showToastMsg={showToastMsg}
         />
       </ProductBox>
     );
@@ -129,6 +140,9 @@ const PurchaseHistory = ({navigation}) => {
             }
           />
         ))}
+      <View>
+        <ToastMsg ref={toastRef} />
+      </View>
     </LinearGradient>
   );
 };

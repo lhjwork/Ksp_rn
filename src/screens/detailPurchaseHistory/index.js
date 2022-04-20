@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {ScrollView, Text, View} from 'react-native';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -26,10 +26,18 @@ import DeliveryTrackingButton from '../../components/deliveryTrackingButton';
 import {SCREEN_WIDTH} from '../../constants';
 import {PhoneNumberConvert} from '../../utils';
 import {DrawerActions} from '@react-navigation/native';
+import ToastMsg from '../../components/toastMsg';
 
 const DetailPurchaseHistory = ({navigation, route}) => {
   let {params} = route;
-  console.log(navigation);
+  const toastRef = useRef(null);
+  const showToast = useCallback(() => {
+    toastRef.current.show('배송 준비중 입니다.');
+  }, []);
+  const showToastMsg = () => {
+    showToast();
+  };
+
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
@@ -152,6 +160,7 @@ const DetailPurchaseHistory = ({navigation, route}) => {
               style={{marginTop: 39}}
               t_code={params?.deliveryCode}
               t_invoice={params?.invoiceNumber}
+              showToastMsg={showToastMsg}
             />
             {/*<SearchButton*/}
             {/*  style={{marginTop: 39}}*/}
@@ -165,6 +174,9 @@ const DetailPurchaseHistory = ({navigation, route}) => {
             {/*</SearchButton>*/}
           </View>
         </ScrollView>
+        <View>
+          <ToastMsg ref={toastRef} />
+        </View>
       </ContainerStyled>
     </LinearGradient>
   );

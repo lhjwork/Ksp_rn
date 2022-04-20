@@ -5,17 +5,27 @@ import styled from 'styled-components/native';
 import {BoldLabelSubTitle} from '../Labels';
 import {useNavigation} from '@react-navigation/native';
 
-const DeliveryTrackingButton = ({style, t_invoice, t_code}) => {
+const DeliveryTrackingButton = ({style, t_invoice, t_code, showToastMsg}) => {
   const navigation = useNavigation();
+
+  const onSearch = () => {
+    if (
+      t_invoice === null ||
+      t_code === null ||
+      t_invoice === undefined ||
+      t_code === undefined
+    ) {
+      showToastMsg();
+      return;
+    }
+    navigation.navigate('DeliveryTracking', {
+      t_invoice,
+      t_code,
+    });
+  };
+
   return (
-    <SearchButton
-      style={style}
-      onPress={() => {
-        navigation.navigate('DeliveryTracking', {
-          t_invoice,
-          t_code,
-        });
-      }}>
+    <SearchButton style={style} onPress={onSearch}>
       <BoldLabelSubTitle
         text={'배송 조회'}
         style={{textAlign: 'center', color: '#94D2E9'}}
