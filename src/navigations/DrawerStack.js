@@ -37,6 +37,7 @@ export const DrawerStack = ({props}) => {
       useLegacyImplementation={true}
       initialRouteName="BottomTabs"
       // drawerPosition="left"
+
       screenOptions={{
         drawerPosition: 'right',
         drawerStyle: {
@@ -44,7 +45,8 @@ export const DrawerStack = ({props}) => {
           drawerInactiveBackgroundColor: 'rgba(0,0,0,0.45)',
         },
       }}
-      drawerContent={props => <DrawerComponent {...props} />}>
+      drawerContent={props => <DrawerComponent {...props} />}
+      backBehavior="history">
       <Drawer.Screen
         name="BottomTabs"
         component={BottomTabs}
@@ -70,7 +72,6 @@ export const DrawerStack = ({props}) => {
         component={Notification}
         options={{headerShown: false}}
       />
-
       <Drawer.Screen
         name="Terms"
         component={Terms}
