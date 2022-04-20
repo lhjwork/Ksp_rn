@@ -139,6 +139,7 @@ const Swap = ({navigation}) => {
           <RowView style={{justifyContent: 'center', marginTop: 19}}>
             <Touchable
               onPress={() => {
+                setPointCount(0);
                 setIsCovertKspToKspc(!isCovertKspToKspc);
               }}>
               <Icon name="swap-vertical-variant" color="#000" size={40} />
