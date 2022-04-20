@@ -68,6 +68,7 @@ const Swap = ({navigation}) => {
       navigation.goBack();
       setIsErrShow(true);
     } catch (e) {
+      console.log(e);
       if (e?.response?.data?.errMsg) {
         await setErrText(e.response.data.errMsg);
         setIsErrShow(true);

@@ -5,7 +5,7 @@ import Scann from '../screens/Scann/Scann';
 import WalletKsp from '../screens/WalletKsp/WalletKsp';
 import Swap from '../screens/Swap/Swap';
 import ShoppingMall from '../screens/ShoppingMall/ShoppingMall';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
 import {TitleInput} from '../components/TxInput';
 import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -16,10 +16,15 @@ import {DrawerStack} from './DrawerStack';
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = ({navigation}) => {
-  const TabBarIcon = ({isFocus, focusImage, unFocusImage}) => {
+  const TabBarIcon = ({isFocus, focusImage, unFocusImage, style}) => {
     return (
       // <Image source={isFocus ? focusImage : unFocusImage} style={styles.icon} />
-      <Image source={focusImage} style={styles.icon} resizeMode="contain" />
+      <Image
+        source={focusImage}
+        unFocusImage={unFocusImage}
+        style={styles.icon}
+        resizeMode="contain"
+      />
     );
   };
 
@@ -37,11 +42,18 @@ const BottomTabs = ({navigation}) => {
         options={{
           headerShown: false,
           tabBarLabel: '쇼핑몰',
-          tabBarIcon: ({focused}) => (
-            <TabBarIcon
-              focusImage={require('../asssets/icons/shop_bottom_icon.png')}
-            />
-          ),
+          tabBarIcon: ({focused, name}) => {
+            return (
+              <TabBarIcon
+                // focused={focused ? }
+                focusImage={
+                  focused
+                    ? require('../asssets/icons/Shop_light.png')
+                    : require('../asssets/icons/shop_bottom_icon.png')
+                }
+              />
+            );
+          },
         }}
       />
 
@@ -54,7 +66,11 @@ const BottomTabs = ({navigation}) => {
           tabBarHideOnKeyboard: true,
           tabBarIcon: ({focused}) => (
             <TabBarIcon
-              focusImage={require('../asssets/icons/scan_bttom_icon.png')}
+              focusImage={
+                focused
+                  ? require('../asssets/icons/ScanColor.png')
+                  : require('../asssets/icons/scan_bttom_icon.png')
+              }
             />
           ),
         }}
@@ -67,7 +83,11 @@ const BottomTabs = ({navigation}) => {
           tabBarLabel: 'Ksp지갑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
-              focusImage={require('../asssets/icons/wallet_bottom_icon.png')}
+              focusImage={
+                focused
+                  ? require('../asssets/icons/Wallet_alt_blue.png')
+                  : require('../asssets/icons/wallet_bottom_icon.png')
+              }
             />
           ),
         }}
@@ -80,7 +100,11 @@ const BottomTabs = ({navigation}) => {
           tabBarLabel: '스왑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
-              focusImage={require('../asssets/icons/swap_bottom_icon.png')}
+              focusImage={
+                focused
+                  ? require('../asssets/icons/Swap.png')
+                  : require('../asssets/icons/swap_bottom_icon.png')
+              }
             />
           ),
         }}
