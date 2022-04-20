@@ -24,6 +24,7 @@ import {useSelector} from 'react-redux';
 import NoneScreen from '../noneScreen';
 import {SCREEN_HEIGHT} from '../../constants';
 import ToastMsg from '../../components/toastMsg';
+import {useIsFocused} from '@react-navigation/native';
 
 const PurchaseHistory = ({navigation}) => {
   const auth = useSelector(state => state.auth);
@@ -31,6 +32,7 @@ const PurchaseHistory = ({navigation}) => {
   const [paymentList, setPaymentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const toastRef = useRef(null);
+  const isFocused = useIsFocused();
   const showToast = useCallback(() => {
     toastRef.current.show('배송 준비중 입니다.');
   }, []);
@@ -57,7 +59,7 @@ const PurchaseHistory = ({navigation}) => {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [isFocused]);
   const renderList = data => {
     let {item} = data;
     return (
