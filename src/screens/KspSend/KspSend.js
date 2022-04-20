@@ -69,14 +69,16 @@ const KspSend = ({navigation, route}) => {
       toAddress: sendAddress.toString().trim(),
     };
 
-    console.log('body입니다', body);
+    // console.log('body입니다', body);
     setIsDisabled(true);
     try {
       const res = await api.post('sendcoin', JSON.stringify(body), config);
-      console.log(res);
       await setErrMsgModal(
-        isKspSend ? 'KSPC가 출금 되었습니다.' : '이더리움이 출금 되었습니다.',
+        isKspSend
+          ? `KSPC 출금 완료 시까지 \n최소 3분이 소요됩니다.`
+          : `이더리움 출금 완료 시까지 \n최소 3분이 소요됩니다.`,
       );
+
       navigation.goBack();
       setIsShow(true);
     } catch (err) {
