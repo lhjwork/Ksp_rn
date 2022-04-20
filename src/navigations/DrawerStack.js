@@ -34,14 +34,13 @@ const Drawer = createDrawerNavigator();
 export const DrawerStack = ({props}) => {
   return (
     <Drawer.Navigator
+      useLegacyImplementation={true}
       initialRouteName="BottomTabs"
       // drawerPosition="left"
       screenOptions={{
         drawerPosition: 'right',
         drawerStyle: {
           width: '85%',
-          position: 'absolute',
-          left: SCREEN_WIDTH * 0.16,
           drawerInactiveBackgroundColor: 'rgba(0,0,0,0.45)',
         },
       }}
