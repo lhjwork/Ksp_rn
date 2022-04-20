@@ -88,7 +88,9 @@ const Scann = ({navigation}) => {
         fetchQRCode(res?.assets[0]?.base64, '내부');
       })
       .catch(err => {
-        Alert.alert('입력 실패하여 했습니다');
+        // console.log(err);
+        // setModalText('입력을 실패하였습니다');
+        // setIsErrShow(true);
       });
   };
 
@@ -129,8 +131,10 @@ const Scann = ({navigation}) => {
         setIsErrShow(true);
         return;
       }
-      console.log(err.response.data);
-      Alert.alert('서버와 통신에 실패');
+      await setModalText('QR 스캔에 실패했습니다.');
+      setIsErrShow(true);
+      // console.log(err.response.data);
+      // Alert.alert('서버와 통신에 실패');
     }
   };
 

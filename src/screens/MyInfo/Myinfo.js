@@ -59,7 +59,16 @@ const Myinfo = ({navigation}) => {
               text={menu?.title}
               style={{marginTop: 23, marginBottom: 9}}
             />
-            <MyInfoInput text={menu?.info} />
+
+            <MyInfoInput
+              text={
+                menu.title === '성별'
+                  ? menu?.info === 'Male'
+                    ? '남'
+                    : '여'
+                  : menu?.info
+              }
+            />
           </View>
         ))}
         <Touchable onPress={() => navigation.navigate('passwordChange')}>

@@ -70,41 +70,43 @@ const DrawerComponent = ({navigation}) => {
   return (
     <ContainerStyled>
       <View style={{flex: 1}}>
-        <View style={styles.titleBox}>
+        <View style={{...styles.titleBox}}>
           <Touchable
             onPress={() => {
               navigation.closeDrawer();
             }}>
-            <Feather name={'x'} size={13.18} style={styles.xBtn} />
+            <Feather name={'x'} size={24} style={styles.xBtn} />
           </Touchable>
-
-          <RowView style={styles.titleRow}>
-            <Image
-              source={require('../asssets/images/null_image.png')}
-              resizeMode={'contain'}
-              style={{width: 30, height: 30}}
-            />
-            <BoldLabelTitle
-              text={username}
-              style={{color: '#46A0BD', marginLeft: 9}}
-            />
-            <BoldLabel14
-              text={' 님, 안녕하세요!'}
+          <View>
+            <RowView style={styles.titleRow}>
+              <Image
+                source={require('../asssets/images/null_image.png')}
+                resizeMode={'contain'}
+                style={{width: 30, height: 30}}
+              />
+              <BoldLabelTitle
+                text={username}
+                style={{color: '#46A0BD', marginLeft: 9}}
+              />
+              <BoldLabel14
+                text={' 님, 안녕하세요!'}
+                style={{
+                  lineHeight: 20,
+                  color: '#000',
+                }}
+              />
+            </RowView>
+            <LabelNone
+              text={email}
               style={{
-                lineHeight: 20,
                 color: '#000',
+                fontWeight: '400',
+                fontSize: 18,
+                lineHeight: 22,
+                marginLeft: 13,
               }}
             />
-          </RowView>
-          <LabelNone
-            text={email}
-            style={{
-              color: '#000',
-              fontWeight: '400',
-              fontSize: 18,
-              lineHeight: 22,
-            }}
-          />
+          </View>
         </View>
         <RowView style={styles.solidLine} />
 
@@ -183,18 +185,20 @@ const styles = StyleSheet.create({
   solidLine: {
     height: 3,
     backgroundColor: '#E5E5E5',
-    marginTop: 15,
   },
   titleRow: {
-    marginTop: 30.4,
-    marginBottom: 14,
     alignItems: 'flex-end',
+    marginBottom: 14,
   },
-  xBtn: {textAlign: 'right', padding: 5, color: '#46A0BD'},
+  xBtn: {textAlign: 'right', color: '#46A0BD'},
   titleBox: {
-    marginHorizontal: 24,
-    height: 130.6,
-    marginTop: 20,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: 160,
+    paddingRight: 30,
+    paddingTop: 30,
+    paddingBottom: 15,
+    paddingLeft: 27,
   },
   itemBox: {marginHorizontal: 24},
 });
