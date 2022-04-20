@@ -142,7 +142,7 @@ const Swap = ({navigation}) => {
                 setPointCount(0);
                 setIsCovertKspToKspc(!isCovertKspToKspc);
               }}>
-              <Icon name="swap-vertical-variant" color="#000" size={40} />
+              <Icon name="swap-vertical" color="#fff" size={40} />
             </Touchable>
           </RowView>
           <AmountInput
