@@ -10,7 +10,6 @@ import {
   BottomButton,
   BottomButtonWithIcon,
 } from '../../components/Buttons/Buttons';
-import CalendarTc from '../../components/CalendarTc';
 import Calendars from '../../components/Calendars';
 import dayjs from 'dayjs';
 import api from '../../api';
@@ -130,7 +129,6 @@ const Calendar = ({navigation}) => {
           setSelectDate={setSelectDate}
           attendanceList={attendanceList}
         />
-        {/*<CalendarTc dates={dates} />*/}
       </ScrollView>
     </LinearGradient>
   );
