@@ -27,7 +27,7 @@ const HasBoldModal = ({
           style={{
             display: 'flex',
             flexDirection: 'row',
-            marginHorizontal: 9.5,
+            marginHorizontal: 24,
             backgroundColor: 'white',
             borderRadius: 10,
             borderColor: '#fff',
