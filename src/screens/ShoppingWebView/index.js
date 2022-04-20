@@ -59,22 +59,22 @@ const ShoppingWebView = ({navigation, route}) => {
   );
   const onPayment = async body => {
     body.sessionToken = sessionToken;
-    console.log('body', body);
+    console.log('body,body', body);
     try {
       const res = await api.post(`paymentupdate`, JSON.stringify(body), config);
       console.log('res,구매연동', res);
       Alert.alert('결제가 완료되었습니다.');
       resetNavigation(navigation, 'DrawerStack');
     } catch (err) {
-      console.log('payment/complete', err);
+      // console.log('payment/complete', err);
       console.log('payment/complete, e.res', err.response);
       if (err?.response?.data?.errMsg) {
         Alert.alert(err.response.data.errMsg);
         return;
       }
       Alert.alert('서버와 통신에 실패');
-      console.log('결제완료 에러 입니다', err);
-      console.log('결제완료 에러 입니다', err.response);
+      // console.log('결제완료 에러 입니다', err);
+      // console.log('결제완료 에러 입니다', err.response);
     }
   };
   const onCheckIamPortPayment = async (imp_uid, body) => {

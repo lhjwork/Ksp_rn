@@ -15,6 +15,7 @@ import {
   getDrawerStatusFromState,
   useDrawerStatus,
 } from '@react-navigation/drawer';
+import {resetNavigation} from '../utils';
 
 const DRAWER_LIST_DATA = [
   {
@@ -61,7 +62,8 @@ const DrawerComponent = ({navigation}) => {
     try {
       const res = await api.post('applogout', {Logout: true}, config);
       dispatch(saveUserInfo(res?.data));
-      navigation.navigate('AuthStack');
+      resetNavigation(navigation, 'AuthStack');
+      // navigation.navigate('AuthStack');
     } catch (e) {
       console.log(e);
       console.log(e.response);

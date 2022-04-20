@@ -16,7 +16,12 @@ const TermsDetail = ({navigation, route}) => {
       const onBackPress = () => {
         if (ref.current && canGoBack) {
           // ref.current.goBack();
-          navigation.navigate('ShoppingMall');
+          if (route?.params?.notLogin) {
+            navigation.navigate('ShoppingMall');
+          } else {
+            navigation.navigate('SignUpAgree');
+          }
+          // navigation.goBack();
           return true;
         } else {
           return false;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {View, StyleSheet, Text, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ContainerGradient from '../../../components/Containers/ContainerGradient';
@@ -18,6 +18,8 @@ import PageNumbering from '../../../components/SignUp/PageNumbering';
 import Agreement from '../../../components/Agreement';
 import ModalFrame from '../../../components/Modals/ModalFrame';
 import {TERMS_DATA} from '../../../asssets/Data/TERMS_DATA';
+import {SCREEN_HEIGHT} from '../../../constants';
+import ToastMsg from '../../../components/toastMsg';
 
 const SUB_CONTENT_DATA = [
   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
@@ -31,6 +33,11 @@ const SignUpAgree = ({navigation}) => {
   const [privateInfoAgree, setPrivateInfoAgree] = useState(false);
   const [marketingAgree, setMarketingAgree] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const toastRef = useRef(null);
+
+  const showToast = useCallback(() => {
+    toastRef.current.show('필수 약관의 동의가 필요합니다.');
+  }, []);
 
   const getAllAgree = () => {
     if (allAgree === false) {
@@ -48,7 +55,8 @@ const SignUpAgree = ({navigation}) => {
 
   const goNextPage = () => {
     if (serviceAgree === false || privateInfoAgree === false) {
-      setModalVisible(true);
+      // setModalVisible(true);
+      showToast();
       return;
     }
     navigation.navigate('SelfAuth');
@@ -119,9 +127,11 @@ const SignUpAgree = ({navigation}) => {
               onPress={() => {
                 setServiceAgree(!serviceAgree);
               }}
-              DetailOpenPress={() =>
-                navigation.navigate('TermsDetail', TERMS_DATA[0])
-              }
+              DetailOpenPress={() => {
+                let termProps = TERMS_DATA[0];
+                termProps.notLogin = true;
+                navigation.navigate('TermsDetail', termProps);
+              }}
               isRequire={true}
             />
             <Agreement
@@ -130,9 +140,12 @@ const SignUpAgree = ({navigation}) => {
               onPress={() => {
                 setPrivateInfoAgree(!privateInfoAgree);
               }}
-              DetailOpenPress={() =>
-                navigation.navigate('TermsDetail', TERMS_DATA[1])
-              }
+              DetailOpenPress={() => {
+                let termProps = TERMS_DATA[1];
+                termProps.notLogin = true;
+                // notLogin
+                navigation.navigate('TermsDetail', termProps);
+              }}
               isRequire={true}
             />
             <Agreement
@@ -141,24 +154,29 @@ const SignUpAgree = ({navigation}) => {
               onPress={() => {
                 setMarketingAgree(!marketingAgree);
               }}
-              DetailOpenPress={() =>
-                navigation.navigate('TermsDetail', TERMS_DATA[2])
-              }
+              DetailOpenPress={() => {
+                let termProps = TERMS_DATA[2];
+                termProps.notLogin = true;
+                // notLogin
+                navigation.navigate('TermsDetail', termProps);
+              }}
             />
           </View>
         </View>
       </ContainerStyled>
 
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        {(serviceAgree === false || privateInfoAgree === false) && (
-          <View style={styles.agreeNeed}>
-            <LabelNone
-              text={'필수 약관의 동의가 필요합니다.'}
-              style={styles.agreeText}
-            />
-          </View>
-        )}
-
+        {/*{(serviceAgree === false || privateInfoAgree === false) && (*/}
+        {/*  <View style={styles.agreeNeed}>*/}
+        {/*    <LabelNone*/}
+        {/*      text={'필수 약관의 동의가 필요합니다.'}*/}
+        {/*      style={styles.agreeText}*/}
+        {/*    />*/}
+        {/*  </View>*/}
+        {/*)}*/}
+        <View>
+          <ToastMsg ref={toastRef} />
+        </View>
         <BottomButton text={'다음'} onPress={() => goNextPage()} />
       </View>
     </LinearGradient>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../../components/HeaderCompnent';
 import {SIGNUP_NUM_DATA} from './SIGNUP_DATAS';
@@ -125,8 +125,14 @@ const SignUp = ({navigation, route}) => {
       const res = await api.post('register', JSON.stringify(body), config);
       console.log('res', res);
       navigation.navigate('SignUpComplete');
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      if (err?.response?.data?.errMsg) {
+        await setModalContent(err.response.data.errMsg);
+        setModalVisible(true);
+        return;
+      }
+      await setModalContent('회원가입의 실패하였습니다');
+      setModalVisible(true);
     }
   };
 
@@ -391,6 +397,7 @@ const SignUp = ({navigation, route}) => {
             placeholder={'ex)01012345678'}
             textStyle={styles.textStlye}
             value={phoneNumber}
+            editable={false}
           />
           <BoldLabel14
             text={'성별'}

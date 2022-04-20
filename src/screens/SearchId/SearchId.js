@@ -162,6 +162,10 @@ const SearchId = ({navigation}) => {
           <SmallButton
             isDisabled={!isCheckValid}
             style={{
+              borderColor:
+                !isCheckValid && certification.length === 4
+                  ? 'transparent'
+                  : '#46A0BD',
               backgroundColor:
                 !isCheckValid && isCheckValid !== null
                   ? '#C4C4C4'
