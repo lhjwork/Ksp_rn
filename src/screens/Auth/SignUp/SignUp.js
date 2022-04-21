@@ -26,6 +26,7 @@ const SignUp = ({navigation, route}) => {
     '',
     '이미 사용중인 아이디 입니다.',
     '사용 가능한 아이디 입니다.',
+    '사용 할 수없는 아이디입니다',
   ];
   const emailVerifyList = [
     '',
@@ -55,6 +56,11 @@ const SignUp = ({navigation, route}) => {
 
   //
   const onSignUp = async () => {
+    if (loginId.length === 0) {
+      setModalContent('아이디를 입력해주세요');
+      setModalVisible(true);
+      return;
+    }
     // onBlockSignUp();
     if (!getVerifyCode(email)) {
       setModalContent('이메일을 형식에 맞춰서 입력해주세요');
@@ -73,6 +79,11 @@ const SignUp = ({navigation, route}) => {
     }
     if (password1 !== password2) {
       setModalContent('비밀번호가 일치하지 않습니다');
+      setModalVisible(true);
+      return;
+    }
+    if (password1.length === 0) {
+      setModalContent('비밀번호를 입력해주세요');
       setModalVisible(true);
       return;
     }
@@ -137,6 +148,12 @@ const SignUp = ({navigation, route}) => {
   };
 
   const onLoginIdVerify = async () => {
+    if (loginId.length === 0) {
+      await setModalContent('아이디를 입력해주세요');
+      setModalVisible(true);
+      setLoginIdVerify(3);
+      return;
+    }
     try {
       let body = {LoginId: loginId};
       const config = {
@@ -307,7 +324,10 @@ const SignUp = ({navigation, route}) => {
           <LabelNone
             text={loginIdVerifyList[loginIdVerify]}
             style={{
-              color: loginIdVerify === 1 ? '#FF0000' : '#46A0BD',
+              color:
+                loginIdVerify === 1 || loginIdVerify === 3
+                  ? '#FF0000'
+                  : '#46A0BD',
               fontSize: 12,
               marginLeft: 19,
               marginTop: 5,
