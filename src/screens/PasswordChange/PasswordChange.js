@@ -12,6 +12,7 @@ import {useSelector} from 'react-redux';
 import ModalFrame from '../../components/Modals/ModalFrame';
 import HasBoldModal from '../../components/Modals/HasBoldModal';
 import {useIsFocused} from '@react-navigation/native';
+import {saveUserInfo} from '../../redux/authSlice';
 const PasswordChange = ({navigation}) => {
   const [passwordVisible1, setPasswordVisible1] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
@@ -23,12 +24,20 @@ const PasswordChange = ({navigation}) => {
   const {sessionToken} = auth?.user;
   const isFocused = useIsFocused();
 
+  const [errMsg, setErrMsg] = useState('');
+  const [isShow, setIsShow] = useState(false);
+
   useEffect(() => {
     setPasswordValue1('');
     setPasswordValue2('');
   }, [isFocused]);
 
   const onClickChangePassword = async () => {
+    if (passwordVisible1 < 6) {
+      await setErrMsg('비밀번호는 최소 6글자입니다');
+      setIsShow(true);
+      return;
+    }
     let body = {
       sessionToken,
       password: passwordValue1,
@@ -70,6 +79,13 @@ const PasswordChange = ({navigation}) => {
   };
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
+      <ModalFrame
+        infoText={errMsg}
+        visible={isShow}
+        onPress={() => {
+          setIsShow(false);
+        }}
+      />
       <HasBoldModal
         // oneText={'인증된 휴대폰 번호로'}
         twoText={
