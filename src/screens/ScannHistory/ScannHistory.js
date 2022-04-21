@@ -10,11 +10,14 @@ import api from '../../api';
 import {config} from '../../constant';
 import {useSelector} from 'react-redux';
 import dayjs from 'dayjs';
+import {useIsFocused} from '@react-navigation/native';
 
 const ScannHistory = ({navigation}) => {
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
   const [scanHistory, setScanHistory] = useState([]);
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     (async () => {
       let body = {sessionToken};
@@ -30,7 +33,7 @@ const ScannHistory = ({navigation}) => {
         console.log(e.response);
       }
     })();
-  }, []);
+  }, [isFocused]);
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
