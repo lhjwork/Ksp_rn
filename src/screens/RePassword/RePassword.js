@@ -32,21 +32,26 @@ const RePassword = ({navigation}) => {
   const [isShow, setIsShow] = useState(false);
   const ErrFunction = async () => {
     if (userId === '') {
-      await setErrMsg('아이디를 입력해주세요');
-      setIsErrModalShow(true);
+      await setInfoText('아이디를 입력해주세요');
+      setIsShow(true);
       return true;
     } else if (userName === '') {
-      await setErrMsg('이름을 입력해주세요');
-      setIsErrModalShow(true);
+      await setInfoText('이름을 입력해주세요');
+      setIsShow(true);
       return true;
     } else if (phoneNumber === '') {
-      await setErrMsg('휴대폰 번호를 입력해주세요');
-      setIsErrModalShow(true);
+      await setInfoText('휴대폰 번호를 입력해주세요');
+      setIsShow(true);
       return true;
     }
     return false;
   };
   const sendPhoneMsg = async () => {
+    if (phoneNumber.length < 10) {
+      await setInfoText('휴대폰 번호를 입력해주세요');
+      setIsShow(true);
+      return;
+    }
     if (await ErrFunction()) {
       setSendSuccess(false);
       return;

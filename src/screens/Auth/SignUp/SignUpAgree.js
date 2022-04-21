@@ -40,7 +40,12 @@ const SignUpAgree = ({navigation}) => {
   }, []);
 
   const getAllAgree = () => {
-    if (allAgree === false) {
+    if (!serviceAgree || !privateInfoAgree || !marketingAgree) {
+      setAllAgree(true);
+      setServiceAgree(true);
+      setPrivateInfoAgree(true);
+      setMarketingAgree(true);
+    } else if (allAgree === false) {
       setAllAgree(true);
       setServiceAgree(true);
       setPrivateInfoAgree(true);
@@ -83,18 +88,21 @@ const SignUpAgree = ({navigation}) => {
             text={
               '안녕하세요.\n저희 KSP가 처음이시군요!\nKSP 서비스 이용을 위해서는 아래와 같은 약관의 동의가 필요합니다.'
             }
-            style={styles.contentText}
+            style={{...styles.contentText, marginBottom: 46}}
           />
-          <RowView
-            style={{
-              backgroundColor: allAgree ? '#46A0BD' : '#fff',
-              paddingVertical: 12,
-              paddingHorizontal: 17.25,
-              marginTop: 46,
-              borderRadius: 10,
-            }}>
-            <Touchable onPress={() => getAllAgree()}>
-              {!allAgree ? (
+          <Touchable onPress={() => getAllAgree()}>
+            <RowView
+              style={{
+                backgroundColor:
+                  serviceAgree && privateInfoAgree && marketingAgree
+                    ? '#46A0BD'
+                    : '#fff',
+                paddingVertical: 12,
+                paddingHorizontal: 17.25,
+                borderRadius: 10,
+              }}>
+              {/*<Touchable onPress={() => getAllAgree()}>*/}
+              {!(serviceAgree && privateInfoAgree && marketingAgree) ? (
                 <Ionicons
                   name={'checkmark-circle-outline'}
                   size={19.5}
@@ -107,19 +115,22 @@ const SignUpAgree = ({navigation}) => {
                   style={{color: '#fff'}}
                 />
               )}
-            </Touchable>
+              {/*</Touchable>*/}
 
-            <BoldLabelSubTitle
-              text={'모두 동의하기'}
-              style={{
-                fontSize: 18,
-                fontWeight: '700',
-                lineHeight: 26,
-                marginLeft: 13,
-                color: !allAgree ? '#555555' : '#fff',
-              }}
-            />
-          </RowView>
+              <BoldLabelSubTitle
+                text={'모두 동의하기'}
+                style={{
+                  fontSize: 18,
+                  fontWeight: '700',
+                  lineHeight: 26,
+                  marginLeft: 13,
+                  color: !(serviceAgree && privateInfoAgree && marketingAgree)
+                    ? '#555555'
+                    : '#fff',
+                }}
+              />
+            </RowView>
+          </Touchable>
           <View style={styles.subAgreeBox}>
             <Agreement
               text={'서비스 이용약관 동의'}
@@ -234,5 +245,5 @@ const styles = StyleSheet.create({
     marginTop: 46,
     borderRadius: 10,
   },
-  contentText: {marginTop: 13, fontSize: 14, lineheight: 17},
+  contentText: {marginTop: 13, fontSize: 14, lineHeight: 17},
 });

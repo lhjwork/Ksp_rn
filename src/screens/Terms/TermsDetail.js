@@ -17,9 +17,9 @@ const TermsDetail = ({navigation, route}) => {
         if (ref.current && canGoBack) {
           // ref.current.goBack();
           if (route?.params?.notLogin) {
-            navigation.navigate('ShoppingMall');
-          } else {
             navigation.navigate('SignUpAgree');
+          } else {
+            navigation.navigate('ShoppingMall');
           }
           // navigation.goBack();
           return true;

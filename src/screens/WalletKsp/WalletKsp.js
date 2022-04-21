@@ -120,7 +120,7 @@ const WalletKsp = ({navigation}) => {
       end={{x: 0, y: 0.65}}
       style={{flex: 1}}>
       <SafeAreaView style={{flex: 1}}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={{paddingBottom: 30}}>
           <HeaderCompnent
             onPerssDrawer={() => navigation.openDrawer()}
             onPressLeftBtn={() => navigation.goBack()}

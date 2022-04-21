@@ -186,15 +186,15 @@ const StackingApply = ({navigation}) => {
           <RowView style={{marginTop: 5}}>
             <AmountInput
               value={sumInput}
-              outStyle={{flex: 1, borderWidth: 0}}
+              outStyle={{flex: 1, borderWidth: 0, height: 40}}
               rightText={'KSP'}
               placeholder="수량을 입력해주세요."
               textStyle={{marginLeft: 19}}
               onChangeText={onChangeSumInput}
             />
             <SmallButton
-              style={styles.button}
-              textStyle={{color: '#fff'}}
+              style={{...styles.button, paddingVertical: 10, width: 70}}
+              textStyle={{color: '#fff', fontSize: 14}}
               text={'계산'}
               onPress={() => {
                 onClickSum();
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     marginLeft: 5.1,
   },
   exclamationStyle: {color: '#DF8600'},
-  button: {marginLeft: 5, backgroundColor: '#46A0BD'},
+  button: {marginLeft: 5, backgroundColor: '#46A0BD', height: 40},
   onlyNumber: {
     color: '#46A0BD',
     fontSize: 12,

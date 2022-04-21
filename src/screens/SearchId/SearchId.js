@@ -32,6 +32,11 @@ const SearchId = ({navigation}) => {
   const [sendPhone, setSendPhone] = useState('');
 
   const sendPhoneMsg = async () => {
+    if (phoneNumber.length < 10) {
+      await setInfoText('휴대폰 번호를 입력해주세요');
+      setIsShow(true);
+      return;
+    }
     let body = {
       username: userName,
       phone: phoneNumber,

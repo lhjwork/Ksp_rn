@@ -38,6 +38,11 @@ const SelfAuth = ({navigation}) => {
   const [checkPhone, setCheckPhone] = useState('');
 
   const sendPhoneNum = async () => {
+    if (phoneNumber.length < 10) {
+      await setTrueModalText('휴대폰 번호를 입력해주세요');
+      setTrueModalVisible(true);
+      return;
+    }
     try {
       const config = {
         headers: {
