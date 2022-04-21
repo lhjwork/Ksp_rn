@@ -173,7 +173,7 @@ const StackingApply = ({navigation}) => {
         visible={isErrShow}
         onPress={() => setIsErrShow(false)}
       />
-      <ScrollView>
+      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
         <HeaderCompnent
           onPressLeftBtn={() => navigation.goBack()}
           onPerssDrawer={() => navigation.openDrawer()}
@@ -230,7 +230,6 @@ const StackingApply = ({navigation}) => {
             style={styles.noticeText}
           />
         </View>
-
         <View style={styles.bottomBox}>
           <TableContainer>
             <FlatList
@@ -246,7 +245,7 @@ const StackingApply = ({navigation}) => {
                 textAlign: 'center',
                 fontSize: 12,
                 fontWeight: '700',
-                lineHeight: 17,
+                // lineHeight: 17,
                 color: '#46A0BD',
                 marginBottom: 9,
               }}
@@ -304,7 +303,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 9,
   },
   bottomBox: {
-    height: SCREEN_HEIGHT * 0.49,
+    // height: SCREEN_HEIGHT * 0.49,
+    paddingBottom: 30,
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
