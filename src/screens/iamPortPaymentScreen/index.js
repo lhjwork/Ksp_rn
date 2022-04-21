@@ -39,8 +39,8 @@ const IamPortPaymentScreen = ({navigation, route}) => {
     pay_method: payMethod, // card: 신용카드, vbank: 가상계좌, trans: 실시간계좌이체
     name: `KSP 결제`,
     merchant_uid: `merchant_${user?.sessionToken}_${new Date().getTime()}`,
-    // amount: `${body?.totalPrice}`,
-    amount: 100,
+    amount: `${body?.totalPrice}`,
+    // amount: 100,
     buyer_name: `${body?.receiver}`,
     buyer_tel: `${body?.phone}`,
     buyer_email: `${user?.email}`,
