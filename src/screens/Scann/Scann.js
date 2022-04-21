@@ -202,8 +202,9 @@ const Scann = ({navigation}) => {
         />
         <ImageBackground
           source={require('../../asssets/images/ksp_scann_pointer.png')}
+          resizeMode="contain"
           style={{
-            height: SCREEN_HEIGHT * 0.3,
+            height: SCREEN_WIDTH * 0.66,
             width: SCREEN_WIDTH * 0.66,
             textAlign: 'center',
           }}
