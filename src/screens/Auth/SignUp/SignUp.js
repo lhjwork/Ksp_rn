@@ -26,7 +26,7 @@ const SignUp = ({navigation, route}) => {
     '',
     '이미 사용중인 아이디 입니다.',
     '사용 가능한 아이디 입니다.',
-    '사용 할 수없는 아이디입니다',
+    '아이디는 최소 6글자입니다',
   ];
   const emailVerifyList = [
     '',
@@ -56,8 +56,8 @@ const SignUp = ({navigation, route}) => {
 
   //
   const onSignUp = async () => {
-    if (loginId.length === 0) {
-      setModalContent('아이디를 입력해주세요');
+    if (loginId.length < 6) {
+      setModalContent('아이디는 최소 6글자입니다');
       setModalVisible(true);
       return;
     }
@@ -82,8 +82,8 @@ const SignUp = ({navigation, route}) => {
       setModalVisible(true);
       return;
     }
-    if (password1.length === 0) {
-      setModalContent('비밀번호를 입력해주세요');
+    if (password1.length < 6) {
+      setModalContent('비밀번호는 최소 6글자입니다');
       setModalVisible(true);
       return;
     }
@@ -97,7 +97,7 @@ const SignUp = ({navigation, route}) => {
       setModalVisible(true);
       return;
     }
-    if (loginId.length === 0) {
+    if (loginId.length < 6) {
       setModalContent('아이디 입력은 필수입니다.');
       setModalVisible(true);
       return;
@@ -148,8 +148,8 @@ const SignUp = ({navigation, route}) => {
   };
 
   const onLoginIdVerify = async () => {
-    if (loginId.length === 0) {
-      await setModalContent('아이디를 입력해주세요');
+    if (loginId.length < 6) {
+      await setModalContent('아이디는 최소 6글자입니다');
       setModalVisible(true);
       setLoginIdVerify(3);
       return;
@@ -321,6 +321,7 @@ const SignUp = ({navigation, route}) => {
               isDisabled={checkId !== '' && loginId === checkId}
             />
           </RowView>
+
           <LabelNone
             text={loginIdVerifyList[loginIdVerify]}
             style={{

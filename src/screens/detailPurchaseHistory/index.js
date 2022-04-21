@@ -102,7 +102,7 @@ const DetailPurchaseHistory = ({navigation, route}) => {
             </RowView>
             <RowView>
               <ProductTitle>요청사항</ProductTitle>
-              <Subtitle>1층 경비실에 맡겨주세요.</Subtitle>
+              <Subtitle>{params?.memo}</Subtitle>
             </RowView>
             <Title style={{marginTop: 50}}>결제 정보</Title>
             <RowView style={{marginTop: 25}}>
