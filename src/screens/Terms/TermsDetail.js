@@ -11,19 +11,15 @@ const TermsDetail = ({navigation, route}) => {
   const [canGoBack, setCanGoBack] = useState(false);
   const [urls, setUrls] = useState('');
   const ref = useRef(null);
+
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
         setUrls('');
         if (ref.current && canGoBack) {
           // ref.current.goBack();
-          if (route?.params?.notLogin) {
-            navigation.navigate('SignUpAgree');
-          } else {
-            return false;
-          }
+          return false;
           // navigation.goBack();
-          return true;
         } else {
           return false;
         }
@@ -69,7 +65,6 @@ true;
   useEffect(() => console.log(url), [navigation]);
   const handleOnMessage = ({nativeEvent}) => {
     if (nativeEvent.data === 'navigationStateChange') {
-      console.log(nativeEvent);
       setCanGoBack(nativeEvent.canGoBack);
     }
   };
