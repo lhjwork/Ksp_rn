@@ -9,17 +9,18 @@ import {CommonActions, useFocusEffect} from '@react-navigation/native';
 const TermsDetail = ({navigation, route}) => {
   const {title, content, url} = route?.params;
   const [canGoBack, setCanGoBack] = useState(false);
-
+  const [urls, setUrls] = useState('');
   const ref = useRef(null);
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
+        setUrls('');
         if (ref.current && canGoBack) {
           // ref.current.goBack();
           if (route?.params?.notLogin) {
             navigation.navigate('SignUpAgree');
           } else {
-            navigation.navigate('ShoppingMall');
+            return false;
           }
           // navigation.goBack();
           return true;
@@ -60,7 +61,12 @@ true;
     window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
     window.isNativeApp = true;
 })();`;
-
+  useFocusEffect(
+    React.useCallback(() => {
+      setUrls(url);
+    }, [navigation, url]),
+  );
+  useEffect(() => console.log(url), [navigation]);
   const handleOnMessage = ({nativeEvent}) => {
     if (nativeEvent.data === 'navigationStateChange') {
       console.log(nativeEvent);
@@ -95,7 +101,7 @@ true;
       javaScriptEnabledAndroid
       useWebkit
       incognito
-      source={{uri: url}}
+      source={{uri: urls}}
       ref={ref}
       onNavigationStateChange={navState => {
         setCanGoBack(navState.canGoBack);
