@@ -13,8 +13,15 @@ const TermsDetail = ({navigation, route}) => {
   const [canGoBack, setCanGoBack] = useState(false);
   const [urls, setUrls] = useState('');
   const ref = useRef(null);
-  useEffect(() => setUrls(url), [navigation, url]);
-
+  useFocusEffect(
+    React.useCallback(() => {
+      setUrls(url);
+    }, [navigation, url]),
+  );
+  // useEffect(() => {
+  //   console.log(url);
+  //   setUrls(url);
+  // }, [route, navigation, url]);
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
