@@ -5,12 +5,15 @@ import HeaderCompnent from '../../components/HeaderCompnent';
 import {BoldLabel14, BoldLabelTitle} from '../../components/Labels';
 import {WebView} from 'react-native-webview';
 import {CommonActions, useFocusEffect} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const TermsDetail = ({navigation, route}) => {
   const {title, content, url} = route?.params;
+  const auth = useSelector(state => state.auth);
   const [canGoBack, setCanGoBack] = useState(false);
   const [urls, setUrls] = useState('');
   const ref = useRef(null);
+  useEffect(() => setUrls(url), [navigation, url]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -57,54 +60,36 @@ true;
     window.ReactNativeWebView.postMessage(JSON.stringify({key : "value"}));
     window.isNativeApp = true;
 })();`;
-  useFocusEffect(
-    React.useCallback(() => {
-      setUrls(url);
-    }, [navigation, url]),
-  );
-  useEffect(() => console.log(url), [navigation]);
+
   const handleOnMessage = ({nativeEvent}) => {
     if (nativeEvent.data === 'navigationStateChange') {
       setCanGoBack(nativeEvent.canGoBack);
     }
   };
   return (
-    // <ScrollView style={{backgroundColor: '#fff'}}>
-    //   <HeaderCompnent
-    //     onPressLeftBtn={() => navigation.goBack()}
-    //     antStyle={{color: '#000'}}
-    //     rightView={false}
-    //   />
-    //   <View style={{marginHorizontal: 24}}>
-    //     <BoldLabelTitle
-    //       text={title}
-    //       style={{marginTop: 27.5, marginBottom: 23}}
-    //     />
-    //     <BoldLabel14 text={content} style={{color: '#555'}} />
-    //   </View>
-    // </ScrollView>
     <WebView
-      includeDiskFiles={false}
       originWhitelist={['*']}
-      setSupportMultipleWindows={true}
-      // startInLoadingState={true}
-      cacheEnabled={false}
       allowsInlineMediaPlayback
       javaScriptEnabled
       scalesPageToFit
       mediaPlaybackRequiresUserAction={false}
       javaScriptEnabledAndroid
       useWebkit
+      startInLoadingState={true}
+      cacheEnabled={false}
       incognito
       source={{uri: urls}}
       ref={ref}
+      injectedJavaScript={INJECTED_JAVASCRIPT}
+      onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
       onNavigationStateChange={navState => {
         setCanGoBack(navState.canGoBack);
       }}
       onMessage={handleOnMessage}
-      injectedJavaScript={INJECTED_JAVASCRIPT}
-      onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
       injectedJavaScriptBeforeContentLoaded={runFirst}
+      onLoad={() => {
+        ref.current.postMessage(JSON.stringify({auth}));
+      }}
       onShouldStartLoadWithRequest={event => {
         return action(event.url);
       }}
