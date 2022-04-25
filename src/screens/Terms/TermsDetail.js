@@ -38,7 +38,7 @@ const TermsDetail = ({navigation, route}) => {
       return () => {
         BackHandler.removeEventListener('hardwareBackPress', onBackPress);
       };
-    }, [canGoBack]),
+    }, [canGoBack, route?.params]),
   );
   const runFirst = `
       window.isNativeApp = true;
