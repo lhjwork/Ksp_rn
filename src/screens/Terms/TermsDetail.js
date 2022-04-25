@@ -13,9 +13,13 @@ const TermsDetail = ({navigation, route}) => {
   const [canGoBack, setCanGoBack] = useState(false);
   const [urls, setUrls] = useState('');
   const ref = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
       setUrls(url);
+      setTimeout(() => {
+        setIsLoading(true);
+      }, 300);
     }, [navigation, url]),
   );
   // useEffect(() => {
@@ -25,6 +29,7 @@ const TermsDetail = ({navigation, route}) => {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
+        setIsLoading(false);
         setUrls('');
         if (ref.current && canGoBack) {
           // ref.current.goBack();
@@ -73,34 +78,27 @@ true;
       setCanGoBack(nativeEvent.canGoBack);
     }
   };
+
   return (
-    <WebView
-      originWhitelist={['*']}
-      allowsInlineMediaPlayback
-      javaScriptEnabled
-      scalesPageToFit
-      mediaPlaybackRequiresUserAction={false}
-      javaScriptEnabledAndroid
-      useWebkit
-      startInLoadingState={true}
-      cacheEnabled={false}
-      incognito
-      source={{uri: urls}}
-      ref={ref}
-      injectedJavaScript={INJECTED_JAVASCRIPT}
-      onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
-      onNavigationStateChange={navState => {
-        setCanGoBack(navState.canGoBack);
-      }}
-      onMessage={handleOnMessage}
-      injectedJavaScriptBeforeContentLoaded={runFirst}
-      onLoad={() => {
-        ref.current.postMessage(JSON.stringify({auth}));
-      }}
-      onShouldStartLoadWithRequest={event => {
-        return action(event.url);
-      }}
-    />
+    isLoading && (
+      <WebView
+        domStorageEnabled={true}
+        thirdPartyCookiesEnabled={false}
+        originWhitelist={['*']}
+        source={{uri: urls}}
+        ref={ref}
+        injectedJavaScript={INJECTED_JAVASCRIPT}
+        onLoadStart={() => ref.current.injectJavaScript(INJECTED_CODE)}
+        onNavigationStateChange={navState => {
+          setCanGoBack(navState.canGoBack);
+        }}
+        onMessage={handleOnMessage}
+        injectedJavaScriptBeforeContentLoaded={runFirst}
+        onLoad={() => {
+          ref.current.postMessage(JSON.stringify({auth}));
+        }}
+      />
+    )
   );
 };
 

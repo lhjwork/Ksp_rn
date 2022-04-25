@@ -33,7 +33,7 @@ const PasswordChange = ({navigation}) => {
   }, [isFocused]);
 
   const onClickChangePassword = async () => {
-    if (passwordValue2 < 6 || passwordValue1 < 6) {
+    if (passwordValue2.length < 6 || passwordValue1.length < 6) {
       await setErrMsg('비밀번호는 최소 6글자입니다');
       setIsShow(true);
       return;
