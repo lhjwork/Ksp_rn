@@ -164,7 +164,6 @@ const StackingApply = ({navigation}) => {
     }
   };
   const success = async () => {
-    console.log('123');
     await setIsErrShow(false);
     navigation.goBack();
   };

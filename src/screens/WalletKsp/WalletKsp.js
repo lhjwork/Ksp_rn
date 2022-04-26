@@ -8,6 +8,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Clipboard,
+  Alert,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../components/HeaderCompnent';
@@ -29,9 +30,11 @@ import {saveWallet} from '../../redux/authSlice';
 import ToastMsg from '../../components/toastMsg';
 import {config} from '../../constant';
 import {useIsFocused} from '@react-navigation/native';
+import ModalFrame from '../../components/Modals/ModalFrame';
 
 const WalletKsp = ({navigation}) => {
   const dispatch = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
   const auth = useSelector(state => state.auth);
   const {sessionToken} = auth?.user;
   const hasWallet =
@@ -112,13 +115,17 @@ const WalletKsp = ({navigation}) => {
       }
     }
   };
-
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
       start={{x: 0, y: 0}}
       end={{x: 0, y: 0.65}}
       style={{flex: 1}}>
+      <ModalFrame
+        visible={modalVisible}
+        infoText={'지갑 주소생성 후 이용 바랍니다.'}
+        onPress={() => setModalVisible(false)}
+      />
       <SafeAreaView style={{flex: 1}}>
         <ScrollView contentContainerStyle={{paddingBottom: 30}}>
           <HeaderCompnent
@@ -205,12 +212,16 @@ const WalletKsp = ({navigation}) => {
                 <WalletButtons
                   key={index}
                   Title={item?.titie}
-                  onPress={() =>
+                  onPress={() => {
+                    if (!hasWallet) {
+                      setModalVisible(true);
+                      return;
+                    }
                     navigation.navigate(item?.path, {
                       balance,
                       isKspSend: item?.titie.includes('KSPC'),
-                    })
-                  }
+                    });
+                  }}
                   Img={item?.img}
                 />
               ))}
