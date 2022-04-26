@@ -262,7 +262,38 @@ const SelfAuth = ({navigation}) => {
         </View>
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        <BottomButton text={'다음'} onPress={() => onNextPage()} />
+        <BottomButton
+          text={'다음'}
+          onPress={() => onNextPage()}
+          disabled={
+            phoneNumber < 11 ||
+            phoneUnlock === false ||
+            codeVerify.length < 4 ||
+            checkPhone !== phoneNumber ||
+            codeSame !== true
+          }
+          style={{
+            backgroundColor:
+              phoneNumber < 11 ||
+              phoneUnlock === false ||
+              codeVerify.length < 4 ||
+              checkPhone !== phoneNumber ||
+              codeSame !== true
+                ? '#FFFFFF'
+                : '#46A0BD',
+          }}
+          textStyle={{
+            color:
+              phoneNumber < 11 ||
+              phoneUnlock === false ||
+              codeVerify.length < 4 ||
+              checkPhone !== phoneNumber ||
+              codeSame !== true
+                ? '#C4C4C4'
+                : '#fff',
+          }}
+          // phoneNumber < 11||phoneUnlock === false||codeVerify.length < 4||checkPhone !== phoneNumber||codeSame !== true
+        />
       </View>
     </LinearGradient>
   );

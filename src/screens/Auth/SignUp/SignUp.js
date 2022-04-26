@@ -55,7 +55,24 @@ const SignUp = ({navigation, route}) => {
   const [checkEmail, setCheckEmail] = useState(''); //중복 확인을 누른 아아디
 
   //
+  const isDisabled =
+    loginId.length < 6 ||
+    !getVerifyCode(email) ||
+    loginIdVerify === 1 ||
+    loginIdVerify === 0 ||
+    emailVerify === 1 ||
+    emailVerify === 0 ||
+    password1 !== password2 ||
+    password1.length < 6 ||
+    loginId !== checkId ||
+    email !== checkEmail ||
+    loginId.length < 6 ||
+    password1.length === 0 ||
+    username.length === 0 ||
+    gender.length === 0;
+
   const onSignUp = async () => {
+    //loginId.length < 6
     if (loginId.length < 6) {
       setModalContent('아이디는 최소 6글자입니다');
       setModalVisible(true);
@@ -538,7 +555,13 @@ const SignUp = ({navigation, route}) => {
           {/*)}*/}
 
           <BottomButton
-            style={{marginBottom: 30, marginTop: 88}}
+            style={{
+              marginBottom: 30,
+              marginTop: 88,
+              backgroundColor: isDisabled !== false ? '#FFFFFF' : '#46A0BD',
+            }}
+            textStyle={{color: isDisabled !== false ? '#C4C4C4' : '#fff'}}
+            disabled={isDisabled !== false}
             text={'다음'}
             onPress={() => {
               onSignUp();
