@@ -150,8 +150,9 @@ const StackingApply = ({navigation}) => {
       const res = await api.post('staking', JSON.stringify(body), config);
       await setErrText('스테이킹을 완료!');
       setIsErrShow(true);
-      navigation.goBack();
+      // navigation.goBack();
     } catch (err) {
+      console.log(err?.response);
       if (err?.response?.data?.errMsg) {
         await setErrText(err.response.data.errMsg);
         setIsErrShow(true);
@@ -162,6 +163,11 @@ const StackingApply = ({navigation}) => {
       console.log('err', err.respon);
     }
   };
+  const success = async () => {
+    console.log('123');
+    await setIsErrShow(false);
+    navigation.goBack();
+  };
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
@@ -171,7 +177,9 @@ const StackingApply = ({navigation}) => {
       <TrueModalFrame
         infoText={errText}
         visible={isErrShow}
-        onPress={() => setIsErrShow(false)}
+        onPress={() =>
+          errText === '스테이킹을 완료!' ? success() : setIsErrShow(false)
+        }
       />
       <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
         <HeaderCompnent
