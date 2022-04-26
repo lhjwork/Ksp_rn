@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderCompnent from '../../../../components/HeaderCompnent';
 import {ContainerStyled} from '../../../../components/StyledComponents/StyledComponents';
@@ -31,13 +31,14 @@ const SelfAuth = ({navigation}) => {
   const [modalText, setModalText] = useState('');
   const [trueModalVisible, setTrueModalVisible] = useState(false);
   const [trueModalText, setTrueModalText] = useState('');
-  const [codeVerify, setCodeVerify] = useState('');
-  const [codeSame, setCodeSame] = useState('');
-  const [phoneUnlock, setPhoneUnlock] = useState(false);
+  const [codeVerify, setCodeVerify] = useState(''); //보낸 인증번호
+  const [codeSame, setCodeSame] = useState(''); //인증코드가 같은지 여부
+  const [phoneUnlock, setPhoneUnlock] = useState(false); //전송여부
   //
   const [checkPhone, setCheckPhone] = useState('');
 
   const sendPhoneNum = async () => {
+    setCodeSame('');
     if (phoneNumber.length < 10) {
       await setTrueModalText('휴대폰 번호를 입력해주세요');
       setTrueModalVisible(true);
@@ -58,9 +59,8 @@ const SelfAuth = ({navigation}) => {
 
       const {data} = res;
       let tempboolean = data['Result'];
-      setCodeSame(false);
-      setPhoneUnlock(true);
 
+      setPhoneUnlock(true);
       if (tempboolean === 'success' || tempboolean.length === 4) {
         setCheckPhone(phoneNumber);
         await setTrueModalText('인증 번호가 전송되었습니다.');
@@ -84,16 +84,16 @@ const SelfAuth = ({navigation}) => {
       };
       let body = {Phone: phoneNumber, Verification: verifiedCode};
       const res = await api.post('smsverify', JSON.stringify(body), config);
-      setCodeVerify(res?.data['Result']);
       console.log('codever', res);
+
+      setCodeVerify(res?.data['Result']);
       if (res?.data['Result'] === 'failed') {
         setCodeSame(false);
       } else if (res?.data['Result'] === 'success') {
         setCodeSame(true);
-        // return;
       }
     } catch (e) {
-      console.log(e);
+      setCodeSame(false);
     }
   };
 
@@ -186,7 +186,10 @@ const SelfAuth = ({navigation}) => {
             <AmountInput
               outStyle={{
                 flex: 1,
-                borderColor: phoneUnlock && !codeSame ? '#FF0000' : '#c4c4c4',
+                borderColor:
+                  phoneUnlock === true && codeSame === false
+                    ? '#FF0000'
+                    : '#c4c4c4',
               }}
               onChangeText={text => setVerifiedCode(text)}
               value={verifiedCode}

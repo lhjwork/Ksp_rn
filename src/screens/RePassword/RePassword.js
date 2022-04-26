@@ -23,13 +23,13 @@ const RePassword = ({navigation}) => {
   const [certification, setCertification] = useState('');
   const [checkPhoneNumber, setCheckPhoneNumber] = useState('');
 
-  const [errMsg, setErrMsg] = useState('');
   const [isErrModalShow, setIsErrModalShow] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(null);
-  const [isCheckValid, setIsCheckValid] = useState(null);
+  const [isNotCheckValid, setIsCheckValid] = useState(null);
   const [isShowLogin, setIsShowLogin] = useState(false);
   const [infoText, setInfoText] = useState('');
   const [isShow, setIsShow] = useState(false);
+
   const ErrFunction = async () => {
     if (userId === '') {
       await setInfoText('아이디를 입력해주세요');
@@ -47,6 +47,8 @@ const RePassword = ({navigation}) => {
     return false;
   };
   const sendPhoneMsg = async () => {
+    setCheckPhoneNumber('');
+    setIsCheckValid(null);
     if (phoneNumber.length < 10) {
       await setInfoText('휴대폰 번호를 입력해주세요');
       setIsShow(true);
@@ -63,7 +65,6 @@ const RePassword = ({navigation}) => {
         JSON.stringify(body),
         config,
       );
-      setIsCheckValid(true);
       setCheckPhoneNumber(phoneNumber);
       setSendSuccess(true);
       console.log('res', res?.data);
@@ -92,6 +93,7 @@ const RePassword = ({navigation}) => {
       setIsCheckValid(false);
       console.log('res', res?.data);
     } catch (e) {
+      setIsCheckValid(true);
       console.log(e);
       console.log(e.response);
     }
@@ -215,22 +217,33 @@ const RePassword = ({navigation}) => {
           </RowView>
           <RowView style={{marginTop: 5}}>
             <AmountInput
-              outStyle={{flex: 1}}
+              outStyle={{
+                flex: 1,
+                borderColor:
+                  isNotCheckValid === null
+                    ? '#C4C4C4'
+                    : isNotCheckValid
+                    ? '#FF0000'
+                    : '#46A0BD',
+              }}
               placeholder="인증번호를 입력해주세요."
               textStyle={{marginLeft: 23}}
               value={certification}
               onChangeText={setCertification}
-              editable={isCheckValid}
+              editable={isNotCheckValid}
+              //   sCheckValid
+              // ? '인증번호가 일치하지 않습니다.'
+              // : '인증번호가 일치합니다.'
             />
             <SmallButton
-              isDisabled={!isCheckValid}
+              isDisabled={checkPhoneNumber === ''}
               style={{
                 borderColor:
-                  !isCheckValid && certification.length === 4
+                  !isNotCheckValid && certification.length === 4
                     ? 'transparent'
                     : '#46A0BD',
                 backgroundColor:
-                  !isCheckValid && isCheckValid !== null
+                  !isNotCheckValid && isNotCheckValid !== null
                     ? '#C4C4C4'
                     : certification.length === 4
                     ? '#46A0BD'
@@ -242,24 +255,26 @@ const RePassword = ({navigation}) => {
               }}
               text={'확인'}
               onPress={() => {
-                if (isCheckValid === null) {
-                  return;
-                }
-                if (isCheckValid !== false) {
+                if (checkPhoneNumber !== '') {
                   checkCertification();
                 }
+                // if (isNotCheckValid === null) {
+                //   return;
+                // }
+                // if (isNotCheckValid !== false) {
+                // }
               }}
             />
           </RowView>
-          {isCheckValid !== null && (
+          {isNotCheckValid !== null && (
             <LabelNone
               text={
-                isCheckValid
+                isNotCheckValid
                   ? '인증번호가 일치하지 않습니다.'
                   : '인증번호가 일치합니다.'
               }
               style={{
-                color: isCheckValid ? '#FF0000' : '#46A0BD',
+                color: isNotCheckValid ? '#FF0000' : '#46A0BD',
                 fontSize: 12,
                 marginLeft: 19,
                 marginTop: 5,
@@ -270,10 +285,14 @@ const RePassword = ({navigation}) => {
       </ScrollView>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
         <BottomButton
-          disabled={isCheckValid !== false}
+          style={{
+            backgroundColor: isNotCheckValid !== false ? '#FFFFFF' : '#46A0BD',
+          }}
+          textStyle={{color: isNotCheckValid !== false ? '#C4C4C4' : '#fff'}}
+          disabled={isNotCheckValid !== false}
           text={'임시 비밀번호 전송'}
           onPress={e => {
-            if (isCheckValid === false) {
+            if (isNotCheckValid === false) {
               sendNewPassword(e);
             }
           }}

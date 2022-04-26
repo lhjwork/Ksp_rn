@@ -169,6 +169,22 @@ const PasswordChange = ({navigation}) => {
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
         <BottomButton
+          style={{
+            backgroundColor:
+              passwordValue2?.length === 0 ||
+              passwordValue1?.length === 0 ||
+              passwordValue2 !== passwordValue1
+                ? '#FFFFFF'
+                : '#46A0BD',
+          }}
+          textStyle={{
+            color:
+              passwordValue2?.length === 0 ||
+              passwordValue1?.length === 0 ||
+              passwordValue2 !== passwordValue1
+                ? '#C4C4C4'
+                : '#fff',
+          }}
           onPress={() => {
             if (passwordValue2 !== passwordValue1) {
               return;

@@ -27,11 +27,12 @@ const SearchId = ({navigation}) => {
   const [isShowIDModal, setIsShowIDModal] = useState(false);
 
   const [myId, setMyId] = useState(null);
-  const [isCheckValid, setIsCheckValid] = useState(null);
+  const [isNotCheckValid, setIsCheckValid] = useState(null); // 인증번호 확인되었는지
   const [checkName, setCheckName] = useState('');
   const [sendPhone, setSendPhone] = useState('');
 
   const sendPhoneMsg = async () => {
+    setIsCheckValid(null);
     if (phoneNumber.length < 10) {
       await setInfoText('휴대폰 번호를 입력해주세요');
       setIsShow(true);
@@ -47,7 +48,6 @@ const SearchId = ({navigation}) => {
         JSON.stringify(body),
         config,
       );
-      setIsCheckValid(true);
       setSendPhone(phoneNumber);
       await setInfoText('인증번호를 전송하였습니다');
       setIsShow(true);
@@ -77,6 +77,7 @@ const SearchId = ({navigation}) => {
       setMyId(data?.loginId);
       console.log('data', data);
     } catch (err) {
+      setIsCheckValid(true);
       console.log('err', err);
       console.log('err response', err.response);
     }
@@ -147,7 +148,6 @@ const SearchId = ({navigation}) => {
             onChangeText={text => setPhoneNumber(text)}
             value={phoneNumber}
           />
-
           <SmallButton
             style={styles.button}
             text={'전송'}
@@ -156,23 +156,31 @@ const SearchId = ({navigation}) => {
         </RowView>
         <RowView style={{marginTop: 5}}>
           <AmountInput
-            outStyle={{flex: 1}}
+            outStyle={{
+              flex: 1,
+              borderColor:
+                isNotCheckValid === null
+                  ? '#C4C4C4'
+                  : isNotCheckValid
+                  ? '#FF0000'
+                  : '#46A0BD',
+            }}
             placeholder="인증번호를 입력해주세요."
             textStyle={{marginLeft: 23}}
             onChangeText={text => setCertification(text)}
             value={certification}
-            editable={isCheckValid}
+            editable={isNotCheckValid}
             maxLength={4}
           />
           <SmallButton
-            isDisabled={!isCheckValid}
+            isDisabled={sendPhone === ''}
             style={{
               borderColor:
-                !isCheckValid && certification.length === 4
+                !isNotCheckValid && certification.length === 4
                   ? 'transparent'
                   : '#46A0BD',
               backgroundColor:
-                !isCheckValid && isCheckValid !== null
+                !isNotCheckValid && isNotCheckValid !== null
                   ? '#C4C4C4'
                   : certification.length === 4
                   ? '#46A0BD'
@@ -184,22 +192,22 @@ const SearchId = ({navigation}) => {
             }}
             text={'확인'}
             onPress={() => {
-              if (isCheckValid !== false) {
+              if (sendPhone !== '') {
                 confirmationPhoneNumber();
               }
             }}
           />
         </RowView>
 
-        {isCheckValid !== null && (
+        {isNotCheckValid !== null && (
           <LabelNone
             text={
-              isCheckValid
+              isNotCheckValid
                 ? '인증번호가 일치하지 않습니다.'
                 : '인증번호가 일치합니다.'
             }
             style={{
-              color: isCheckValid ? '#FF0000' : '#46A0BD',
+              color: isNotCheckValid ? '#FF0000' : '#46A0BD',
               fontSize: 12,
               marginLeft: 19,
               marginTop: 5,
@@ -210,10 +218,14 @@ const SearchId = ({navigation}) => {
 
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
         <BottomButton
+          style={{
+            backgroundColor: isNotCheckValid !== false ? '#FFFFFF' : '#46A0BD',
+          }}
+          textStyle={{color: isNotCheckValid !== false ? '#C4C4C4' : '#fff'}}
           text={'아이디찾기'}
-          disabled={isCheckValid !== false}
+          disabled={isNotCheckValid !== false}
           onPress={() => {
-            if (isCheckValid === false) {
+            if (isNotCheckValid === false) {
               showIdModal();
             }
           }}

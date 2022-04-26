@@ -8,7 +8,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width} = Dimensions.get('window');
 
-export const BottomButton = ({onPress, text, style, disabled = false}) => {
+export const BottomButton = ({
+  textStyle,
+  onPress,
+  text,
+  style,
+  disabled = false,
+}) => {
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -24,9 +30,10 @@ export const BottomButton = ({onPress, text, style, disabled = false}) => {
       <LabelNone
         text={text}
         style={{
+          ...textStyle,
           fontSize: 18,
           lineHeight: 26,
-          color: '#fff',
+          color: !textStyle ? '#fff' : textStyle?.color,
           textAlign: 'center',
           fontWeight: '700',
         }}
