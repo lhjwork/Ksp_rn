@@ -191,7 +191,7 @@ const Scann = ({navigation}) => {
           top: SCREEN_HEIGHT * 0.13,
         }}>
         <LabelNone
-          text={'QR코드,바코드를 인식해서\n랜던으로 잭팟을!'}
+          text={'QR코드,바코드를 인식해서\n랜덤으로 잭팟을!'}
           style={{
             textAlign: 'center',
             marginBottom: 38,
