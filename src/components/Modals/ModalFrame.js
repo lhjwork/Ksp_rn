@@ -33,7 +33,6 @@ const ModalFrame = ({visible, onPress, infoText}) => {
               />
             </View>
             <ModalBottomButton
-              text={'닫기'}
               style={{backgroundColor: '#c4c4c4', marginBottom: 16}}
               onPress={onPress}
             />

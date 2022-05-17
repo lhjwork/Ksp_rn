@@ -38,16 +38,11 @@ const Agreement = ({
             />
           )}
         </Touchable>
-        <Text style={styles.isRequireLabel}>
-          {isRequire ? '[필수]' : '[선택]'}
-        </Text>
+        <Text style={styles.isRequireLabel}></Text>
         <BoldLabelSubTitle text={text} style={styles.subTitleText} />
       </RowView>
       <Touchable onPress={DetailOpenPress}>
-        <LabelNone
-          text={'[상세보기]'}
-          style={{color: '#46A0BD', fontWeight: '700'}}
-        />
+        <LabelNone style={{color: '#46A0BD', fontWeight: '700'}} />
       </Touchable>
     </RowView>
   );

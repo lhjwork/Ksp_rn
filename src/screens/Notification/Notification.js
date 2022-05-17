@@ -49,7 +49,6 @@ const Notification = ({navigation}) => {
       />
       <ContainerStyled>
         <BoldLabelTitle
-          text={'공지사항'}
           style={{marginTop: 27.5, marginHorizontal: 30, marginBottom: 55}}
         />
         <ScrollView

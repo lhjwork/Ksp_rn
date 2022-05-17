@@ -25,10 +25,7 @@ const NoneScreen = ({text}) => {
         onPress={() => {
           openURL();
         }}>
-        <BoldLabel14
-          text={'코나 쇼핑몰 바로가기'}
-          style={{color: '#46A0BD', textAlign: 'center'}}
-        />
+        <BoldLabel14 style={{color: '#46A0BD', textAlign: 'center'}} />
       </Touchable>
     </View>
   );

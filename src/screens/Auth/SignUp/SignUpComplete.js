@@ -16,10 +16,7 @@ const SignUpComplete = ({navigation}) => {
           style={styles.logo}
         />
         <LabelNone text={'Kona Summit Platform'} style={styles.logoText} />
-        <BoldLabelTitle
-          text={'반갑습니다!\n회원가입이 성공적으로\n완료되었습니다.'}
-          style={styles.subText}
-        />
+        <BoldLabelTitle style={styles.subText} />
       </ContainerStyled>
       <Image
         source={require('../../../asssets/images/signUp_complete_img.png')}
@@ -29,7 +26,6 @@ const SignUpComplete = ({navigation}) => {
       <View style={styles.box}>
         <BottomButton
           style={styles.bottomBtn}
-          text={'로그인하러 가기'}
           onPress={() => {
             resetNavigation(navigation, 'Login');
           }}

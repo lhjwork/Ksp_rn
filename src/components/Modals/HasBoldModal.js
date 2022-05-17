@@ -65,7 +65,6 @@ const HasBoldModal = ({
               </View>
             </View>
             <ModalBottomButton
-              text={infoText ? infoText : '닫기'}
               style={{backgroundColor: '#94D2E9', marginBottom: 16}}
               onPress={onPress}
             />

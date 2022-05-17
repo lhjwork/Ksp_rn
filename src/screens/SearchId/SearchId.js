@@ -34,7 +34,6 @@ const SearchId = ({navigation}) => {
   const sendPhoneMsg = async () => {
     setIsCheckValid(null);
     if (phoneNumber.length < 10) {
-      await setInfoText('휴대폰 번호를 입력해주세요');
       setIsShow(true);
       return;
     }
@@ -49,12 +48,9 @@ const SearchId = ({navigation}) => {
         config,
       );
       setSendPhone(phoneNumber);
-      await setInfoText('인증번호를 전송하였습니다');
+
       setIsShow(true);
     } catch (err) {
-      await setInfoText(
-        '휴대폰 전송에 실패하였습니다 \n 입력하신 정보를 다시 확인해주세요',
-      );
       setIsShow(true);
       console.log('err', err);
       console.log('err', err.response);
@@ -84,20 +80,14 @@ const SearchId = ({navigation}) => {
   };
   const showIdModal = async () => {
     if (checkName !== userName) {
-      await setInfoText(
-        '현재 이름과 인증번호를 전송한 \n 이름이 일치하지 않습니다',
-      );
       setIsShow(true);
       return;
     }
     if (sendPhone !== phoneNumber) {
-      await setInfoText(
-        '현재 휴대폰 번호와 인증번호 전송한 \n 휴대폰 번호가 일치하지 않습니다',
-      );
       setIsShow(true);
       return;
     }
-    await setInfoText(`해당 아이디는 \n "${myId} "    입니다`);
+
     setIsShowIDModal(true);
   };
   return (
@@ -122,37 +112,26 @@ const SearchId = ({navigation}) => {
         onPressLeftBtn={() => navigation.goBack()}
       />
       <ContainerStyled style={{marginHorizontal: 24, marginTop: 27.5}}>
-        <BoldLabelTitle text={'아이디 찾기'} />
-        <BoldLabelSubTitle
-          text={
-            '아이디를 찾기 위해서는\n가입 시 등록하신 휴대폰번호의 인증이 필요합니다.'
-          }
-          style={styles.contentText}
-        />
-        <LabelNone text={'이름'} style={styles.subTitle} />
+        <BoldLabelSubTitle style={styles.contentText} />
+        <LabelNone style={styles.subTitle} />
         <View style={{height: 52}}>
           <ContentInput
-            placeholder={'이름을 입력해주세요.'}
             textStyle={styles.textStlye}
             onChangeText={text => setUserName(text)}
             value={userName}
           />
         </View>
-        <LabelNone text={'휴대폰 번호'} style={styles.subTitle2} />
+        <LabelNone style={styles.subTitle2} />
         <RowView>
           <AmountInput
             outStyle={{flex: 1}}
             // rightText={'KSP'}
-            placeholder="숫자만 입력해주세요."
+
             textStyle={{marginLeft: 23}}
             onChangeText={text => setPhoneNumber(text)}
             value={phoneNumber}
           />
-          <SmallButton
-            style={styles.button}
-            text={'전송'}
-            onPress={sendPhoneMsg}
-          />
+          <SmallButton style={styles.button} onPress={sendPhoneMsg} />
         </RowView>
         <RowView style={{marginTop: 5}}>
           <AmountInput
@@ -165,7 +144,6 @@ const SearchId = ({navigation}) => {
                   ? '#FF0000'
                   : '#46A0BD',
             }}
-            placeholder="인증번호를 입력해주세요."
             textStyle={{marginLeft: 23}}
             onChangeText={text => setCertification(text)}
             value={certification}
@@ -190,7 +168,6 @@ const SearchId = ({navigation}) => {
             textStyle={{
               color: certification.length === 4 ? '#fff' : '#46A0BD',
             }}
-            text={'확인'}
             onPress={() => {
               if (sendPhone !== '') {
                 confirmationPhoneNumber();
@@ -201,11 +178,6 @@ const SearchId = ({navigation}) => {
 
         {isNotCheckValid !== null && (
           <LabelNone
-            text={
-              isNotCheckValid
-                ? '인증번호가 일치하지 않습니다.'
-                : '인증번호가 일치합니다.'
-            }
             style={{
               color: isNotCheckValid ? '#FF0000' : '#46A0BD',
               fontSize: 12,
@@ -222,7 +194,6 @@ const SearchId = ({navigation}) => {
             backgroundColor: isNotCheckValid !== false ? '#FFFFFF' : '#46A0BD',
           }}
           textStyle={{color: isNotCheckValid !== false ? '#C4C4C4' : '#fff'}}
-          text={'아이디찾기'}
           disabled={isNotCheckValid !== false}
           onPress={() => {
             if (isNotCheckValid === false) {

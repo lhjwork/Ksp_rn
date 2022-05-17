@@ -34,7 +34,6 @@ const PasswordChange = ({navigation}) => {
 
   const onClickChangePassword = async () => {
     if (passwordValue2.length < 6 || passwordValue1.length < 6) {
-      await setErrMsg('비밀번호는 최소 6글자입니다');
       setIsShow(true);
       return;
     }
@@ -44,7 +43,7 @@ const PasswordChange = ({navigation}) => {
     };
     try {
       let {data} = await api.post(`/rePassword`, body, config);
-      console.log('비밀번호 변경', data);
+
       if (data?.result === 'success') {
         setIsSuccess(true);
         navigation.navigate('ShoppingMall');
@@ -56,7 +55,6 @@ const PasswordChange = ({navigation}) => {
 
       // navigation.navigate('main');
     } catch (e) {
-      console.log('비밀변호 변경 에러 제거', e);
       console.log(e.response);
       setIsSuccess(false);
     } finally {
@@ -87,11 +85,6 @@ const PasswordChange = ({navigation}) => {
         }}
       />
       <HasBoldModal
-        // oneText={'인증된 휴대폰 번호로'}
-        twoText={
-          isSuccess ? '비밀번호 변경 ' : '비밀번호 변경에 실패하였습니다'
-        }
-        threeText={isSuccess ? '이완료되었습니다.' : null}
         boldColor={'#000'}
         color={'#555'}
         visible={pwdModalVisible}
@@ -102,19 +95,15 @@ const PasswordChange = ({navigation}) => {
         onPerssDrawer={() => navigation.openDrawer()}
       />
       <ContainerStyled style={{marginHorizontal: 24, marginTop: 27.5}}>
-        <BoldLabelTitle text={'비밀번호 변경'} />
+        <BoldLabelTitle />
 
-        <BoldLabel14
-          text={'새 비밀번호'}
-          style={{marginTop: 23, marginBottom: 9}}
-        />
+        <BoldLabel14 style={{marginTop: 23, marginBottom: 9}} />
 
         <PasswordInput
           styleBox={{
             borderColor: passwordValue1?.length >= 1 ? '#46A0BD' : '#c4c4c4',
           }}
           noneImage={false}
-          placeholder={'새 비밀번호'}
           eyeSytle={{marginRight: 18}}
           textStyle={{marginLeft: 24}}
           secureTextEntry={passwordVisible1}
@@ -134,7 +123,6 @@ const PasswordChange = ({navigation}) => {
             marginTop: 10,
           }}
           noneImage={false}
-          placeholder={'새 비밀번호 확인'}
           eyeSytle={{marginRight: 18}}
           textStyle={{marginLeft: 24}}
           secureTextEntry={passwordVisible2}
@@ -147,7 +135,6 @@ const PasswordChange = ({navigation}) => {
           passwordValue1?.length !== 0 &&
           (passwordValue1 !== passwordValue2 ? (
             <LabelNone
-              text={'비밀번호가 일치하지 않습니다.'}
               style={{
                 color: '#FF0000',
                 fontSize: 12,
@@ -157,7 +144,6 @@ const PasswordChange = ({navigation}) => {
             />
           ) : (
             <LabelNone
-              text={'비밀번호가 일치합니다.'}
               style={{
                 color: '#46A0BD',
                 fontSize: 12,
@@ -191,7 +177,6 @@ const PasswordChange = ({navigation}) => {
             }
             onClickChangePassword();
           }}
-          text={'변경'}
           disabled={
             passwordValue2?.length === 0 ||
             passwordValue1?.length === 0 ||

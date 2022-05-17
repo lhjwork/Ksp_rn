@@ -47,21 +47,17 @@ const Swap = ({navigation}) => {
   const onClickChangePoint = async () => {
     setIsDisabled(true);
     if (pointCount === 0 || pointCount.length === 0) {
-      await setErrText(
-        isCovertKspToKspc ? 'KSPC를 입력해주세요' : 'KSP를 입력해주세요',
-      );
+      await setErrText();
       setIsErrShow(true);
       return;
     }
     if (isCovertKspToKspc) {
       if (pointCount > Number(balance?.ksp)) {
-        await setErrText('보유한 KSP를 초과할 수없습니다');
         setIsErrShow(true);
         return;
       }
     } else {
       if (pointCount > Number(balance?.kspc)) {
-        await setErrText('보유한 KSPC를 초과할 수없습니다');
         setIsErrShow(true);
         return;
       }
@@ -79,7 +75,7 @@ const Swap = ({navigation}) => {
 
     try {
       const {data} = await api.post(url, JSON.stringify(body), config);
-      await setErrText('포인트 전환에 성공하셨습니다!');
+
       navigation.goBack();
       setIsErrShow(true);
     } catch (e) {
@@ -89,7 +85,7 @@ const Swap = ({navigation}) => {
         setIsErrShow(true);
         return;
       }
-      await setErrText('포인트 전환에 실패했습니다.');
+
       setIsErrShow(true);
     }
   };
@@ -146,7 +142,6 @@ const Swap = ({navigation}) => {
             </Touchable>
           </RowView>
           <AmountInput
-            placeholder={'수량을 입력해주세요.'}
             textStyle={{marginLeft: 19}}
             rightText={isCovertKspToKspc ? 'KSPC' : 'KSP'}
             rightTextStyle={{marginRight: 16}}
@@ -154,26 +149,10 @@ const Swap = ({navigation}) => {
             value={pointCount}
             onChangeText={setPointCount}
           />
-          <LabelNone
-            text={
-              '[유의사항]\n\n' +
-              '\t• 개인정보 입력에 유의해주세요.\n' +
-              '\t• KSPC :이외의 주소는 전송되지 않습니다.\n' +
-              '\t• KSPC를 전송할 경우에는 이더리움 가스비가 필요합니다.\n' +
-              '\t• 미리 이더리움을 충전해주세요.'
-            }
-            style={{
-              fontSize: 12,
-              color: '#fff',
-              fontWeight: '700',
-              marginBottom: 26,
-              marginTop: SCREEN_HEIGHT * 0.17,
-            }}
-          />
+
           <BottomButton
             disabled={isDisabled}
             style={styles.bottomBtnPosition}
-            text={'포인트 전환'}
             onPress={onClickChangePoint}
           />
         </View>

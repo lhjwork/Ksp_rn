@@ -33,7 +33,6 @@ const TrueModalFrame = ({visible, onPress, infoText}) => {
               />
             </View>
             <ModalBottomButton
-              text={'닫기'}
               style={{backgroundColor: '#94D2E9', marginBottom: 16}}
               onPress={onPress}
             />

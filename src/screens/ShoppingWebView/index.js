@@ -63,8 +63,7 @@ const ShoppingWebView = ({navigation, route}) => {
 
     try {
       const res = await api.post(`paymentupdate`, JSON.stringify(body), config);
-      console.log('res,구매연동', res);
-      Alert.alert('결제가 완료되었습니다.');
+
       resetNavigation(navigation, 'DrawerStack');
     } catch (err) {
       // console.log('payment/complete', err);
@@ -72,9 +71,6 @@ const ShoppingWebView = ({navigation, route}) => {
         Alert.alert(err.response.data.errMsg);
         return;
       }
-      Alert.alert('서버와 통신에 실패');
-      // console.log('결제완료 에러 입니다', err);
-      // console.log('결제완료 에러 입니다', err.response);
     }
   };
   const onCheckIamPortPayment = async (imp_uid, body) => {
@@ -88,7 +84,6 @@ const ShoppingWebView = ({navigation, route}) => {
         Alert.alert(err.response.data.errMsg);
         return;
       }
-      Alert.alert('서버와 통신에 실패');
     }
   };
 
@@ -101,7 +96,6 @@ const ShoppingWebView = ({navigation, route}) => {
     else if (JSON?.parse(nativeEvent?.data)?.type === 'payment') {
       const {body, type} = JSON?.parse(nativeEvent?.data);
       if (body.totalPrice < 0) {
-        Alert.alert('결제 금액 오류입니다');
         return;
       }
 
@@ -109,19 +103,7 @@ const ShoppingWebView = ({navigation, route}) => {
         onPayment(body);
         return;
       }
-      // navigation.navigate('IamPortPayment', {
-      //   paymentMethod,
-      //   totalPrice,
-      //   onComplete: (res) => {
-      //     const { imp_success, imp_uid, merchant_uid, error_msg } = res;
-      //     if (imp_success === 'true') {
-      //       onCheckIamPortPayment(imp_uid);
-      //       // onPayment('카드');
-      //     } else {
-      //       Alert.alert('결제에 실패하였습니다.', error_msg);
-      //     }
-      //   },
-      // });
+
       navigation.navigate('IamPortPayment', {
         body,
         onComplete: res => {
@@ -129,7 +111,6 @@ const ShoppingWebView = ({navigation, route}) => {
           if (imp_success === 'true') {
             onCheckIamPortPayment(imp_uid, body);
           } else {
-            Alert.alert('결제에 실패하였습니다.', error_msg);
           }
         },
       });

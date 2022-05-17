@@ -22,10 +22,7 @@ const TermsDetail = ({navigation, route}) => {
       }, 300);
     }, [navigation, url]),
   );
-  // useEffect(() => {
-  //   console.log(url);
-  //   setUrls(url);
-  // }, [route, navigation, url]);
+
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {

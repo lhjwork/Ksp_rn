@@ -21,31 +21,26 @@ const DRAWER_LIST_DATA = [
   {
     id: 1,
     img: require('../asssets/icons/setting_img.png'),
-    title: '내정보',
     path: 'MyInfo',
   },
   {
     id: 2,
     img: require('../asssets/icons/calendar_img.png'),
-    title: '출석체크',
     path: 'Calendar',
   },
   {
     id: 5,
     img: require('../asssets/icons/purchase.png'),
-    title: '구매내역',
     path: 'PurchaseHistory',
   },
   {
     id: 3,
     img: require('../asssets/icons/notice_img.png'),
-    title: '공지사항',
     path: 'Notification',
   },
   {
     id: 4,
     img: require('../asssets/icons/pencle_img.png'),
-    title: '약관',
     path: 'Terms',
   },
 ];
@@ -91,7 +86,6 @@ const DrawerComponent = ({navigation}) => {
                 style={{color: '#46A0BD', marginLeft: 9}}
               />
               <BoldLabel14
-                text={' 님, 안녕하세요!'}
                 style={{
                   lineHeight: 20,
                   color: '#000',
@@ -133,14 +127,12 @@ const DrawerComponent = ({navigation}) => {
           </Touchable>
         ))}
 
-        {/* 버전 정보  */}
         <RowView style={styles.imgAndtextRow}>
-          <BoldLabel14 text={'버전정보v1.0'} style={styles.listText2} />
+          <BoldLabel14 style={styles.listText2} />
           {/*<AntDesign name="right" size={9} style={styles.antDesignSytle} />*/}
         </RowView>
       </View>
 
-      {/* 로그아웃 */}
       <Touchable onPress={() => onLogout()}>
         <RowView style={styles.imgAndtextRow2}>
           <AntDesign
@@ -148,7 +140,7 @@ const DrawerComponent = ({navigation}) => {
             size={15}
             style={{marginLeft: 13.5, marginRight: 11.5, color: '#555555'}}
           />
-          <BoldLabel14 text={'로그아웃'} style={styles.logoutText} />
+          <BoldLabel14 style={styles.logoutText} />
         </RowView>
       </Touchable>
     </ContainerStyled>

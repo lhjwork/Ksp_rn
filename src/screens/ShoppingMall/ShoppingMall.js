@@ -84,10 +84,7 @@ const ShoppingMall = ({navigation}) => {
                 onPress={() => {
                   openURL();
                 }}>
-                <LabelNone
-                  text={'코나 쇼핑몰 홈페이지 바로가기'}
-                  style={styles.shoppingText}
-                />
+                <LabelNone style={styles.shoppingText} />
               </Touchable>
             </LinearGradient>
           }
@@ -95,10 +92,7 @@ const ShoppingMall = ({navigation}) => {
             <>
               <HeaderCompnent onPerssDrawer={() => navigation.openDrawer()} />
               <View style={{marginHorizontal: 30}}>
-                <BoldLabelTitle
-                  text={'코나 쇼핑몰'}
-                  style={{marginTop: 27.5}}
-                />
+                <BoldLabelTitle style={{marginTop: 27.5}} />
                 <BoldLabelSubTitle
                   text={'TOTAL PORTFOLIO VALUE'}
                   style={{marginTop: 13}}

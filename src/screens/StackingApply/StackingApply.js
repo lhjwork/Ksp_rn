@@ -48,7 +48,7 @@ const StackingApply = ({navigation}) => {
     interestInforFirst;
 
   let calendarData = [
-    ['분기', '모집기간', '지급이자(7%)', '모집수량', '지급일자'],
+
     [
       '1',
       '01.01-01.10',
@@ -87,25 +87,18 @@ const StackingApply = ({navigation}) => {
   ];
   const onClickSum = async () => {
     if (sumInput.length === 0) {
-      setErrText('수량을 입력해주세요');
+   
       await setInterest('start');
       setIsErrShow(true);
       return;
     }
     if (parseInt(sumInput) < 1000) {
-      await setErrText('1000 이상만 가능합니다');
-      setIsErrShow(true);
+     setIsErrShow(true);
       return;
     }
     setInterest(sumInput);
 
-    try {
-      setErrText('계산 완료');
-    } catch (e) {
-      setErrText('계산 실패');
-    } finally {
-      setIsErrShow(true);
-    }
+  
   };
   useEffect(() => {
     getBalance();
@@ -125,17 +118,16 @@ const StackingApply = ({navigation}) => {
   };
   const fetchStaking = async () => {
     if (sumInput.length === 0) {
-      await setErrText('수량을 입력해주세요');
-      setIsErrShow(true);
+     setIsErrShow(true);
       return;
     }
     if (parseInt(sumInput) < 1000) {
-      await setErrText('1000 이상만 가능합니다');
+     
       setIsErrShow(true);
       return;
     }
     if (parseInt(sumInput) > balance?.ksp) {
-      await setErrText('보유하신 KSP 를 초과하셨습니다');
+     
       setIsErrShow(true);
       return;
     }
@@ -148,7 +140,7 @@ const StackingApply = ({navigation}) => {
       };
 
       const res = await api.post('staking', JSON.stringify(body), config);
-      await setErrText('스테이킹을 완료!');
+   
       setIsErrShow(true);
       // navigation.goBack();
     } catch (err) {
@@ -158,7 +150,7 @@ const StackingApply = ({navigation}) => {
         setIsErrShow(true);
         return;
       }
-      Alert.alert('서버와 통신에 실패');
+    
       console.log('err', err);
       console.log('err', err.respon);
     }
@@ -177,7 +169,7 @@ const StackingApply = ({navigation}) => {
         infoText={errText}
         visible={isErrShow}
         onPress={() =>
-          errText === '스테이킹을 완료!' ? success() : setIsErrShow(false)
+          errText === '' ? success() : setIsErrShow(false)
         }
       />
       <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
@@ -187,7 +179,7 @@ const StackingApply = ({navigation}) => {
         />
         <View style={{marginHorizontal: 24, flex: 1}}>
           <BoldLabelTitle
-            text={'KSP - 스테이킹 신청'}
+            text={'KSP '}
             style={{marginTop: 27.5, marginBottom: 33}}
           />
           <RowView style={{marginTop: 5}}>
@@ -195,21 +187,21 @@ const StackingApply = ({navigation}) => {
               value={sumInput}
               outStyle={{flex: 1, borderWidth: 0, height: 40}}
               rightText={'KSP'}
-              placeholder="수량을 입력해주세요."
+              placeholder=""
               textStyle={{marginLeft: 19}}
               onChangeText={onChangeSumInput}
             />
             <SmallButton
               style={{...styles.button, paddingVertical: 10, width: 70}}
               textStyle={{color: '#fff', fontSize: 14}}
-              text={'계산'}
+              text={''}
               onPress={() => {
                 onClickSum();
               }}
             />
           </RowView>
           <LabelNone
-            text={'최소 신청 수량은 1,000KSP 입니다.'}
+   
             style={styles.onlyNumber}
           />
           <RowView>
@@ -219,21 +211,13 @@ const StackingApply = ({navigation}) => {
               style={styles.exclamationStyle}
             />
             <BoldLabel14
-              text={'스테이킹 안내사항'}
+         
               style={styles.exclamationText}
             />
             <View style={{height: 1, backgroundColor: '#DF8600', flex: 1}} />
           </RowView>
           <BoldLabel14
-            text={
-              '\t• 기준 : 매 분기 1회 진행\n' +
-              '\t• 년간 총 4회 (리워드 풀 매년 수량의 5% 책정)\n' +
-              '\t• 2022년 분기별 KSP-스테이킹이 아래와 같이 시작됩니\n\t\t다.\n' +
-              '\t• 신청기간 : 분기별(1월,4월,7월,10월) 각 1일~10일 까지\n' +
-              '\t• 최소 신청수량 : 1,000 Ksp\n' +
-              '\t• 지급(예상)이자 : 7%\n' +
-              '\t• 이자 지급 계산은 위의 표를 참고해주시길 바랍니다.'
-            }
+     
             style={styles.noticeText}
           />
         </View>
@@ -247,7 +231,7 @@ const StackingApply = ({navigation}) => {
           </TableContainer>
           <View style={{marginHorizontal: 24}}>
             <LabelNone
-              text={'최소 신청 수량은 1,000KSP 입니다.'}
+        
               style={{
                 textAlign: 'center',
                 fontSize: 12,
@@ -258,7 +242,7 @@ const StackingApply = ({navigation}) => {
               }}
             />
             <BottomButton
-              text={'신청하기'}
+      
               onPress={() => {
                 fetchStaking();
               }}

@@ -98,11 +98,6 @@ const Calendar = ({navigation}) => {
               isDisabled
             }
             onPress={onClickAttendance}
-            text={
-              attendanceList?.includes(dayjs().format('YYYY-MM-DD'))
-                ? '출석체크 완료!'
-                : '출석체크 하기'
-            }
             iconName={'checkmark-done'}
             style={{
               marginTop: 24,
@@ -140,12 +135,12 @@ const CheckBoxView = ({month, attendanceCount}) => {
   return (
     <View>
       <RowView style={styles.attendanceTopBox}>
-        <LabelNone text={`${month}월 출석체크`} style={styles.monthText} />
+        <LabelNone text={`${month}`} style={styles.monthText} />
       </RowView>
       <RowView style={styles.attendanceTopBottomBox}>
-        <LabelNone text={'출석횟수'} style={styles.attendanceCountText} />
+        <LabelNone style={styles.attendanceCountText} />
         <LabelNone text={attendanceCount} style={styles.attendanceCount} />
-        <LabelNone text={'회'} style={styles.attendanceCountText} />
+        <LabelNone style={styles.attendanceCountText} />
       </RowView>
     </View>
   );

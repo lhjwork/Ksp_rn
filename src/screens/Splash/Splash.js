@@ -22,25 +22,6 @@ const Splash = ({navigation}) => {
     }, 1000);
   }, []);
 
-  // useEffect(() => {
-  //   getUserInfoList();
-  // }, []);
-
-  // const {sessionToken} = user;
-
-  // const getUserInfoList = async () => {
-  //   try {
-  //     const config = {headers: {'Content-Type': 'application/json'}};
-  //     const body = {sessionToken: sessionToken};
-  //     const res = api.post('userinfosend', JSON.stringify(body), config);
-  //     console.log('res', res);
-
-  //     //  setUserInfoList(res?.data);
-  //   } catch (e) {
-  //     console.log(e);
-  //     console.log(e.response);
-  //   }
-
   return (
     <LinearGradient
       colors={['#91C7D6', '#CBE2DC']}
@@ -56,18 +37,6 @@ const Splash = ({navigation}) => {
         style={styles.logoText}
         source={require('../../asssets/images/logoText.png')}
       />
-      {/*<BoldLabelSubTitle*/}
-      {/*  text={'Kona Summit Platform'}*/}
-      {/*  style={{*/}
-      {/*    marginTop: 13,*/}
-      {/*    fontSize: 19,*/}
-      {/*    textAlign: 'center',*/}
-      {/*    marginHorizontal: 70,*/}
-      {/*    color: '#221E1F',*/}
-      {/*    fontWeight: '500',*/}
-      {/*  }}*/}
-      {/*/>*/}
-      {/* <Touchable onPress={movePage()}></Touchable> */}
     </LinearGradient>
   );
 };

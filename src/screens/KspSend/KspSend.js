@@ -45,20 +45,17 @@ const KspSend = ({navigation, route}) => {
   const onClickSend = async () => {
     if (isKspSend) {
       if (balance.kspc < Number(sendAmount)) {
-        await setErrMsgModal('보유한 Kspc 이상은 전송할 수 없습니다');
         setIsShow(true);
         return;
       }
     }
     if (!isKspSend) {
       if (balance.Ethereum < Number(sendAmount)) {
-        await setErrMsgModal('보유한 ETH 이상은 전송할 수 없습니다');
         setIsShow(true);
         return;
       }
     }
     if (sendAmount === '' || sendAddress === '') {
-      await setErrMsgModal('입력을 완료해주세요');
       setIsShow(true);
       return;
     }
@@ -69,15 +66,9 @@ const KspSend = ({navigation, route}) => {
       toAddress: sendAddress.toString().trim(),
     };
 
-    // console.log('body입니다', body);
     setIsDisabled(true);
     try {
       const res = await api.post('sendcoin', JSON.stringify(body), config);
-      await setErrMsgModal(
-        isKspSend
-          ? `KSPC 출금 완료 시까지 \n최소 3분이 소요됩니다.`
-          : `이더리움 출금 완료 시까지 \n최소 3분이 소요됩니다.`,
-      );
 
       navigation.goBack();
       setIsShow(true);
@@ -109,26 +100,10 @@ const KspSend = ({navigation, route}) => {
       />
       <View style={{marginHorizontal: 24.5, flex: 1}}>
         <View style={{}}>
-          <BoldLabelTitle
-            text={isKspSend ? 'KSPC 보내기' : '이더리움 보내기'}
-            style={{marginTop: 27.5}}
-          />
-          <BoldLabelSubTitle
-            text={
-              isKspSend
-                ? 'KSPC 출금을 위해 주소를 입력해주세요.'
-                : '이더리움 출금을 위해 주소를 입력해주세요.'
-            }
-            style={{marginTop: 13}}
-          />
+          <BoldLabelTitle style={{marginTop: 27.5}} />
+          <BoldLabelSubTitle style={{marginTop: 13}} />
         </View>
 
-        {/* <ContentInput
-        // placeholder={'주소를 입력해주세요.'}
-        // imageNone={false}
-        // outStyle={{marginTop: 136, marginBottom: 15}}
-        // textStyle={{marginLeft: 19}}
-        /> */}
         <View
           style={{
             marginTop: SCREEN_HEIGHT * 0.17,
@@ -137,31 +112,25 @@ const KspSend = ({navigation, route}) => {
           }}>
           <AmountInput
             outStyle={{marginBottom: 10}}
-            placeholder={'주소를 입력해주세요.'}
             textStyle={{marginLeft: 19}}
             value={sendAddress}
             onChangeText={setSendAddress}
             keyboardType={'default'}
           />
           <AmountInput
-            placeholder={'수량을 입력해주세요.'}
             textStyle={{marginLeft: 19}}
             rightText={isKspSend ? 'KSPC' : 'ETH'}
             value={sendAmount}
             onChangeText={setSendAmount}
           />
 
-          <LabelNone text={'숫자만 입력해주세요.'} style={styles.onlyNumber} />
+          <LabelNone style={styles.onlyNumber} />
         </View>
         <View style={{marginTop: SCREEN_HEIGHT * 0.07}}>
           <ToastMsg ref={toastRef} />
         </View>
 
-        <BottomButton
-          onPress={onClickSend}
-          text={'보내기'}
-          disabled={isDisabled}
-        />
+        <BottomButton onPress={onClickSend} disabled={isDisabled} />
       </View>
     </LinearGradient>
   );

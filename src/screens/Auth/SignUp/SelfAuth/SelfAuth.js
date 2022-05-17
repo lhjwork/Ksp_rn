@@ -40,7 +40,6 @@ const SelfAuth = ({navigation}) => {
   const sendPhoneNum = async () => {
     setCodeSame('');
     if (phoneNumber.length < 10) {
-      await setTrueModalText('휴대폰 번호를 입력해주세요');
       setTrueModalVisible(true);
       return;
     }
@@ -63,10 +62,9 @@ const SelfAuth = ({navigation}) => {
       setPhoneUnlock(true);
       if (tempboolean === 'success' || tempboolean.length === 4) {
         setCheckPhone(phoneNumber);
-        await setTrueModalText('인증 번호가 전송되었습니다.');
+
         setTrueModalVisible(true);
       } else {
-        await setTrueModalText('인증번호 전송 실패하였습니다');
         setTrueModalVisible(true);
       }
     } catch (e) {
@@ -99,27 +97,22 @@ const SelfAuth = ({navigation}) => {
 
   const onNextPage = () => {
     if (phoneNumber < 11) {
-      setModalText('휴대폰 번호는 11자리 입니다.');
       setModalVisible(true);
       return;
     }
     if (phoneUnlock === false) {
-      setModalText('휴대번호를 전송바랍니다.');
       setModalVisible(true);
       return;
     }
     if (codeVerify.length < 4) {
-      setModalText('인증번호는 4자리 입니다.');
       setModalVisible(true);
       return;
     }
     if (checkPhone !== phoneNumber) {
-      setModalText('인증요청 번호와 현재 번호가 다릅니다');
       setModalVisible(true);
       return;
     }
     if (codeSame !== true) {
-      setModalText('인증번호가 일치하지 않습니다.');
       setModalVisible(true);
       return;
     }
@@ -145,7 +138,7 @@ const SelfAuth = ({navigation}) => {
       <ContainerStyled>
         <View style={{marginHorizontal: 24}}>
           <RowView style={{marginTop: 27.5, justifyContent: 'space-between'}}>
-            <BoldLabelTitle text={'회원가입'} />
+            <BoldLabelTitle />
             <RowView>
               {SIGNUP_NUM_DATA.map((num, index) => (
                 <>
@@ -160,27 +153,20 @@ const SelfAuth = ({navigation}) => {
             </RowView>
           </RowView>
 
-          <BoldLabelSubTitle
-            text={'본인 인증을 위해 필요한 정보를 입력해주세요.'}
-            style={styles.contentText}
-          />
-          <LabelNone text={'휴대폰 번호'} style={styles.subTitle} />
+          <BoldLabelSubTitle style={styles.contentText} />
+          <LabelNone style={styles.subTitle} />
           <RowView>
             <AmountInput
               outStyle={{flex: 1}}
               onChangeText={text => setPhoneNumber(text)}
               value={phoneNumber}
               // rightText={'KSP'}
-              placeholder="숫자만 입력해주세요."
+
               textStyle={{marginLeft: 23}}
               maxLength={11}
             />
 
-            <SmallButton
-              style={styles.button}
-              text={'전송'}
-              onPress={() => sendPhoneNum()}
-            />
+            <SmallButton style={styles.button} onPress={() => sendPhoneNum()} />
           </RowView>
           <RowView style={{marginTop: 5}}>
             <AmountInput
@@ -194,7 +180,7 @@ const SelfAuth = ({navigation}) => {
               onChangeText={text => setVerifiedCode(text)}
               value={verifiedCode}
               // rightText={'KSP'}
-              placeholder="인증번호를 입력해주세요."
+
               textStyle={{marginLeft: 23}}
               maxLength={4}
             />
@@ -212,7 +198,6 @@ const SelfAuth = ({navigation}) => {
               textStyle={{
                 color: verifiedCode.length === 4 ? '#fff' : '#46A0BD',
               }}
-              text={'확인'}
               onPress={async () => {
                 if (phoneUnlock === false) {
                   await setModalText('휴대번호를 전송바랍니다.');
@@ -225,11 +210,6 @@ const SelfAuth = ({navigation}) => {
           </RowView>
           {codeSame.length !== 0 && (
             <LabelNone
-              text={
-                !codeSame
-                  ? '인증번호가 일치하지 않습니다.'
-                  : '인증번호가 일치합니다.'
-              }
               style={{
                 color: !codeSame ? '#FF0000' : '#46A0BD',
                 fontSize: 12,
@@ -238,32 +218,10 @@ const SelfAuth = ({navigation}) => {
               }}
             />
           )}
-          {/*{codeSame === false ? (*/}
-          {/*  <LabelNone*/}
-          {/*    text={'인증번호가 일치하지 않습니다.'}*/}
-          {/*    style={{*/}
-          {/*      color: '#FF0000',*/}
-          {/*      fontSize: 12,*/}
-          {/*      marginLeft: 19,*/}
-          {/*      marginTop: 5,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*) : (*/}
-          {/*  <LabelNone*/}
-          {/*    text={'인증번호가 일치합니다.'}*/}
-          {/*    style={{*/}
-          {/*      color: '#46A0BD',*/}
-          {/*      fontSize: 12,*/}
-          {/*      marginLeft: 19,*/}
-          {/*      marginTop: 5,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*)}*/}
         </View>
       </ContainerStyled>
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
         <BottomButton
-          text={'다음'}
           onPress={() => onNextPage()}
           disabled={
             phoneNumber < 11 ||

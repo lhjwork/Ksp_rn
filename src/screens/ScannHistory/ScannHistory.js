@@ -48,7 +48,6 @@ const ScannHistory = ({navigation}) => {
           />
 
           <BoldLabelTitle
-            text={'스캔 히스토리'}
             style={{marginTop: 27.5, marginHorizontal: 30, marginBottom: 55}}
           />
           <View

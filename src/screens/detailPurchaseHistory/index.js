@@ -31,9 +31,7 @@ import ToastMsg from '../../components/toastMsg';
 const DetailPurchaseHistory = ({navigation, route}) => {
   let {params} = route;
   const toastRef = useRef(null);
-  const showToast = useCallback(() => {
-    toastRef.current.show('배송 준비중 입니다.');
-  }, []);
+  const showToast = useCallback(() => {}, []);
   const showToastMsg = () => {
     showToast();
   };
@@ -50,7 +48,6 @@ const DetailPurchaseHistory = ({navigation, route}) => {
       />
       <ContainerStyled>
         <BoldLabelTitle
-          text={'주문내역 상세'}
           style={{marginTop: 27.5, marginHorizontal: 30, marginBottom: 55}}
         />
         <ScrollView
@@ -67,11 +64,11 @@ const DetailPurchaseHistory = ({navigation, route}) => {
               justifyContent: 'space-between',
               paddingHorizontal: 24,
             }}>
-            <NormalLabel14 text={'주문 일자'} style={{color: '#000'}} />
+            <NormalLabel14 style={{color: '#000'}} />
             <NormalLabel14 text={params?.createdAt} style={{color: '#000'}} />
           </RowView>
           <View style={{paddingHorizontal: 24}}>
-            <Title style={{marginTop: 26}}>상품 정보</Title>
+            <Title style={{marginTop: 26}}>Product info</Title>
             <RowView style={{marginTop: 14}}>
               <ProductImage
                 source={require('../../asssets/Data/testProduct.png')}
@@ -82,33 +79,28 @@ const DetailPurchaseHistory = ({navigation, route}) => {
                   text={`[${params?.brand}] ${params?.title}`}
                 />
                 <NormalLabel14
-                  text={params?.price?.toLocaleString() + ' 원'}
+                  text={params?.price?.toLocaleString()}
                   style={{color: '#000000'}}
                 />
               </View>
             </RowView>
-            <Title style={{marginTop: 50}}>배송지 정보</Title>
+            <Title style={{marginTop: 50}}>shipping info</Title>
             <RowView style={{marginBottom: 25, marginTop: 22}}>
-              <ProductTitle>받는분</ProductTitle>
               <Subtitle>{params?.receiver}</Subtitle>
             </RowView>
             <RowView style={{marginBottom: 25}}>
-              <ProductTitle>연락처</ProductTitle>
               <Subtitle>{PhoneNumberConvert(params?.phoneNumber)}</Subtitle>
             </RowView>
             <RowView style={{marginBottom: 25, alignItems: 'flex-start'}}>
-              <ProductTitle>배송지</ProductTitle>
               <Subtitle>{params?.address}</Subtitle>
             </RowView>
             <RowView>
-              <ProductTitle>요청사항</ProductTitle>
               <Subtitle>{params?.memo}</Subtitle>
             </RowView>
-            <Title style={{marginTop: 50}}>결제 정보</Title>
+
             <RowView style={{marginTop: 25}}>
-              <ProductTitleBlack>상품가격</ProductTitleBlack>
               <Subtitle style={{textAlign: 'right', color: '#000000'}}>
-                {params?.price?.toLocaleString() + ' 원'}
+                {params?.price?.toLocaleString()}
               </Subtitle>
             </RowView>
             <RowView style={{marginVertical: 10}}>
@@ -116,12 +108,6 @@ const DetailPurchaseHistory = ({navigation, route}) => {
                 source={require('../../asssets/images/reply.png')}
                 resizeMode={'contain'}
               />
-              <ProductTitle>배송비</ProductTitle>
-              <SubtitleGray style={{textAlign: 'right'}}>
-                {params?.shippingFee === null
-                  ? '무료배송'
-                  : params?.shippingFee?.toLocaleString() + ' 원'}
-              </SubtitleGray>
             </RowView>
             <RowView
               style={{
@@ -134,24 +120,20 @@ const DetailPurchaseHistory = ({navigation, route}) => {
                 source={require('../../asssets/images/reply.png')}
                 resizeMode={'contain'}
               />
-              <ProductTitle style={{width: 'auto'}}>포인트사용</ProductTitle>
+
               <SubtitleGray style={{textAlign: 'right'}}>
                 {'- ' + params?.usedPoint?.toLocaleString() + ' KSP'}
               </SubtitleGray>
             </RowView>
 
             <RowView style={{marginBottom: 17}}>
-              <NormalLabel14
-                text={'최종 결제금액'}
-                style={{width: 'auto', color: '#000'}}
-              />
+              <NormalLabel14 style={{width: 'auto', color: '#000'}} />
               <BoldLabel18
                 text={params?.totalPrice?.toLocaleString() + ' 원'}
                 style={{flex: 1, textAlign: 'right', color: '#46A0BD'}}
               />
             </RowView>
             <RowView>
-              <ProductTitle style={{width: 'auto'}}>적립 포인트</ProductTitle>
               <Subtitle style={{textAlign: 'right'}}>
                 {params?.awardPoint?.toLocaleString() + ' KSP'}
               </Subtitle>
@@ -162,16 +144,6 @@ const DetailPurchaseHistory = ({navigation, route}) => {
               t_invoice={params?.invoiceNumber}
               showToastMsg={showToastMsg}
             />
-            {/*<SearchButton*/}
-            {/*  style={{marginTop: 39}}*/}
-            {/*  onPress={() => {*/}
-            {/*    navigation.navigate('DeliveryTracking');*/}
-            {/*  }}>*/}
-            {/*  <BoldLabelSubTitle*/}
-            {/*    text={'배송 조회'}*/}
-            {/*    style={{textAlign: 'center', color: '#94D2E9'}}*/}
-            {/*  />*/}
-            {/*</SearchButton>*/}
           </View>
         </ScrollView>
         <View>

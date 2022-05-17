@@ -26,10 +26,7 @@ const DeliveryTrackingButton = ({style, t_invoice, t_code, showToastMsg}) => {
 
   return (
     <SearchButton style={style} onPress={onSearch}>
-      <BoldLabelSubTitle
-        text={'배송 조회'}
-        style={{textAlign: 'center', color: '#94D2E9'}}
-      />
+      <BoldLabelSubTitle style={{textAlign: 'center', color: '#94D2E9'}} />
     </SearchButton>
   );
 };

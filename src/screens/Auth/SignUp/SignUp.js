@@ -22,17 +22,6 @@ import TrueModalFrame from '../../../components/Modals/TrueModalFrame';
 import {getVerifyCode} from '../../../utils';
 
 const SignUp = ({navigation, route}) => {
-  const loginIdVerifyList = [
-    '',
-    '이미 사용중인 아이디 입니다.',
-    '사용 가능한 아이디 입니다.',
-    '아이디는 최소 6글자입니다',
-  ];
-  const emailVerifyList = [
-    '',
-    '이미 사용중인 이메일 입니다.',
-    '사용 가능한 이메일 입니다.',
-  ];
   const [passwordVisible1, setPasswordVisible1] = useState(true);
   const [passwordVisible2, setPasswordVisible2] = useState(true);
   const [genderMale, setGenderMale] = useState('');
@@ -51,8 +40,8 @@ const SignUp = ({navigation, route}) => {
   const [email, setEmail] = useState('');
 
   //
-  const [checkId, setCheckId] = useState(''); //중복 확인을 누른 아아디
-  const [checkEmail, setCheckEmail] = useState(''); //중복 확인을 누른 아아디
+  const [checkId, setCheckId] = useState('');
+  const [checkEmail, setCheckEmail] = useState('');
 
   //
   const isDisabled =
@@ -74,63 +63,51 @@ const SignUp = ({navigation, route}) => {
   const onSignUp = async () => {
     //loginId.length < 6
     if (loginId.length < 6) {
-      setModalContent('아이디는 최소 6글자입니다');
       setModalVisible(true);
       return;
     }
     // onBlockSignUp();
     if (!getVerifyCode(email)) {
-      setModalContent('이메일을 형식에 맞춰서 입력해주세요');
       setModalVisible(true);
       return;
     }
     if (loginIdVerify === 1 || loginIdVerify === 0) {
-      setModalContent('아이디 중복확인 후 회원가입이 가능합니다.');
       setModalVisible(true);
       return;
     }
     if (emailVerify === 1 || emailVerify === 0) {
-      setModalContent('이메일 중복확인 후 회원가입이 가능합니다.');
       setModalVisible(true);
       return;
     }
     if (password1 !== password2) {
-      setModalContent('비밀번호가 일치하지 않습니다');
       setModalVisible(true);
       return;
     }
     if (password1.length < 6) {
-      setModalContent('비밀번호는 최소 6글자입니다');
       setModalVisible(true);
       return;
     }
     if (loginId !== checkId) {
-      setModalContent('중복확인 아이디와 현재 아이디가 같지않습니다');
       setModalVisible(true);
       return;
     }
     if (email !== checkEmail) {
-      setModalContent('중복확인 이메일과 현재 이메일이 같지않습니다');
       setModalVisible(true);
       return;
     }
     if (loginId.length < 6) {
-      setModalContent('아이디 입력은 필수입니다.');
       setModalVisible(true);
       return;
     }
     if (password1.length === 0) {
-      setModalContent('비밀번호 입력은 필수입니다.');
       setModalVisible(true);
       return;
     }
     if (username.length === 0) {
-      setModalContent('이름 입력은 필수입니다.');
       setModalVisible(true);
       return;
     }
     if (gender.length === 0) {
-      setModalContent('성별을 선택해주세요.');
       setModalVisible(true);
       return;
     }
@@ -159,14 +136,13 @@ const SignUp = ({navigation, route}) => {
         setModalVisible(true);
         return;
       }
-      await setModalContent('회원가입의 실패하였습니다');
+
       setModalVisible(true);
     }
   };
 
   const onLoginIdVerify = async () => {
     if (loginId.length < 6) {
-      await setModalContent('아이디는 최소 6글자입니다');
       setModalVisible(true);
       setLoginIdVerify(3);
       return;
@@ -183,7 +159,7 @@ const SignUp = ({navigation, route}) => {
         JSON.stringify(body),
         config,
       );
-      console.log('중복확인', res?.data);
+      console.log(res?.data);
       const {Result} = res?.data;
       // console.log(Result);
       if (Result === 'alreadyloginId') {
@@ -244,37 +220,30 @@ const SignUp = ({navigation, route}) => {
 
   const onBlockSignUp = () => {
     if (gender.length === 0) {
-      setModalContent('성별을 선택해주세요.');
       setModalVisible(true);
       return;
     }
     if (loginIdVerify === false || loginIdVerify === '') {
-      setModalContent('아이디 중복확인 후 회원가입이 가능합니다.');
       setModalVisible(true);
       return;
     }
     if (emailVerify === false || emailVerify === '') {
-      setModalContent('이메일 중복확인 후 회원가입이 가능합니다.');
       setModalVisible(true);
       return;
     }
     if (loginId.length === 0) {
-      setModalContent('아이디 입력은 필수입니다.');
       setModalVisible(true);
       return;
     }
     if (password1.length === 0) {
-      setModalContent('비밀번호 입력은 필수입니다.');
       setModalVisible(true);
       return;
     }
     if (username.length === 0) {
-      setModalContent('이름 입력은 필수입니다.');
       setModalVisible(true);
       return;
     }
     if (gender.length === 0) {
-      setModalContent('성별을 선택해주세요.');
       setModalVisible(true);
       return;
     }
@@ -300,7 +269,7 @@ const SignUp = ({navigation, route}) => {
               marginTop: 27.5,
               justifyContent: 'space-between',
             }}>
-            <BoldLabelTitle text={'회원가입'} />
+            <BoldLabelTitle />
             <RowView>
               {SIGNUP_NUM_DATA.map((num, index) => (
                 <>
@@ -315,17 +284,10 @@ const SignUp = ({navigation, route}) => {
               ))}
             </RowView>
           </RowView>
-          <BoldLabelSubTitle
-            text={'회원가입을 위한 본인정보를 입력해주세요.'}
-            style={styles.contentText}
-          />
-          <BoldLabel14
-            text={'아이디'}
-            style={{marginTop: 72, marginBottom: 9}}
-          />
+          <BoldLabelSubTitle style={styles.contentText} />
+          <BoldLabel14 style={{marginTop: 72, marginBottom: 9}} />
           <RowView>
             <ContentInput
-              placeholder={'아이디입력'}
               textStyle={styles.textStlye}
               onChangeText={text => setLoginId(text)}
               value={loginId}
@@ -333,7 +295,6 @@ const SignUp = ({navigation, route}) => {
               isHas={true}
             />
             <SmallButton
-              text={'중복확인'}
               onPress={() => onLoginIdVerify()}
               isDisabled={checkId !== '' && loginId === checkId}
             />
@@ -351,34 +312,9 @@ const SignUp = ({navigation, route}) => {
               marginTop: 5,
             }}
           />
-          {/*{loginIdVerify === false || '' ? (*/}
-          {/*  <LabelNone*/}
-          {/*    text={'이미 사용중인 아이디 입니다.'}*/}
-          {/*    style={{*/}
-          {/*      color: '#FF0000',*/}
-          {/*      fontSize: 12,*/}
-          {/*      marginLeft: 19,*/}
-          {/*      marginTop: 5,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*) : (*/}
-          {/*  <LabelNone*/}
-          {/*    text={'사용 가능한 아이디 입니다.'}*/}
-          {/*    style={{*/}
-          {/*      color: '#46A0BD',*/}
-          {/*      fontSize: 12,*/}
-          {/*      marginLeft: 19,*/}
-          {/*      marginTop: 5,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*)}*/}
 
-          <BoldLabel14
-            text={'비밀번호'}
-            style={{marginTop: 28, marginBottom: 9}}
-          />
+          <BoldLabel14 style={{marginTop: 28, marginBottom: 9}} />
           <PasswordInput
-            placeholder={'비밀번호 입력'}
             textStyle={styles.textStlye}
             eyeSytle={{marginRight: 16}}
             secureTextEntry={passwordVisible1}
@@ -387,7 +323,6 @@ const SignUp = ({navigation, route}) => {
             value={password1}
           />
           <PasswordInput
-            placeholder={'비밀번호 재입력'}
             textStyle={styles.textStlye}
             eyeSytle={{marginRight: 16}}
             styleBox={{marginTop: 5}}
@@ -399,7 +334,6 @@ const SignUp = ({navigation, route}) => {
           {password1.length !== 0 &&
             (password1 !== password2 ? (
               <LabelNone
-                text={'비밀번호가 일치하지 않습니다.'}
                 style={{
                   color: '#FF0000',
                   fontSize: 12,
@@ -409,7 +343,6 @@ const SignUp = ({navigation, route}) => {
               />
             ) : (
               <LabelNone
-                text={'비밀번호가 일치합니다.'}
                 style={{
                   color: '#46A0BD',
                   fontSize: 12,
@@ -420,27 +353,20 @@ const SignUp = ({navigation, route}) => {
             ))}
 
           <LabelNone />
-          <BoldLabel14 text={'이름'} style={{marginTop: 8, marginBottom: 9}} />
+          <BoldLabel14 style={{marginTop: 8, marginBottom: 9}} />
           <ContentInput
-            placeholder={'이름을 입력해주세요.'}
             textStyle={styles.textStlye}
             onChangeText={text => setUsername(text)}
             value={username}
           />
-          <BoldLabel14
-            text={'휴대번호'}
-            style={{marginTop: 25, marginBottom: 11}}
-          />
+          <BoldLabel14 style={{marginTop: 25, marginBottom: 11}} />
           <ContentInput
             placeholder={'ex)01012345678'}
             textStyle={styles.textStlye}
             value={phoneNumber}
             editable={false}
           />
-          <BoldLabel14
-            text={'성별'}
-            style={{marginTop: 25, marginBottom: 11}}
-          />
+          <BoldLabel14 style={{marginTop: 25, marginBottom: 11}} />
           <RowView style={{justifyContent: 'space-between'}}>
             <Touchable
               style={{width: SCREEN_WIDTH * 0.445, height: 52}}
@@ -456,7 +382,6 @@ const SignUp = ({navigation, route}) => {
                   genderMale === '' ? styles.genderMale : styles.genderMale2
                 }>
                 <BoldLabel14
-                  text={'남'}
                   style={{
                     color: genderMale === '' ? '#c4c4c4' : '#46A0BD',
                   }}
@@ -480,7 +405,6 @@ const SignUp = ({navigation, route}) => {
                     : styles.genderFeMale2
                 }>
                 <BoldLabel14
-                  text={'여'}
                   style={{
                     color: genderFeMale === '' ? '#c4c4c4' : '#46A0BD',
                   }}
@@ -489,13 +413,9 @@ const SignUp = ({navigation, route}) => {
             </Touchable>
           </RowView>
 
-          <BoldLabel14
-            text={'이메일 주소'}
-            style={{marginTop: 25, marginBottom: 11}}
-          />
+          <BoldLabel14 style={{marginTop: 25, marginBottom: 11}} />
           <RowView>
             <ContentInput
-              placeholder={'이메일을 입력해주세요.'}
               textStyle={styles.textStlye}
               value={email}
               onChangeText={text => setEmail(text)}
@@ -503,7 +423,6 @@ const SignUp = ({navigation, route}) => {
             />
 
             <SmallButton
-              text={'중복확인'}
               onPress={() => onEmailVerify()}
               isDisabled={
                 !getVerifyCode(email)
@@ -516,9 +435,7 @@ const SignUp = ({navigation, route}) => {
           {email.length > 0 && (
             <LabelNone
               text={
-                getVerifyCode(email)
-                  ? emailVerifyList[emailVerify]
-                  : '이메일을 형식에 맞춰서 입력해주세요'
+                getVerifyCode(email) ? emailVerifyList[emailVerify] : 'email'
               }
               style={{
                 color: !getVerifyCode(email)
@@ -532,27 +449,6 @@ const SignUp = ({navigation, route}) => {
               }}
             />
           )}
-          {/*{emailVerify === false || '' ? (*/}
-          {/*  <LabelNone*/}
-          {/*    text={'사용중인 이메일 입니다.'}*/}
-          {/*    style={{*/}
-          {/*      color: '#FF0000',*/}
-          {/*      fontSize: 12,*/}
-          {/*      marginLeft: 19,*/}
-          {/*      marginTop: 5,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*) : (*/}
-          {/*  <LabelNone*/}
-          {/*    text={'사용가능한 이메일 입니다.'}*/}
-          {/*    style={{*/}
-          {/*      color: '#46A0BD',*/}
-          {/*      fontSize: 12,*/}
-          {/*      marginLeft: 19,*/}
-          {/*      marginTop: 5,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*)}*/}
 
           <BottomButton
             style={{
@@ -562,7 +458,6 @@ const SignUp = ({navigation, route}) => {
             }}
             textStyle={{color: isDisabled !== false ? '#C4C4C4' : '#fff'}}
             disabled={isDisabled !== false}
-            text={'다음'}
             onPress={() => {
               onSignUp();
             }}

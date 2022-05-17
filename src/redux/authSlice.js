@@ -84,7 +84,7 @@ export const signIn =
 
       if (data.Result === 'failed') {
         setLoginModalVisible(true);
-      } else if (data.Result === '비밀번호가 틀렸습니다.') {
+      } else if (data.Result === 'wrong') {
         setPwdModalVisible(true);
       } else {
         dispatch(loginSuccess());

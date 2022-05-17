@@ -8,44 +8,6 @@ import {BoldLabel14, LabelNone} from '../../components/Labels';
 import {useNavigation} from '@react-navigation/native';
 
 const NotificationDetail = ({navigation, route}) => {
-  // function handleBackButtonClick() {
-  //   if (stage === 1) {
-  //     console.log('Going back to previous screen!');
-  //     // setStage(stage - 1);
-  //     navigation.navigate('Notification');
-  //     setStage(stage - 1);
-  //     return true;
-  //   } else if (stage < 1) {
-  //     // navigation.goBack();
-  //     return false;
-  //   }
-  //   // } else if (stage < 1) {
-  //   //   return false;
-  //   // }
-  // }
-
-  // useEffect(() => {
-  //   // const backAction = () => {
-  //   //   Alert.alert('Hold on!', '앱을 종료하시겠습니까?', [
-  //   //     {
-  //   //       text: '취소',
-  //   //       onPress: () => null,
-  //   //     },
-  //   //     {text: '확인', onPress: () => BackHandler.exitApp()},
-  //   //   ]);
-  //   //   return true;
-  //   // };
-  //   BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-  //   return () => {
-  //     BackHandler.removeEventListener(
-  //       'hardwareBackPress',
-  //       handleBackButtonClick,
-  //     );
-  //   };
-
-  //   // return () => backHandler.remove();
-  // }, [stage]);
-
   const {Date, Subject, Title} = route?.params?.item;
   let test = 123;
   return (
@@ -56,12 +18,6 @@ const NotificationDetail = ({navigation, route}) => {
       />
       <ContainerStyled style={styles.whiteContainer}>
         <View style={styles.titleBox}>
-          {/* <RowView
-            style={{
-              flex: 1,
-              alignItems: null,
-              paddingTop: 15,
-            }}> */}
           <LabelNone
             text={Title}
             style={{
@@ -72,7 +28,7 @@ const NotificationDetail = ({navigation, route}) => {
               paddingTop: 15,
             }}
           />
-          {/* </RowView> */}
+
           <LabelNone text={Date} style={styles.date} />
         </View>
         <LabelNone text={Subject} style={styles.content} />

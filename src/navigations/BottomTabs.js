@@ -41,7 +41,6 @@ const BottomTabs = ({navigation}) => {
         component={ShoppingMall}
         options={{
           headerShown: false,
-          tabBarLabel: '쇼핑몰',
           tabBarIcon: ({focused, name}) => {
             return (
               <TabBarIcon
@@ -62,7 +61,6 @@ const BottomTabs = ({navigation}) => {
         component={Scann}
         options={{
           headerShown: false,
-          tabBarLabel: '스캔',
           tabBarHideOnKeyboard: true,
           tabBarIcon: ({focused}) => (
             <TabBarIcon
@@ -80,7 +78,6 @@ const BottomTabs = ({navigation}) => {
         component={WalletKsp}
         options={{
           headerShown: false,
-          tabBarLabel: 'Ksp지갑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
               focusImage={
@@ -97,7 +94,6 @@ const BottomTabs = ({navigation}) => {
         component={Swap}
         options={{
           headerShown: false,
-          tabBarLabel: '스왑',
           tabBarIcon: ({focused}) => (
             <TabBarIcon
               focusImage={

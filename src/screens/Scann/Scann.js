@@ -47,33 +47,8 @@ const Scann = ({navigation}) => {
   const [modalText, setModalText] = useState(null);
   const [isErrShow, setIsErrShow] = useState(false);
 
-  // useEffect(() => {
-  //   // 일단 주석 처리...............====================
-  //   // 일단 주석 처리...............====================
-  //   // 일단 주석 처리...............====================
-  //   // 일단 주석 처리...............====================
-  //   // if (Platform.OS === 'android') {
-  //   //   // console.log(' 111 ');
-  //   //   PermissionsAndroid.requestMultiple([
-  //   //     PermissionsAndroid.PERMISSIONS.CAMERA,
-  //   //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  //   //     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-  //   //   ]).then(result => {});
-  //   // 일단 주석 처리...............====================
-  //   // 일단 주석 처리...............====================
-  //   // 일단 주석 처리...............====================
-  //   // }
-  // }, []);
-
-  // render({navigation}) {
-  //   const onSuccess = e => {
-  //     Linking.openURL(e.data).catch(err =>
-  //       console.error('An error occured', err),
-  //     );
-  //   };
   const onSuccess = e => {
     try {
-      fetchQRCode(e.data, '외부');
     } catch (e) {
       console.log(e);
     }
@@ -85,38 +60,13 @@ const Scann = ({navigation}) => {
     };
     await launchImageLibrary(options)
       .then(res => {
-        fetchQRCode(res?.assets[0]?.base64, '내부');
+        fetchQRCode(res?.assets[0]?.base64);
       })
-      .catch(err => {
-        // console.log(err);
-        // setModalText('입력을 실패하였습니다');
-        // setIsErrShow(true);
-      });
+      .catch(err => {});
   };
 
-  // const ImagePick = async url => {
-  //   // console.log('이미지 url', url);
-  //   await RNQRGenerator.detect({
-  //     base64: url,
-  //   })
-  //     .then(response => {
-  //       console.log(response);
-  //       if (response.type !== 'QRCode') {
-  //         Alert.alert('QR코드가 아닙니다');
-  //         return;
-  //       }
-  //       console.log('return 값', response);
-  //       console.log(response.values[0]);
-  //       fetchQRCode(response.values[0], '내부');
-  //     })
-  //     .catch(error => {
-  //       Alert.alert('이미지에서 QR 코드를 감지에 실패하였습니다.');
-  //       console.log('Cannot detect QR code in image', error);
-  //     });
-  // };
-
   const fetchQRCode = async (Qr, name) => {
-    let endPoint = name === '내부' ? 'internalscan' : 'scan';
+    let endPoint = name === '' ? 'internalscan' : 'scan';
     let body = {sessionToken, Qr};
     console.log('scan body : ', body);
     try {
@@ -131,10 +81,8 @@ const Scann = ({navigation}) => {
         setIsErrShow(true);
         return;
       }
-      await setModalText('QR 스캔에 실패했습니다.');
+
       setIsErrShow(true);
-      // console.log(err.response.data);
-      // Alert.alert('서버와 통신에 실패');
     }
   };
 
@@ -145,7 +93,7 @@ const Scann = ({navigation}) => {
         visible={isErrShow}
         onPress={() => setIsErrShow(false)}
       />
-      {/* -------- 1회 스캔한 큐알코드는~~~ start ------- */}
+
       <Modal
         visible={modalVisible}
         transparent
@@ -161,7 +109,6 @@ const Scann = ({navigation}) => {
               <LabelNone text={'KSP'} style={styles.kspUnit} />
             </RowView>
             <BottomButton
-              text={'적립완료'}
               style={{width: 280, marginTop: 79}}
               onPress={() => setModalVisible(false)}
             />
@@ -191,7 +138,6 @@ const Scann = ({navigation}) => {
           top: SCREEN_HEIGHT * 0.13,
         }}>
         <LabelNone
-          text={'QR코드,바코드를 인식해서\n랜덤으로 잭팟을!'}
           style={{
             textAlign: 'center',
             marginBottom: 38,
@@ -220,8 +166,6 @@ const Scann = ({navigation}) => {
           top: height * 0.8,
           paddingHorizontal: 24,
         }}>
-        {/* 실제 내부스켄시 주석 풀기 ------------------------------------------------ */}
-        {/* <TouchableOpacity onPress={() => internalScan()}> */}
         <TouchableOpacity
           onPress={() => {
             internalScan();
@@ -232,7 +176,7 @@ const Scann = ({navigation}) => {
           onPress={() => {
             navigation.navigate('ScannHistory');
           }}>
-          <BoldLabel14 text={'히스토리'} style={styles.textStyle} />
+          <BoldLabel14 style={styles.textStyle} />
         </TouchableOpacity>
       </RowView>
     </View>

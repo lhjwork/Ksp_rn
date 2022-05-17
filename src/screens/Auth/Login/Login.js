@@ -48,11 +48,6 @@ const Login = ({navigation}) => {
       });
       // navigation.navigate('DrawerStack');
     }
-    // else if (user?.Result === 'failed') {
-    //   setLoginModalVisible(true);
-    // } else if (user?.Result === '비밀번호가 틀렸습니다.') {
-    //   setPwdModalVisible(true);
-    // }
   }, [dispatch, user, user?.sessionToken, user?.Result]);
 
   const visiblePassword = () => {
@@ -70,11 +65,6 @@ const Login = ({navigation}) => {
     };
 
     dispatch(signIn(body, setLoginModalVisible, setPwdModalVisible));
-    // if (user?.Result === 'failed') {
-    //   setLoginModalVisible(true);
-    // } else if (user?.Result === '비밀번호가 틀렸습니다.') {
-    //   setPwdModalVisible(true);
-    // }
   };
 
   return (
@@ -85,7 +75,6 @@ const Login = ({navigation}) => {
       style={{flex: 1}}>
       <ScrollView>
         <ModalFrame
-          infoText={'존재하지 않는 아이디입니다.'}
           visible={loginIdModalVisible}
           onPress={() => {
             setLoginModalVisible(false);
@@ -93,7 +82,6 @@ const Login = ({navigation}) => {
           }}
         />
         <ModalFrame
-          infoText={'틀린 비밀번호입니다.'}
           visible={pwdModalVisible}
           onPress={() => setPwdModalVisible(false)}
         />
@@ -105,7 +93,6 @@ const Login = ({navigation}) => {
             />
             <LabelNone text={'Kona Summit Platform'} style={styles.logoText} />
             <ContentInput
-              placeholder={'아이디'}
               source={require('../../../asssets/icons/Login/login_id_icon.png')}
               imageNone={true}
               onChangeText={text => setLoginId(text)}
@@ -114,7 +101,6 @@ const Login = ({navigation}) => {
             <PasswordInput
               styleBox={{marginTop: 15}}
               noneImage={true}
-              placeholder={'비밀번호'}
               eyeSytle={{marginRight: 18}}
               secureTextEntry={passwordVisible}
               onPress={() => visiblePassword()}
@@ -124,33 +110,26 @@ const Login = ({navigation}) => {
             <RowView style={styles.searchAndRePassword}>
               <Touchable onPress={() => navigation.navigate('SearchId')}>
                 <RowView>
-                  <LabelNone text={'아이디 찾기'} style={styles.searchText} />
+                  <LabelNone style={styles.searchText} />
                   <AntDesign name={'right'} size={14} style={styles.leftIcon} />
                 </RowView>
               </Touchable>
 
               <Touchable onPress={() => navigation.navigate('RePassword')}>
                 <RowView>
-                  <LabelNone
-                    text={'비밀번호재설정'}
-                    style={styles.searchText}
-                  />
+                  <LabelNone style={styles.searchText} />
                   <AntDesign name={'right'} size={14} style={styles.leftIcon} />
                 </RowView>
               </Touchable>
             </RowView>
             <RowView style={styles.signUpBox}>
-              <LabelNone
-                text={'아직 회원이 아니신가요?'}
-                style={styles.signUpText}
-              />
+              <LabelNone style={styles.signUpText} />
               <Touchable onPress={() => navigation.navigate('SignUpAgree')}>
-                <LabelNone text={'회원가입 하러가기'} style={styles.signup} />
+                <LabelNone style={styles.signup} />
               </Touchable>
             </RowView>
             <BottomButton
               style={styles.bottomBtn}
-              text={'로그인'}
               onPress={() => onLogin(loginId, password)}
             />
           </View>

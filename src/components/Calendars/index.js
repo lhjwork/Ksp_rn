@@ -37,8 +37,7 @@ const Calendars = ({setSelectDate, selectDate, attendanceList}) => {
                 .startOf('year')
                 .week(week)
                 .startOf('week')
-                .add(index, 'day'); //d로해도되지만 직관성
-              // 이번달이 아닌경우
+                .add(index, 'day');
               if (days.format('MM') !== today.format('MM')) {
                 return (
                   <DatesContainer key={index}>
@@ -48,7 +47,7 @@ const Calendars = ({setSelectDate, selectDate, attendanceList}) => {
                   </DatesContainer>
                 );
               }
-              // 해당 값이 출석한 날짜에 추가 되어있는 경우
+
               //   attendanceList.flat()
               else if (attendanceList.includes(days.format('YYYY-MM-DD'))) {
                 return (
@@ -62,9 +61,7 @@ const Calendars = ({setSelectDate, selectDate, attendanceList}) => {
                     </DateNumber>
                   </DatesContainer>
                 );
-              }
-              // 이번달의 경우
-              else {
+              } else {
                 return (
                   <DatesContainer key={index}>
                     <DateNumber isholiday={index === 0}>
@@ -121,5 +118,5 @@ const Calendars = ({setSelectDate, selectDate, attendanceList}) => {
     </Container>
   );
 };
-let Dates = ['일', '월', '화', '수', '목', '금', '토'];
+
 export default Calendars;

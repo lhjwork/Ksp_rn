@@ -63,26 +63,24 @@ const WalletKsp = ({navigation}) => {
       })();
     }
   }, [hasWallet, isFocused]);
-  const showToast = useCallback(() => {
-    toastRef.current.show('지갑 주소가 복사 되었습니다.');
-  }, []);
+  const showToast = useCallback(() => {}, []);
 
   const DATAES_COIN_SEND = [
     {
       id: 1,
-      titie: 'KSPC 보내기',
+      titie: 'KSPC',
       img: require('../../asssets/icons/WalletKsp/wallet_kspc.png'),
       path: 'KspSend',
     },
     {
       id: 1,
-      titie: '이더리움 보내기',
+
       img: require('../../asssets/icons/WalletKsp/wallet_ethereum.png'),
       path: 'KspSend',
     },
     {
       id: 1,
-      titie: '스테이킹',
+
       img: require('../../asssets/icons/WalletKsp/wallet_staking.png'),
       path: 'StackingApply',
     },
@@ -123,7 +121,6 @@ const WalletKsp = ({navigation}) => {
       style={{flex: 1}}>
       <ModalFrame
         visible={modalVisible}
-        infoText={'지갑 주소생성 후 이용 바랍니다.'}
         onPress={() => setModalVisible(false)}
       />
       <SafeAreaView style={{flex: 1}}>
@@ -134,7 +131,7 @@ const WalletKsp = ({navigation}) => {
           />
           <ContainerStyled>
             <View style={{marginHorizontal: 30}}>
-              <BoldLabelTitle text={'지갑'} style={{marginTop: 27.5}} />
+              <BoldLabelTitle style={{marginTop: 27.5}} />
               <BoldLabelSubTitle
                 text={'TOTAL PORTFOLIO VALUE'}
                 style={{marginTop: 13}}
@@ -176,7 +173,6 @@ const WalletKsp = ({navigation}) => {
                 )}
               </ImageBackground>
 
-              {/* 지갑 주소 복사 버튼 start*/}
               {/*hasWalletCopyBox*/}
               <View
                 style={
@@ -191,10 +187,7 @@ const WalletKsp = ({navigation}) => {
                       ? styles.walletCopyTouch
                       : styles.hasWalletCopyTouch
                   }>
-                  <LabelNone
-                    text={hasWallet ? '지갑 주소 복사' : '지갑 생성 하기'}
-                    style={styles.walletCopyText}
-                  />
+                  <LabelNone style={styles.walletCopyText} />
                   <Image
                     source={
                       hasWallet
@@ -206,7 +199,6 @@ const WalletKsp = ({navigation}) => {
                 </Touchable>
                 {/*</View>*/}
               </View>
-              {/* 지갑 주소 복사 버튼 end*/}
 
               {DATAES_COIN_SEND.map((item, index) => (
                 <WalletButtons
@@ -230,7 +222,7 @@ const WalletKsp = ({navigation}) => {
               {/*) : (*/}
               {/*  <WalletButtons*/}
               {/*    style={{marginBottom: 15}}*/}
-              {/*    Title={'지갑생성'}*/}
+
               {/*    onPressBoolean={true}*/}
               {/*    Img={require('../../asssets/icons/Wallet_alt_blue.png')}*/}
               {/*    onPress={() => {*/}

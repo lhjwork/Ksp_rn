@@ -22,9 +22,9 @@ import {SCREEN_HEIGHT} from '../../../constants';
 import ToastMsg from '../../../components/toastMsg';
 
 const SUB_CONTENT_DATA = [
-  {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
-  {id: 2, text: '[필수]개인정보 수집 및 이용 동의', path: 'privateInfoAgree'},
-  {id: 3, text: '[선택]마케팅정보 알림 동의', path: 'marketingAgree'},
+  {id: 1, text: 'service', path: 'serviceAgree'},
+  {id: 2, text: 'private info', path: 'privateInfoAgree'},
+  {id: 3, text: 'marketing', path: 'marketingAgree'},
 ];
 
 const SignUpAgree = ({navigation}) => {
@@ -35,9 +35,7 @@ const SignUpAgree = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const toastRef = useRef(null);
 
-  const showToast = useCallback(() => {
-    toastRef.current.show('필수 약관의 동의가 필요합니다.');
-  }, []);
+  const showToast = useCallback(() => {}, []);
 
   const getAllAgree = () => {
     if (!serviceAgree || !privateInfoAgree || !marketingAgree) {
@@ -70,7 +68,6 @@ const SignUpAgree = ({navigation}) => {
   return (
     <LinearGradient colors={['#91C7D6', '#CBE2DC']} style={{flex: 1}}>
       <ModalFrame
-        infoText={'필수 동의하기를 모두 선택해 주세요.'}
         visible={modalVisible}
         onPress={() => setModalVisible(false)}
       />
@@ -81,13 +78,10 @@ const SignUpAgree = ({navigation}) => {
       <ContainerStyled>
         <View style={{marginHorizontal: 24}}>
           <RowView style={{marginTop: 27.5, justifyContent: 'space-between'}}>
-            <BoldLabelTitle text={'회원가입'} />
+            <BoldLabelTitle />
           </RowView>
 
           <BoldLabelSubTitle
-            text={
-              '안녕하세요.\n저희 KSP가 처음이시군요!\nKSP 서비스 이용을 위해서는 아래와 같은 약관의 동의가 필요합니다.'
-            }
             style={{...styles.contentText, marginBottom: 46}}
           />
           <Touchable onPress={() => getAllAgree()}>
@@ -118,7 +112,6 @@ const SignUpAgree = ({navigation}) => {
               {/*</Touchable>*/}
 
               <BoldLabelSubTitle
-                text={'모두 동의하기'}
                 style={{
                   fontSize: 18,
                   fontWeight: '700',
@@ -133,7 +126,6 @@ const SignUpAgree = ({navigation}) => {
           </Touchable>
           <View style={styles.subAgreeBox}>
             <Agreement
-              text={'서비스 이용약관 동의'}
               isActive={serviceAgree}
               onPress={() => {
                 setServiceAgree(!serviceAgree);
@@ -146,7 +138,6 @@ const SignUpAgree = ({navigation}) => {
               isRequire={true}
             />
             <Agreement
-              text={'개인정보 수집 및 이용 동의'}
               isActive={privateInfoAgree}
               onPress={() => {
                 setPrivateInfoAgree(!privateInfoAgree);
@@ -160,7 +151,6 @@ const SignUpAgree = ({navigation}) => {
               isRequire={true}
             />
             <Agreement
-              text={'마케팅정보 알람 동의'}
               isActive={marketingAgree}
               onPress={() => {
                 setMarketingAgree(!marketingAgree);
@@ -177,18 +167,10 @@ const SignUpAgree = ({navigation}) => {
       </ContainerStyled>
 
       <View style={{marginHorizontal: 24, marginBottom: 30}}>
-        {/*{(serviceAgree === false || privateInfoAgree === false) && (*/}
-        {/*  <View style={styles.agreeNeed}>*/}
-        {/*    <LabelNone*/}
-        {/*      text={'필수 약관의 동의가 필요합니다.'}*/}
-        {/*      style={styles.agreeText}*/}
-        {/*    />*/}
-        {/*  </View>*/}
-        {/*)}*/}
         <View>
           <ToastMsg ref={toastRef} />
         </View>
-        <BottomButton text={'다음'} onPress={() => goNextPage()} />
+        <BottomButton onPress={() => goNextPage()} />
       </View>
     </LinearGradient>
   );
@@ -212,13 +194,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     elevation: 5,
   },
-  // contentBox: {
-  //   justifyContent: 'space-between',
-  //   marginRight: 13,
-  //   marginLeft: 16.5,
-  //   borderBottomColor: '#E5E5E5',
-  //   borderBottomWidth: 1,
-  // },
+
   onSmallIcon: {
     color: '#46A0BD',
     paddingRight: 11.5,

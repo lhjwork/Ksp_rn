@@ -14,11 +14,7 @@ import RowView from '../../components/Views/RowView';
 import Agreement from '../../components/Agreement';
 import {TERMS_DATA} from '../../asssets/Data/TERMS_DATA';
 
-// const SUB_CONTENT_DATA = [
-//   {id: 1, text: '[필수]서비스 이용약관 동의', path: 'serviceAgree'},
-//   {id: 2, text: '[필수]개인정보 수집 및 이용 동의', path: 'privateInfoAgree'},
-//   {id: 3, text: '[선택]마케팅정보 알림 동의', path: 'marketingAgree'},
-// ];
+
 
 const Terms = ({navigation}) => {
   const [serviceAgree, setServiceAgree] = useState(true);
@@ -47,7 +43,7 @@ const Terms = ({navigation}) => {
             elevation: 4,
           }}>
           <Agreement
-            text={'서비스 이용약관 동의'}
+           
             isActive={serviceAgree}
             onPress={() => {
               setServiceAgree(!serviceAgree);
@@ -58,7 +54,7 @@ const Terms = ({navigation}) => {
             isRequire={true}
           />
           <Agreement
-            text={'개인정보 수집 및 이용 동의'}
+       
             isActive={privateInfoAgree}
             onPress={() => {
               setPrivateInfoAgress(!privateInfoAgree);
@@ -70,7 +66,7 @@ const Terms = ({navigation}) => {
           />
 
           <Agreement
-            text={'마케팅정보 알림 동의'}
+      
             isActive={marketingAgree}
             onPress={() => {
               setMarketingAgree(!marketingAgree);

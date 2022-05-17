@@ -34,7 +34,7 @@ const PurchaseHistory = ({navigation}) => {
   const toastRef = useRef(null);
   const isFocused = useIsFocused();
   const showToast = useCallback(() => {
-    toastRef.current.show('배송 준비중 입니다.');
+ 
   }, []);
   const showToastMsg = () => {
     showToast();
@@ -71,7 +71,7 @@ const PurchaseHistory = ({navigation}) => {
               navigation.navigate('DetailPurchaseHistory', item);
             }}
             style={{flexDirection: 'row', alignItems: 'center'}}>
-            <DetailText>주문 상세보기</DetailText>
+          
             <FontAwesome
               name={'angle-right'}
               size={10}
@@ -90,7 +90,7 @@ const PurchaseHistory = ({navigation}) => {
               text={`[${item?.brand}] ${item?.title}`}
             />
             <BoldLabel16
-              text={item?.totalPrice?.toLocaleString() + ' 원'}
+              text={item?.totalPrice?.toLocaleString()}
               style={{color: '#000000'}}
             />
           </View>
@@ -117,8 +117,8 @@ const PurchaseHistory = ({navigation}) => {
               onPressLeftBtn={() => navigation.goBack()}
               style={{marginHorizontal: -24}}
             />
-            <BoldLabelTitle text={'구매내역'} style={{marginTop: 27.5}} />
-            <NoneScreen text={'앗!  구매내역이 존재하지 않습니다.'} />
+            <BoldLabelTitle style={{marginTop: 27.5}} />
+ 
           </View>
         ) : (
           <FlatList
@@ -135,7 +135,7 @@ const PurchaseHistory = ({navigation}) => {
                   style={{marginHorizontal: -24}}
                 />
                 <BoldLabelTitle
-                  text={'구매내역'}
+         
                   style={{marginTop: 27.5, marginBottom: 30}}
                 />
               </>

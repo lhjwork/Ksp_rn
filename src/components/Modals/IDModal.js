@@ -36,7 +36,6 @@ const IDModal = ({visible, onPress, infoText, userName}) => {
                 style={{color: '#000', fontWeight: 'bold'}}
               />
               <BoldLabel14
-                text={' 님 아이디찾기 결과입니다.'}
                 style={{color: '#555', textAlign: 'center', fontWeight: '500'}}
               />
             </View>
@@ -44,7 +43,6 @@ const IDModal = ({visible, onPress, infoText, userName}) => {
               <BoldLabel18 text={infoText} style={{color: '#46A0BD'}} />
             </View>
             <ModalBottomButton
-              text={'로그인하기'}
               style={{
                 background: '#94D2E9',
                 marginBottom: 16,
