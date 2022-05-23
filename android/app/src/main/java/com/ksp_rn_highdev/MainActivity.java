@@ -1,4 +1,4 @@
-package com.ksp_rn;
+package com.ksp_rn_highdev;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
